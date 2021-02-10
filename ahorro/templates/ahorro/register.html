@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Create an account{% endblock %}
+
+{% block content %}
+<section class="sectionUser">
+
+
+    <div class="welcomeText">
+       
+  
+        <div class="logText">
+          <h1>Esta es la idea</h1>
+          <br />
+          <p>Vas a ahorrar durante un año o más con la frecuencia que elijas una cantidad aleatoria.Mediante un e-mail o un mensaje, lo que tu elijas, te avisaremos cuándo tienes que realizar tu ahorro, la plataforma te dirá que cantidad, la cual será aleatoria, por defecto es; entre $365.00 y $1.00 pesos, pero se adaptará la cantidad dependiendo de tu meta. Guardaremos tu avance para que lo consultes cuando quieras. :)</p>
+        </div>
+    </div>  
+
+
+
+    <div class="login-form logForm">
+
+        <h2>Regístrate</h2>
+        <div class="formContainer">
+            <form action="." method="post">
+                {% csrf_token %}
+                {{user_form.as_p}}
+                <input id="enviar" type="submit" value="ENVIAR">
+            </form>
+        </div>
+
+        <a href="{% url 'ahorro:login' %}">Back to login</a>
+
+    </div>
+</section>
+{% endblock %}

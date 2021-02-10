@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- FAVICONS -->
+
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'core/favicon/favicon.ico' %}">
+
+    <script src="{% static 'js/anime.min.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'css/ahorro.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="fullContainer">
+        <div class="saludo">
+            hola DK sigue ahorrando
+        </div>
+    {% block content %}
+        <section id="fullcontenedorCasillas">   
+            <div id="contenedorCasillas">    
+                <div class="casillaCantidad"> 
+                    <div class="casilla cantidad sombra">
+                        <p>CANTIDAD A AHORRAR</p>
+                        <div id="btnFirst" onclick="firstRandom();" class="btnFirst">
+                            CLIC <br /> PARA  SABER <br />CUANTO AHORRAR
+                        </div>
+                        <div class="nData">
+                            <div class="nDecorado"> </div>
+                            <div class="aNumber number">
+                                <span></span>
+                                <span id="cantidad" class="rCantidad">0</span>
+                            </div>
+                        </div>
+                        <button onclick="getMyNumber();" id="otro" class="btn otro">
+                            OTRA CANTIDAD &#8634;
+                        </button>
+                        <button onclick="printNumber();" id="ahorrar" class="btn ahorrar">
+                            AHORRAR
+                        </button>
+                    </div>
+                </div>
+                <div class="casillaAhorrado">
+                    <div class="casilla ahorrado sombra">
+                        <p>TOTAL AHORRADO</p>
+                        <div id="lDetalle" class="lDetalle"> 
+                            {% for a in ahorro %}
+                            <p>{{ a.fecha }} {{a.cantidad}}</p>
+                            {% endfor %}
+                            <p> 1 de enero $32.00</p><p>2 de enero $55.00</p><p>3 de enero $18.00</p><p>5 de enero $17</p><p>6 de enero $445.00</p><p>7 de enero $275.00</p><p>8 de enero $275.00</p>
+
+                        </div>
+                        <div class="nData">
+                            <div class="nDecorado" id="detailDecorado"> </div>
+                            <div class="number" id="numberDecorado">
+                                <span></span>
+                                <span id="ahorrado">832 {{ my_ahorro }}</span>
+                            </div>    
+                        </div>
+                        <button onclick="detalleList();" id="ver" class="btn detalle">
+                            VER DETALLE
+                        </button>
+                        <button onclick="detalleList();" id="ocultar" class="btn detalle">
+                            OCULTAR DETALLE
+                        </button>
+                    </div> 
+                </div>
+           </div> 
+        </section>
+
+            <!-- <p>ponga usted aqui su frecuencia {{ plazo.frecuencia }}</p>
+            <p>y aqui su tiempo  {{ plazo.tiempo }}  </p>
+            <p>y si lo divido <span id="laCadena">{{ plazo.my_list }} </span></p>
+            -->
+                <script type="text/javascript">
+                    var lDetalle = document.getElementById("lDetalle");
+                    var btnFirst = document.getElementById("btnFirst");
+                    var otro = document.getElementById("otro");
+                    var ahorrar = document.getElementById("ahorrar");
+                    var numberDecorado = document.getElementById("numberDecorado");
+                    var detailDecorado = document.getElementById("detailDecorado");
+                    var ocultar = document.getElementById("ocultar");
+                    var ver = document.getElementById("ver");
+                    ocultar.style.display = "none";
+                    btnFirst.style.display = "inherit";
+                    otro.style.display = "none";
+                    ahorrar.style.display = "none";
+                    // lDetalle.style.display = "none";
+                    var yes = 2;     
+                    function detalleList() {
+                        if (yes > 1) {
+                            lDetalle.style.display = "inherit";
+                            lDetalle.style.height = "249px";
+                            lDetalle.style.padding = "21px";
+                            numberDecorado.style.paddingTop = "36px";
+                            detailDecorado.style.marginTop = "117px";
+                            detailDecorado.style.width = "260px";
+                            ocultar.style.display = "inherit";
+                            ocultar.style.marginTop = "13px";
+                            ver.style.display = "none";
+                            yes = 0;
+                        } else {
+      
+                            lDetalle.style.height = "0px";
+                            lDetalle.style.padding = "0px";
+                            numberDecorado.style.paddingTop = "0px";
+                            detailDecorado.style.marginTop = "84px";
+                            detailDecorado.style.width = "-webkit-fill-available";
+                            ocultar.style.display = "none";
+                            ver.style.display = "inherit";
+                            yes = 2;
+                        }
+                        console.log("el valos de YES", yes)
+                    }
+                    // code for sleep
+                    function sleep(milliseconds) {
+                        const date = Date.now();
+                        let currentDate = null;
+                        do {
+                            currentDate = Date.now();
+                        } while (currentDate - date < milliseconds);
+                    }
+                    
+                    // var laCadena = document.getElementById("laCadena");
+                    var laCadena = ["{{ plazo.my_list|escapejs }}"];
+                    var cantidad = document.getElementById("cantidad");
+                    var nuevaCadena = Array.from(laCadena);
+                    var extractFirst = nuevaCadena[0]
+                    var getArray = []
+                    extractFirst = extractFirst.replace("[", "")
+                    extractFirst = extractFirst.replace("]", "")
+                    
+                    for (let i = 0; i < extractFirst.length; i++) {
+                        extractFirst = extractFirst.replace(" ", "")
+                    }
+                    
+                    getArray = extractFirst.split(',')
+                    var max = getArray.length
+                    var min = 1
+                    console.log(getArray.length)
+                    console.log(min)
+                    console.log(max)
+                    
+                    var thenumbers = 0
+
+                    function getMyNumber(){
+                        
+                        var intval = setInterval(function(){randomNumber();}, 1);
+                        function randomNumber(){
+                            var random = Math.floor(Math.random() * (+max - +min)) + +min;
+                            cantidad.innerHTML = getArray[random];
+                            thenumbers += 1;
+                            // console.log(thenumbers)
+                            console.log("the ramndom number", random)
+                            console.log(cantidad.innerHTML )
+                            anime({
+                                targets: '.aNumber',
+                                scale: 1.2,
+                                marginTop: 3
+                            })
+                            if (thenumbers > 180) {
+                                clearInterval(intval);
+                                thenumbers = 0;
+                                anime({
+                                    targets: '.aNumber',
+                                    scale: 1,
+                                    marginTop: 0
+                                })
+                            }
+                        }
+
+                       
+
+                    }
+
+                    function firstRandom(){
+                        btnFirst.style.display = "none";
+                        getMyNumber();
+                        otro.style.display = "inherit";
+                        ahorrar.style.display = "inherit";
+                    }   
+
+                    function printNumber() {
+                        console.log("here the save");
+                        console.log(cantidad.innerHTML);
+                        cantidad.innerHTML = 0;
+                    }
+
+                    // console.log(random)
+                    console.log(typeof getArray);
+                    console.log(getArray);
+                    console.log(getArray.length);
+
+                    // anime({
+                    //     targets: '.number .nCantidad',
+                    //     translateX: function(el) {
+                    //         return el.getAttribute('data-x');
+                    //     },
+                    //     translateY: function(el, i) {
+                    //         return 50 + (-50 * i);
+                    //     },
+                    //     scale: function(el, i, l) {
+                    //         return (l - i) + .25;
+                    //     },
+                    //     rotate: function() { return anime.random(-360, 360); },
+                    //     borderRadius: function() { return ['50%', anime.random(10, 35) + '%']; },
+                    //     duration: function() { return anime.random(1200, 1800); },
+                    //     delay: function() { return anime.random(0, 400); },
+                    //     direction: 'alternate',
+                    //     loop: true
+                    // });
+
+                  
+                </script> 
+           
+        {% endblock %}
+    </div>
+        
+    
+
+</body>
+</html>

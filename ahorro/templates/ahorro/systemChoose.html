@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/ahorro.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="lineaTop lSystem"></div>
+    <section class="sectionSystem">
+        
+        <h1 class="titulo">ELIGE TU FRECUENCIA DE AHORRO</h1>
+        {% block content %}
+        <div class=contenedorTarjeta>
+            {% for frec in preplazo %}
+                <div class="tarjeta t1 sombra">
+                    <div class="tColor" style="background-color: {{frec.color}};"></div>  
+                    <h1 class="tTitulo" style="color: {{frec.color}};">{{ frec.nombre }}</h1>
+                    <p style="color: {{frec.color}};">Ahorro total <br>al año:</p>
+                    <h3 class="tCantidad" style="color: {{frec.color}};">${{ frec.meta }} mil</h3>
+                    <button onMouseOut="this.style.background='{{frec.color}}'" onMouseOver="this.style.background='rgb(255 255 255 / 18%)'" style="background-color: {{frec.color}};">AHORRAR</button>
+
+                    
+                </div>
+                <a href="{% url 'ahorro:loguser' %}">DE QUE VA ESTO</a>
+            {% endfor %}
+        {% endblock %}
+
+        <!-- <div class="tarjeta t2 sombra">
+            <div class="tColor"></div>  
+            <h1 class="tTitulo">DIARIO</h1>
+            <p>Ahorro total <br>al año:</p>
+            <h3 class="tCantidad">$60 mil</h3>
+            <button>AHORRAR</button>
+        </div>
+
+
+        <div class="tarjeta t3 sombra">
+            <div class="tColor"></div>  
+            <h1 class="tTitulo">DIARIO</h1>
+            <p>Ahorro total <br>al año:</p>
+            <h3 class="tCantidad">$60 mil</h3>
+            <button>AHORRAR</button>
+        </div> -->
+
+
+        <div class="tarjeta t4 sombra">
+            <div class="tColor" style="background-color: #03A83D;"></div>  
+            <h1 class="tTitulo" style="color: #03A83D;">personaliza tu ahorro</h1>
+            <p style="margin-top: 64px; color: #03A83D;">Tu decides las <br>variables, nosotros<br/> te ayudamos a llegar<br/> a tu meta</p>
+            <h3 class="tCantidad"></h3>
+            <button onMouseOut="this.style.background='#03A83D'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #03A83D;">EMPEZAR</button>
+        </div>
+        </div>
+
+    </section>
+</body>
+</html>

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Log-in{% endblock %}
+
+{% block content %}
+<section class="sectionUser">
+
+  <div class="welcomeText">
+      <div class="logText">
+        <h1>Bienvenido de regreso</h1>
+        <br />
+        <p>Entra para registrar tus ahorros</p>
+      </div>
+
+      <!-- <div class="logText">
+        <h1>Esta es la idea</h1>
+        <br />
+        <p>Vas a ahorrar durante un año con la frecuencia que elijas una cantidad aleatoria que no se va a repetir. Mediante un e-mail o un mensaje SMS, el que tu elijas, nosotros te avisaremos cuándo tienes que realizar tu ahorro y que cantidad, la cual será aleatoria, por defecto es; entre $365.00 y $1.00 peso, pero, tu lo puedes personalizar según tus metas.Guardaremos tu avance para que lo consultes cuando quieras.</p>
+      </div> -->
+  </div>  
+
+
+
+  <!-- <h1>Log-in</h1> -->
+  
+  <div class="login-form logForm">
+  {% if form.errors %}
+    <p>
+      Tu dirección de correo o contraseña no coinciden.
+      intenta de nuevo.
+    </p>
+  {% else %}
+    <p>TE AYUDAMOS A AHORRAR</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+    {% else %}
+      <p >- </p>
+    {% endif %}
+  {% endif %}
+
+    <div class="formContainer">
+    <form action="{% url 'ahorro:login' %}" method="post">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}" />
+      <p><input id="enviar" type="submit" value="ENTRAR"></p>
+    </form>
+  </div>
+  
+  <!-- <a href="{% url 'ahorro:password_reset' %}">Reset password</a> -->
+  <a href="{% url 'ahorro:register' %}">REGISTRARSE</a>
+  <br>
+  <a href="{% url 'ahorro:password_reset' %}">¿OLVIDASTE TU CONTRASEÑA?</a>
+  </div>
+
+</section>
+{% endblock %}
+
+
+
+
+
+
+<!-- <section class="sectionUser">
+  <div class="logText">
+      <h1>Esta es la idea</h1>
+      <br />
+      <p>Vas a ahorrar durante un año con la frecuencia que elijas una cantidad aleatoria que no se va a repetir. Mediante un e-mail o un mensaje SMS, el que tu elijas, nosotros te avisaremos cuándo tienes que realizar tu ahorro y que cantidad, la cual será aleatoria, por defecto es; entre $365.00 y $1.00 peso, pero, tu lo puedes personalizar según tus metas.Guardaremos tu avance para que lo consultes cuando quieras.</p>
+  </div>
+  <div class="logForm">
+      <h1>TE AYUDAMOS A AHORRAR</h1>
+      <div class="formContainer">
+          <form action="">
+              <label for=""> nombre </label>
+              <input type="text" id="nombre" name="nombre">
+              <label for="">  e-mail </label>
+              <input type="text" id="email" name="email">
+              <label for=""> contraseña </label>
+              <input type="text" id="pass" name="pass">
+              <input id="enviar" type="submit" value="ENVIAR">
+          </form>
+      </div>
+  </div>
+</section> -->

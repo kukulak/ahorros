@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'core/favicon/favicon.ico' %}">
+    
+    <script src="{% static 'js/anime.min.js' %}"></script>
+    
+    <title>{% block title %}Mi lado que ahorra{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/ahorro.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        label, input {
+            display: block;
+        }
+        span.helptext {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <section id="fullContainer">
+    <div class="lineaTop lSystem"></div>
+    
+    
+    <span class="user">
+        {% if request.user.is_authenticated %}
+        <!-- Hello -->
+        <!-- <span class="upperCase"> {{ request.user.profile.photo }}</span> -->
+        
+        <img style="height: 30px;" src="media/{{ request.user.profile.photo }}" alt="">
+        <br>
+            {% if request.path == "/" %}
+            <a href="{% url 'ahorro:logout' %}?next={{request.path}}">SALIR&emsp;</a>
+            {% endif %}
+        {% else %}
+        <a href="{% url 'ahorro:login' %}">Log-in</a>
+        {% endif %}
+    </span>
+    
+    <!-- {% if messages %}
+        <div class="messages">
+        {% for message in messages %}
+            <div class="{{ message.tags }}">
+            {{ message|safe }}
+                <a href="#" class="close">x</a>
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %} -->
+
+{% block content %}
+{% endblock %}
+
+<section id="contenedorPublicidad" class="contendorPublicidad">
+    <div id="publicidad" class="publicidad">
+        <!-- compra en amazon -->
+        <img src="/static/img/publicidadscreen.png" alt="amazon">
+    </div> 
+</section>
+
+<footer>
+    <p> Todos los derechos reservados. DAPHRASMA STUDIO&reg;.</p>
+    <a href=""> T&Eacute;RMINOS Y CONDICIONES, AVISO DE PRIVACIDAD</a>
+</footer>
+</section>
+</body>
+</html>

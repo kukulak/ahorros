@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% block title %} AHORRO | DASHBOARD {% endblock %}
+
+
+{% block content %}
+
+
+<section class="sectionSystem">
+    <div class="dashboard">
+        {% if user.is_authenticated %}
+        
+        
+            {% if messages %}
+                <div class="messages">
+                {% for message in messages %}
+                    <div class="{{ message.tags }}">
+                    {{ message|safe }}
+                        <!-- <a href="#" class="close">x</a> -->
+                    </div>
+                {% endfor %}
+                </div>
+
+                {% else %}
+                <h1 class="titulo"> Hola, {{ request.user.username|default:'Guest' }}!</h1>
+
+             {% endif %}
+        
+        
+            <div>
+                <a href="{% url 'ahorro:logout' %}?next={{request.path}}">SALIR&emsp;</a>
+                <a href="{% url 'ahorro:password_change' %}?next={{request.path}}">CAMBIAR CONTRASEÑA&emsp;</a>
+                <a href="{% url 'ahorro:edit' %}?next={{request.path}}">EDITA TU PERFIL</a>
+        {% else %}
+                <a href="{% url 'login' %}">Login</a>
+            </div>
+        {% endif %}
+        
+        <p class="boveda">Estadisticas de ahorra.com.mx</p>
+        <br>    
+        
+    </div>    
+
+    <!-- <h1 class="titulo">ELIGE TU FRECUENCIA DE AHORRO</h1> -->
+    
+    <div class=contenedorTarjeta>
+
+
+        <div class=" tarjetaDash t1 sombra estadisticCardUsers">
+            
+           
+            
+          
+            
+                    <h1 style="color: {{frec.color}};">Total de usuarios</h1>
+                    <h1 class="eTitulo"> {{ total_users}} </h1>
+               
+               
+                
+        </div>
+
+        
+        <div class="tarjetaDash t1 sombra estadisticCardMotivo">
+            
+            <!-- <div class="tColor"></div>   -->
+            
+                <h1>Motivo de Ahorro</h1>
+                <div class="contenedorData">
+                    {% for frec in my_systems %}
+                        <p class="eData"> {{ frec.nombre }} </p>
+                    {% endfor %}
+                </div>
+                
+        </div>
+
+
+   
+        {% load humanize %}
+
+
+        <div class="tarjetaDash t1 sombra estadisticCardMetas">
+            
+            
+            
+            <h1>Metas de ahorro</h1>
+            <div class="contenedorData">
+                {% for pl in my_systems %}
+                    <p class="eData"> ${{ pl.meta|intcomma }}.00 </p>
+                {% endfor %}
+            </div>   
+                
+        </div>
+
+
+
+
+        <div class=" tarjetaDash t1 sombra estadisticCardTotal">
+            
+            
+            
+          
+            
+                    <p style="color: {{frec.color}};">Total ahorrado</p>
+                    <h1 class="eTitulo"> ${{ by_meta|intcomma }}.00 </h1>
+               
+               
+                
+        </div>
+
+
+        <div class="tarjetaDash t1 sombra estadisticCardUserMeses">
+            <h1>Nuevos usuarios por mes</h1>
+            {% regroup users by date_joined|date:"M/Y" as dateG %}
+            <ul>
+                <div class="contenedorData">
+                {% for d in dateG %}
+                <li>  
+                    <p class="eData"> {{ d.grouper }}</p>
+                    <ul>
+                    {% for date in d.list %}
+                        <li> 
+                            <p> {{ date.date_joined|date:"Y/m/d"}} </p>
+                        </li>
+                        {% endfor %}    
+                    </ul>    
+                </li>
+                {% endfor %}
+                </div>
+            </ul>
+            
+        
+                
+        </div>
+
+     
+
+             
+  
+    </div>
+
+    <div class="formInvite">
+        <div class="formContainerDash">
+            {% if sent %}
+                <h1>Éxito</h1>
+                <p>
+                La invitación fue enviada a {{ form.cleaned_data.name }}.
+                </p>
+            {% else %}
+                <h1>¿Crees que a alguien le interese ahorrar con este sistema?</h1>
+                <form action="." method="post">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <input id="enviar" type="submit" value="INVITAR">
+                </form>
+            {% endif %}
+        </div>
+    </div>
+
+</section>
+
+<script>
+
+    var numbers = document.getElementsByClassName("tCantidadDash")
+
+    for (let i = 0; i < numbers.length; i++) {
+        // const element = array[index];
+        
+        if (numbers[i].innerHTML.length == 5){
+            numbers[i].style.fontSize = "40px"
+           
+        } else if (numbers[i].innerHTML.length == 6){
+            numbers[i].style.fontSize = "40px"
+           
+        } else if (numbers[i].innerHTML.length == 7){
+            numbers[i].style.fontSize = "30px"
+            
+        } else if (numbers[i].innerHTML.length == 4){
+            numbers[i].style.fontSize = "40px"
+            
+        }
+
+    }
+
+</script>
+
+{% endblock %}

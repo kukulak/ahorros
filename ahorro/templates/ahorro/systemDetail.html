@@ -1,0 +1,599 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- FAVICONS -->
+
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'core/favicon/favicon.ico' %}">
+
+    <script src="{% static 'js/anime.min.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'css/ahorro.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="fullContainer">
+        {% block content %}
+        <div class="saludo">
+            
+            <h3>Hola <span class="upperCase"> {{ user.username|default:'Guest' }} </span> </h3><h5>sigue ahorrando para</h5>
+            <p class="upperCase"> {{ sistema.nombre }} </p>
+            <a  href="{% url 'ahorro:dashboard' %}"> &lt; REGRESAR </a>
+           
+    
+            
+        </div>
+        <section id="fullcontenedorCasillas">   
+            <div id="contenedorCasillas">    
+                <div class="casillaCantidad">
+                    <div id="exito" class="exito casilla">
+                        ¡CUMPLISTE <br />TU META!
+                    </div> 
+                    <div id="casillaCantidad" class="casilla cantidad sombra">
+                        <p>CANTIDAD A AHORRAR</p>
+                        <div id="btnFirst" onclick="firstRandom();" class="btnFirst">
+                            CLIC <br /> PARA  SABER <br />CUANTO AHORRAR
+                        </div>
+                        <div class="nData" >
+                            <div class="nDecorado"> </div>
+                            <div class="aNumber number">
+                                <span></span>
+                                <div id="cantidad" class="rCantidad">0</div>
+                            </div>
+                        </div>
+                        <button onclick="getMyNumber();" id="otro" class="unselectable btn otro">
+                            OTRA CANTIDAD &#8634;
+                        </button>
+                        <button onclick="autoPress(ahorrarBtn);" id="ahorrar" class="unselectable btn ahorrar">
+                            AHORRAR
+                        </button>
+                    </div>
+                </div>
+                <div id="casAhorrado" class="casillaAhorrado">
+                    <div class="casilla ahorrado sombra">
+                        <p>TOTAL AHORRADO</p>
+                        <div id="lDetalle" class="lDetalle">       
+                            {% load l10n %}                    
+                            {% localize on %}
+                                {% for a in ahorro %}
+                                    <p>
+                                    {{ a.fecha.date }}
+                                    <span class="numberListDetail">{{a.cantidad}}</span></p>
+                                {% endfor %}
+                            {% endlocalize %}
+
+                            
+
+                            <!-- <p>1 de enero $32.00</p><p>2 de enero $55.00</p><p>3 de enero $18.00</p><p>5 de enero $17</p><p>6 de enero $445.00</p><p>7 de enero $275.00</p><p>8 de enero $275.00</p> -->
+
+                        </div>
+                        <div class="nData" id="nData">
+                            <div class="nDecorado" id="detailDecorado"> </div>
+                            <div class="number" id="numberDecorado">
+                                <span></span>
+                                {% load humanize %}
+                                <div id="ahorrado">{{ my_ahorro|intcomma  }}</div>
+                                
+                            </div>    
+                        </div>
+                        <button onclick="detalleList(); window.location.href='#casAhorrado';" id="ver" class="unselectable btn detalle">
+                            VER DETALLE
+                        </button>
+                        <button onclick="detalleList();" id="ocultar" class="unselectable btn detalle">
+                            OCULTAR DETALLE
+                        </button>
+                    </div> 
+                </div>
+           </div> 
+        </section>
+
+    <div class="contenedorBorrarSistema"> 
+        <div class="borrarSistema">
+            <form id="deleteForm" method="GET" enctype="multipart/form-data">
+                
+                <p>¿Estás segur@ que quieres borrar este ahorro?</p> 
+                
+                <button id ="delete" name="DeleteButton" value="{{ sistema.id }}">BORRAR</button>
+                
+                <button id ="cancelDdelete" onclick="formBorrarThird()" name="NoDeleteButton" >CANCELAR</button>
+            
+            </form>
+        </div>
+    </div>
+
+    <div class="contenedorArchivarSistema"> 
+        <div class="borrarSistema">
+            <form id="deleteForm" method="GET" enctype="multipart/form-data">
+                
+                <p>¿Estás segur@ que quieres archivar este ahorro?</p> 
+                
+                <!-- <a onclick="autoPress(archiveBtn);" id ="archive" name="ArchiveButton">ARCHIVAR</a> -->
+                <button value="{{ sistema.id }}" id ="archive" name="ArchiveButton">ARCHIVAR</button>
+                
+                <button id ="cancelDdelete" onclick="formArchivarThird()" name="NoDeleteButton" >CANCELAR</button>
+            
+            </form>
+        </div>
+    </div>
+
+
+    <div class="botonesDetail">
+        <button onclick="formBorrarSecond()" id ="deleteFStep"> BORRAR SISTEMA </button>
+
+        <button id="btnArchivar" onclick="formArchivarSecond(), selectArchived()"> ARCHIVAR SISTEMA </button>
+    </div>
+        <!-- <form action="/cantidad/" method="post"> -->
+        <form id="hForm" method="POST" enctype="multipart/form-data">    
+            {% csrf_token %}
+            {{ form }}
+            
+            <input onclick="alcancia()" style="background-color: black; padding: 10px 10px;" type="submit" id="ahorrarBtn" value="AHORRALE">
+        </form>
+
+        <!-- archive form -->
+      
+
+     
+            <!-- <p>ponga usted aqui su frecuencia {{ plazo.frecuencia }}</p>
+            <p>y aqui su tiempo  {{ plazo.tiempo }}  </p>
+            <p>y si lo divido <span id="laCadena">{{ plazo.my_list }} </span></p>
+            -->
+
+            
+                <script type="text/javascript">
+
+
+                    var id_not_archived = document.getElementById("id_not_archived");
+                    var id_cantidad = document.getElementById("id_cantidad");
+                    function selectArchived(){
+                        id_cantidad.value = 0;
+                        id_not_archived.checked = false;
+                    }
+
+
+                    function autoPress(btnToPress){
+                        btnToPress.click()
+                        console.log("here yo go")
+                    }
+
+
+
+                    function autoPress(btnToPress){
+                        btnToPress.click()
+                    }
+                    
+                    var ahorrarBtn = document.getElementById('ahorrarBtn');
+
+                    var id_sistema = document.getElementById("id_sistema");
+
+                    function removeOptions(selectbox)
+                        {
+                            var i;
+                            for(i=selectbox.options.length-1;i>=0;i--)
+                            {
+                            if(selectbox.options[i].selected)
+                            selectbox.remove(i);
+                            }
+                        }
+                    removeOptions(id_sistema)    
+
+                    var getSistemName = "{{ sistema.id }}"
+                    id_sistema.value = getSistemName;
+                    console.log("*************", id_sistema.value)
+                    // var selectSistema = id_sistema.options[id_sistema.selectedIndex].text;
+                    var ahorrado = document.getElementById("ahorrado");
+                    var nData = document.getElementById("nData");
+                    var formCantidad = document.getElementById("id_cantidad");
+                    var lDetalle = document.getElementById("lDetalle");
+                    var btnFirst = document.getElementById("btnFirst");
+                    var otro = document.getElementById("otro");
+                    var ahorrar = document.getElementById("ahorrar");
+                    var numberDecorado = document.getElementById("numberDecorado");
+                    var detailDecorado = document.getElementById("detailDecorado");
+                    var ocultar = document.getElementById("ocultar");
+                    var ver = document.getElementById("ver");
+                    ocultar.style.display = "none";
+                    btnFirst.style.display = "inherit";
+                    otro.style.display = "none";
+                    ahorrar.style.display = "none";
+                    // lDetalle.style.display = "none";
+
+                    console.log(">>>>>>>>", ahorrado.innerHTML.length)
+
+                    if (ahorrado.innerHTML.length == 5){
+                        ahorrado.style.fontSize = "65px"
+                        ahorrado.style.marginTop = "25px"
+                    } else if (ahorrado.innerHTML.length == 6){
+                        ahorrado.style.fontSize = "59px"
+                        ahorrado.style.marginTop = "33px"
+                    } else if (ahorrado.innerHTML.length == 7){
+                        ahorrado.style.fontSize = "50px"
+                        ahorrado.style.marginTop = "41px"
+                    } else if (ahorrado.innerHTML.length == 4){
+                        ahorrado.style.fontSize = "83px"
+                        ahorrado.style.marginTop = "6px"
+                    }
+
+                
+
+                    var yes = 2;     
+                                        
+                    function detalleList() {
+                        if (yes > 1) {
+                            lDetalle.style.display = "inherit";
+                            lDetalle.style.height = "249px";
+                            lDetalle.style.padding = "21px";
+                            lDetalle.style.paddingTop = "51px";
+                            numberDecorado.style.paddingTop = "36px";
+                            detailDecorado.style.marginTop = "117px";
+                            detailDecorado.style.width = "260px";
+                            ocultar.style.display = "inherit";
+                            ocultar.style.height = "47px";
+                            // ocultar.style.position = "absolute";
+                            ocultar.style.marginTop = "-558px";
+                            ocultar.style.transform = "rotate(0deg)"
+                            ver.style.display = "none";
+                            yes = 0;
+                            nData.style.gridRowStart = "3";
+                            ocultar.style.opacity = "1";
+                        } else {
+                            ocultar.style.transform = "rotate(1deg)";
+                            ocultar.style.marginTop = "-798px";
+                            ocultar.style.opacity = "0";
+                            nData.style.gridRowStart = "auto";
+                            lDetalle.style.height = "0px";
+                            lDetalle.style.padding = "0px";
+                            numberDecorado.style.paddingTop = "0px";
+                            detailDecorado.style.marginTop = "84px";
+                            detailDecorado.style.width = "-webkit-fill-available";
+                            // ocultar.style.display = "none";
+                            ver.style.display = "inherit";
+                            yes = 2;
+                        }
+                        console.log("el valos de YES", yes)
+                    }
+                    // code for sleep
+                    function sleep(milliseconds) {
+                        const date = Date.now();
+                        let currentDate = null;
+                        do {
+                            currentDate = Date.now();
+                        } while (currentDate - date < milliseconds);
+                    }
+                    
+                    // var laCadena = document.getElementById("laCadena");
+                    // var laCadena = ["{{ plazo.my_list|escapejs }}"];
+                    var laCadena = ["{{ sistema.my_list|escapejs }}"];
+                    var cantidad = document.getElementById("cantidad");
+                    var nuevaCadena = Array.from(laCadena);
+                    var extractFirst = nuevaCadena[0]
+                    var getArray = []
+                    extractFirst = extractFirst.replace("[", "")
+                    extractFirst = extractFirst.replace("]", "")
+                    
+                    for (let i = 0; i < extractFirst.length; i++) {
+                        extractFirst = extractFirst.replace(" ", "")
+                    }
+                    
+                    getArray = extractFirst.split(',')
+                    var max = getArray.length
+                    var min = 0
+                    console.log(getArray.length)
+                    console.log(min)
+                    console.log(max)
+
+                    var casillaCantidad = document.getElementById("casillaCantidad");
+
+                    var exito = document.getElementById("exito");    
+                    exito.style.display = "none"                
+                    if (getArray[0] === "") { 
+                        casillaCantidad.style.display = "none";
+                        exito.style.display = "grid";
+                        console.log("Array is empty!")
+                     }
+                    
+                    var thenumbers = 0
+
+                    function getMyNumber(){
+                        
+                        var intval = setInterval(function(){randomNumber();}, 1);
+                        function randomNumber(){
+                            var random = Math.floor(Math.random() * (+max - +min)) + +min;
+                            const numberFormat2 = new Intl.NumberFormat('en-US');
+                            // resultado = numberFormat2.format(cifra);
+                            cantidad.innerHTML = numberFormat2.format(getArray[random]);
+                            // cantidad.innerHTML = getArray[random]
+                            formCantidad.value = getArray[random];
+                            thenumbers += 1;
+                            // console.log(thenumbers)
+
+                            // SI ES GRANDE EL NUEMRO REDUCIR SU TAMAÑO
+                            if (cantidad.innerHTML.length == 5){
+                                cantidad.style.fontSize = "80px"
+                                cantidad.style.marginTop = "12px"
+                            } else if (cantidad.innerHTML.length == 6){
+                                cantidad.style.fontSize = "59px"
+                                cantidad.style.marginTop = "33px"
+                            } else if (cantidad.innerHTML.length == 7){
+                                cantidad.style.fontSize = "50px"
+                                cantidad.style.marginTop = "41px"
+                            } else if (cantidad.innerHTML.length == 4){
+                                cantidad.style.fontSize = "83px"
+                                cantidad.style.marginTop = "6px"
+                            }
+
+                            console.log(cantidad.innerHTML.length)
+
+                            console.log("the ramndom number", random)
+                            console.log(cantidad.innerHTML )
+
+                            anime({
+                                targets: '.aNumber',
+                                scale: 1.2,
+                                marginTop: 3
+                            })
+                            if (thenumbers > 180) {
+                                clearInterval(intval);
+                                thenumbers = 0;
+                                anime({
+                                    targets: '.aNumber',
+                                    scale: 1,
+                                    marginTop: 0
+                                })
+                            }
+
+                            // cantidad.innerHTML = numberFormat2.format(cantidad.innerHTML);
+                        }
+
+                       
+
+                    }
+
+
+                    function alcancia(){
+
+                        anime({
+                                targets: '.rCantidad',
+                                
+                                keyframes: [
+
+                                    {scale: 1.2, translateY: 280, color: 'rgba(1,1,1, .0)', duration: 300},
+                                    
+                                    // {translateY: 265, color: 'rgba(1,1,1, .5)'},
+                                    
+                                ],
+                                marginTop: 3,
+                                easing: 'easeInElastic(1, .6)'
+                                // easing: 'linear'
+                            })
+                            if (thenumbers > 180) {
+                                clearInterval(intval);
+                                thenumbers = 0;
+                                anime({
+                                    targets: '.rCantidad',
+                                    scale: 1,
+                                    marginTop: 0
+                                })
+                            }
+                    }
+                  
+                    
+
+                    function formBorrarFirst(){
+                        anime({
+                                targets: '.contenedorBorrarSistema',
+                                
+                                keyframes: [
+
+                                    {scale: 1, translateX: -4180, color: 'rgba(1,1,1, .0)', duration: 0},
+                                    
+                                    // {translateY: 265, color: 'rgba(1,1,1, .5)'},
+                                    
+                                ],
+                                // marginTop: 3,
+                                // easing: 'easeInElastic(1, .6)'
+                                // easing: 'linear'
+                            })
+                    }
+
+
+                    function formBorrarThird(){
+                        anime({
+                                targets: '.contenedorBorrarSistema',
+                                
+                                keyframes: [
+
+                                    {scale: 1, translateX: -4180, color: 'rgba(1,1,1, .0)', duration: 2000},
+                                    
+                                    // {translateY: 265, color: 'rgba(1,1,1, .5)'},
+                                    
+                                ],
+                                // marginTop: 3,
+                                // easing: 'easeInElastic(1, .6)'
+                                // easing: 'linear'
+                            })
+                    }
+
+
+
+                    function formBorrarSecond(){
+
+                        anime({
+                                targets: '.contenedorBorrarSistema',
+                                
+                                keyframes: [
+
+                                    {scale: 1, translateX: 0, color: 'rgba(1,1,1, .0)', duration: 600},
+                                    
+                                    // {translateY: 265, color: 'rgba(1,1,1, .5)'},
+                                    
+                                ],
+                                // marginTop: 3,
+                                easing: 'easeInElastic(1, .6)'
+                                // easing: 'linear'
+                            })
+                            if (thenumbers > 180) {
+                                clearInterval(intval);
+                                thenumbers = 0;
+                                anime({
+                                    targets: '.rCantidad',
+                                    scale: 1,
+                                    marginTop: 0
+                                })
+                            }
+                        }
+
+                    formBorrarFirst()
+
+                    
+                    
+                    
+                    // PARA ARCHIVAR EL SISTEMA SE USA ESTOS BOTONES    contenedorArchivarSistema
+                    
+                    
+                    function formBorrarArchivar(){
+                        var btnArchivar = document.getElementById("btnArchivar")
+                    }
+
+
+
+
+
+                    function formArchivarFirst(){
+                        anime({
+                                targets: '.contenedorArchivarSistema',
+                                
+                                keyframes: [
+
+                                    {scale: 1, translateX: -4180, color: 'rgba(1,1,1, .0)', duration: 0},
+                                    
+                                    // {translateY: 265, color: 'rgba(1,1,1, .5)'},
+                                    
+                                ],
+                                // marginTop: 3,
+                                // easing: 'easeInElastic(1, .6)'
+                                // easing: 'linear'
+                            })
+                    }
+
+
+                    function formArchivarThird(){
+                        anime({
+                                targets: '.contenedorArchivarSistema',
+                                
+                                keyframes: [
+
+                                    {scale: 1, translateX: -4180, color: 'rgba(1,1,1, .0)', duration: 2000},
+                                    
+                                    // {translateY: 265, color: 'rgba(1,1,1, .5)'},
+                                    
+                                ],
+                                // marginTop: 3,
+                                // easing: 'easeInElastic(1, .6)'
+                                // easing: 'linear'
+                            })
+                    }
+
+
+
+                    function formArchivarSecond(){
+
+                        anime({
+                                targets: '.contenedorArchivarSistema',
+                                
+                                keyframes: [
+
+                                    {scale: 1, translateX: 0, color: 'rgba(1,1,1, .0)', duration: 600},
+                                    
+                                    // {translateY: 265, color: 'rgba(1,1,1, .5)'},
+                                    
+                                ],
+                                // marginTop: 3,
+                                easing: 'easeInElastic(1, .6)'
+                                // easing: 'linear'
+                            })
+                            if (thenumbers > 180) {
+                                clearInterval(intval);
+                                thenumbers = 0;
+                                anime({
+                                    targets: '.rCantidad',
+                                    scale: 1,
+                                    marginTop: 0
+                                })
+                            }
+                        }
+
+                    formArchivarFirst()
+
+                    // END DE ARCHIVAR
+
+
+
+                    function firstRandom(){
+                        btnFirst.style.display = "none";
+                        getMyNumber();
+                        otro.style.display = "inherit";
+                        ahorrar.style.display = "inherit";
+                    }   
+
+                    function printNumber() {
+                        console.log("here the save");
+                        console.log(cantidad.innerHTML);
+                        cantidad.innerHTML = 0;
+                        
+                    }
+
+                    // console.log(random)
+                    console.log(typeof getArray);
+                    console.log(getArray);
+                    console.log(getArray.length);
+
+                    // anime({
+                    //     targets: '.number .nCantidad',
+                    //     translateX: function(el) {
+                    //         return el.getAttribute('data-x');
+                    //     },
+                    //     translateY: function(el, i) {
+                    //         return 50 + (-50 * i);
+                    //     },
+                    //     scale: function(el, i, l) {
+                    //         return (l - i) + .25;
+                    //     },
+                    //     rotate: function() { return anime.random(-360, 360); },
+                    //     borderRadius: function() { return ['50%', anime.random(10, 35) + '%']; },
+                    //     duration: function() { return anime.random(1200, 1800); },
+                    //     delay: function() { return anime.random(0, 400); },
+                    //     direction: 'alternate',
+                    //     loop: true
+                    // });
+
+
+
+                    var numero = document.getElementById("cantidad");
+                    function moneyFunction(cifra){
+                        const numberFormat2 = new Intl.NumberFormat('en-US');
+                        resultado = numberFormat2.format(cifra);
+                        numero.innerHTML = resultado;
+                        // console.log(numberFormat2.format(moneyNumber.innerHTML));
+                    }
+                    
+                    console.log("#######")
+                    moneyFunction(numero)
+                    console.log(numero.innerHTML)
+                  
+
+
+                </script> 
+           
+        {% endblock %}
+    </div>
+        
+    
+
+</body>
+</html>

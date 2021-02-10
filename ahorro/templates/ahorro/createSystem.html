@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}CREA TU AHORRO{% endblock %}
+
+{% block content %}
+
+<section class="sectionCreate sectionUser">
+    <style>
+        select{
+            padding: 10px 10px;
+            color: #333333;
+            font-weight: 500;
+            outline: none;
+            transition: background-color 0.4s ease-in-out;
+            width: -webkit-fill-available;
+        }
+
+        /* .formContainerCreate{
+            width: 220px;
+        } */
+    </style>
+    <div class="welcomeText">
+        <div class="logText">
+          <h1>Personaliza tu ahorro</h1>
+          <br />
+          <p>Para qué quieres ahorrar. Cuál es tu meta. En cuánto tiempo la quieres lograr. Con que frecuencia quieres ahorrar.
+          </p>
+        </div>
+
+        <div>
+            <br>
+            <a  href="{% url 'ahorro:dashboard' %}"> &lt; REGRESAR &emsp;</a>
+          
+               
+            
+        </div>
+  
+      
+    </div>  
+    <div class="login-form logForm">
+        
+        <div class="formContainer formContainerCreate">
+            <form action="." method="POST" enctype="multipart/form-data" >
+                {% csrf_token %}
+                {{ form.as_p }}
+              
+              
+                <p><input id="enviar" type="submit" value="CREAR"></p>
+            </form>
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+</section>
+
+
+
+{% endblock %}
