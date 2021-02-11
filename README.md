@@ -3,8 +3,9 @@
 ## AHORRA
 **Creado en Django**
 
-Sistema que te ayuda a cumplir tus metas de ahorro
-Se pueden crear varios sistemas con tres variables, 
+Sistema que te ayuda a cumplir tus metas de ahorro.
+
+Se pueden crear varios sistemas con tres variables: 
 
 * Frecuencia
 * Tiempo
@@ -14,6 +15,7 @@ Un algoritmo toma las variables, divide la meta entre la frecuencia, dentro del 
 #### La característica principal es que la cantidad a ahorrar no siempre será la misma.
 
 Logrando de esta forma un sistema de ahorro menos monotono y extricto.
+
 El sistema enviará al usuario un email como recordatorio de su ahorro.
 
 * Se pueden crear varios ahorros
@@ -23,6 +25,12 @@ El sistema enviará al usuario un email como recordatorio de su ahorro.
 
 
 Casi todas las animaciones son gracias a [AnimeJs](https://animejs.com/documentation/)
+
+## Tareas
+
+- [ ] Subir Mínimo Producto Viable
+- [ ] Hacerla PWA
+- [ ] Activar push notifications
 
 
 ## Contacto
