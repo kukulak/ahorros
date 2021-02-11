@@ -16,13 +16,13 @@ Un algoritmo toma las variables, divide la meta entre la frecuencia, dentro del 
 Logrando de esta forma un sistema de ahorro menos monotono y extricto.
 El sistema enviará al usuario un email como recordatorio de su ahorro.
 
--Se pueden crear varios ahorros
--Se pueden archivar los ahorros
--Se pueden borrar los ahorros
--Se puede invitar a ahorrar
+* Se pueden crear varios ahorros
+* Se pueden archivar los ahorros
+* Se pueden borrar los ahorros
+* Se puede invitar a ahorrar
 
 
-Casi todas las animaciones son gracias a [AnimeJs] (https://animejs.com/documentation/)
+Casi todas las animaciones son gracias a [AnimeJs](https://animejs.com/documentation/)
 
 
 ## Contacto
@@ -32,5 +32,5 @@ Si tienes alguna observación o comentario <kukulak.cero@gmail.com>
 
 ## Licencia
 
-Proyecto con Licencia [MIT] (http://www.opensource.org/licenses/mit-license.php) 
+Proyecto con Licencia [MIT](http://www.opensource.org/licenses/mit-license.php) 
 
