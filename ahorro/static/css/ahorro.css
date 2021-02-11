@@ -371,6 +371,45 @@ input[type=text]:focus {
 }
 
 
+.loader{
+    top: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    background-color: #000000e3;
+    z-index: 1000;
+}
+
+.loader p{
+    text-align: center;
+}
+
+
+
+.contentAnim{
+    margin-top: 30px;
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background-color: darkorange;
+    /* display: grid; */
+    align-items: end;
+    
+}
+
+.loaderAnim01{
+    width: 85px;
+    height: 40px;
+    background-color: rgb(27, 27, 27);
+    
+}
+
+
 .contentCentered{
     display: grid;
     justify-content: center;

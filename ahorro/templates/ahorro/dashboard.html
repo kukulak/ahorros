@@ -6,7 +6,25 @@
 {% block content %}
 
 
+<div class="loader" id="loader">
+    <div style="display: grid; justify-items: center;">
+        
+        <h2>Estamos preparando tu ahorro.</h2>
+        <p>
+            Si se tarda en cargar es por que tu objetivo de ahorro es muy alto. <br>
+            Bien hecho estamos aqui para ayudarte a lograrlo. <br> Pero,
+            la paciencia es necesaria para lograr tus metas.
+        </p>
+        <div class="contentAnim">
+            <div class="loaderAnim01">
+
+            </div>
+        </div>
+    </div>
+</div>
 <section class="sectionSystem">
+
+
     <div class="dashboard">
         {% if user.is_authenticated %}
         {% load humanize %}  
@@ -51,7 +69,7 @@
     <div class="contenedorTarjeta">
         {% for frec in my_systems %}
            
-                <a href="{{ frec.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
+                <a onclick="loaderFunc()" href="{{ frec.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
                     
                     <div class="tColor" style="background-color: {{frec.color}};"></div>  
 
@@ -128,6 +146,31 @@
 
     }
 
+    var loader = document.getElementById("loader")
+    loader.style.display = "none"
+
+
+    function loaderFunc(){
+
+        loader.style.display = 'grid'
+
+        anime({
+                targets: '.loader',
+                
+                keyframes: [
+
+                    {scale: 1, translateY: -20, color: 'rgba(1,1,1, .0)'},
+                    
+                    {scale: 1, translateY: 0},
+                    
+                ],
+                // marginTop: 3,
+                // easing: 'easeInElastic(1, .6)'
+                // easing: 'linear'
+            })
+  
+    }
+
 
     function alcancia(){
 
@@ -149,6 +192,36 @@
     }
 
     alcancia()
+
+
+    function loaderAnimFunc(){
+
+       
+
+        anime({
+                targets: '.loaderAnim01',
+                loop: true,
+                // direction: 'reverse',
+                translateY: -30,
+                // marginTop: 3,
+                // easing: 'easeInElastic(1, .6)'
+                // easing: 'linear'
+            })
+
+        anime({
+            scale: 0.2,
+            targets: '.contentAnim',
+            loop: true,
+            direction: 'reverse',
+            rotate: 360,
+            translateY: -50,
+            // marginTop: 3,
+            // easing: 'easeInElastic(1, .6)'
+            // easing: 'linear'
+        })    
+
+        }
+        loaderAnimFunc()
 
 
 </script>
