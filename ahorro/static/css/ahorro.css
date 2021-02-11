@@ -369,11 +369,37 @@ input[type=text]:focus {
 .dashboard .boveda{
     margin: 20px auto;
 }
+
+
+.contentCentered{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+
 .contenedorTarjeta{
     display: grid;
     justify-items: center;
     /* max-width: 870px; */
     width: 56%;
+    grid-row: 2;
+    /* grid-column-start: 2; */
+    grid-column-start: 1;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+    margin: 30px auto;
+    
+    
+}
+
+
+.contenedorTarjetaFierros{
+    display: grid;
+    justify-items: center;
+    /* max-width: 870px; */
+    /* width: 56%; */
     grid-row: 2;
     /* grid-column-start: 2; */
     grid-column-start: 1;
@@ -646,6 +672,10 @@ input[type=text]:focus {
 .saludo a{
     text-decoration: none;
     font-size: 20px;
+}
+
+.metaNumber{
+    font-size: 12px;
 }
 
 .data{
@@ -1021,7 +1051,7 @@ input[type=text]:focus {
 
 #delete{
     justify-self: center;
-    padding: 10px 30px;
+    padding: 10px 46px;
     /* margin-right: 20px; */
     /* margin-top: -13px; */
     background-color: darkorange;
@@ -1038,7 +1068,7 @@ input[type=text]:focus {
 
 #archive{
     justify-self: center;
-    padding: 10px 20px;
+    padding: 10px 39px;
     /* margin-right: 20px; */
     /* margin-top: -13px; */
     background-color: darkorange;
@@ -1051,6 +1081,12 @@ input[type=text]:focus {
     z-index: 100;
     /* margin: 10px 10px; */
     width: max-content;
+}
+
+#deleteForm .btnDesarchivarConfirma{
+    padding: 10px 21px;
+    margin-bottom: 15px;
+    margin-top: 15px;
 }
 
 #cancelDdelete{
@@ -1086,7 +1122,9 @@ input[type=text]:focus {
 
 #deleteFStep{
     justify-self: end;
-    padding: 10px 28px;
+    padding: 10px 52px;
+    padding: 10px 7px;
+    width: 220px;
     /* margin-right: 20px; */
     margin-top: 22px;
     /* margin-left: 60px; */
@@ -1103,7 +1141,8 @@ input[type=text]:focus {
 
 #btnArchivar{
     justify-self: start;
-    padding: 10px 21px;
+    padding: 10px 5px;
+    width: 220px;
     /* margin-right: 20px; */
     margin-top: 22px;
     /* margin-left: 60px; */

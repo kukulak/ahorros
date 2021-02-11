@@ -25,6 +25,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 
+from django.contrib.humanize.templatetags.humanize import intcomma
 
 # LOGIN DEL USUARIO P
 
@@ -120,7 +121,7 @@ def userSystem(request, id):
             
                 sistema = form.save()
                 
-                messages.success(request, f'¡Ahorraste ${sistema.cantidad}.00 para {sistema.sistema}!')
+                messages.success(request, f'¡Ahorraste ${intcomma(sistema.cantidad)}.00 para {sistema.sistema}!')
                 print("^^^SAVED^^^")
                 time.sleep(0.3)
                 return redirect('/')

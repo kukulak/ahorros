@@ -20,9 +20,11 @@
     <div class="fullContainer">
         {% block content %}
         <div class="saludo">
-            
+            {% load humanize %}
             <h3>Hola <span class="upperCase"> {{ user.username|default:'Guest' }} </span> </h3><h5>sigue ahorrando para</h5>
             <p class="upperCase"> {{ sistema.nombre }} </p>
+            <p id="metaNumber" class="metaNumber">Meta ${{ sistema.meta|intcomma }}.00 </p>
+            
             <a  href="{% url 'ahorro:dashboard' %}"> &lt; REGRESAR </a>
            
     
@@ -57,13 +59,14 @@
                 <div id="casAhorrado" class="casillaAhorrado">
                     <div class="casilla ahorrado sombra">
                         <p>TOTAL AHORRADO</p>
-                        <div id="lDetalle" class="lDetalle">       
+                        <div id="lDetalle" class="lDetalle">  
+                            {% load humanize %}     
                             {% load l10n %}                    
                             {% localize on %}
                                 {% for a in ahorro %}
                                     <p>
                                     {{ a.fecha.date }}
-                                    <span class="numberListDetail">{{a.cantidad}}</span></p>
+                                    <span class="numberListDetail">{{ a.cantidad|intcomma }}</span></p>
                                 {% endfor %}
                             {% endlocalize %}
 
@@ -214,6 +217,9 @@
                     } else if (ahorrado.innerHTML.length == 7){
                         ahorrado.style.fontSize = "50px"
                         ahorrado.style.marginTop = "41px"
+                    } else if (ahorrado.innerHTML.length >= 8){
+                        ahorrado.style.fontSize = "40px"
+                        ahorrado.style.marginTop = "50px"    
                     } else if (ahorrado.innerHTML.length == 4){
                         ahorrado.style.fontSize = "83px"
                         ahorrado.style.marginTop = "6px"
@@ -322,6 +328,9 @@
                             } else if (cantidad.innerHTML.length == 7){
                                 cantidad.style.fontSize = "50px"
                                 cantidad.style.marginTop = "41px"
+                            } else if (ahorrado.innerHTML.length >= 8){
+                                cantidad.style.fontSize = "40px"
+                                cantidad.style.marginTop = "50px"       
                             } else if (cantidad.innerHTML.length == 4){
                                 cantidad.style.fontSize = "83px"
                                 cantidad.style.marginTop = "6px"

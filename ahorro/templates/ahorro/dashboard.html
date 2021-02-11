@@ -9,13 +9,13 @@
 <section class="sectionSystem">
     <div class="dashboard">
         {% if user.is_authenticated %}
-        
+        {% load humanize %}  
         
             {% if messages %}
                 <div class="messages">
                 {% for message in messages %}
                     <div class="{{ message.tags }}">
-                    {{ message|safe }}
+                    {{ message|safe|intcomma  }}
                         <!-- <a href="#" class="close">x</a> -->
                     </div>
                 {% endfor %}
@@ -48,7 +48,7 @@
 
     <!-- <h1 class="titulo">ELIGE TU FRECUENCIA DE AHORRO</h1> -->
     
-    <div class=contenedorTarjeta>
+    <div class="contenedorTarjeta">
         {% for frec in my_systems %}
            
                 <a href="{{ frec.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
@@ -61,10 +61,11 @@
 
                     <p style="color: {{frec.color}};">Para <span class="tTitulo"> {{ frec.nombre }} </span> llevas:</p>
                
-                    {% load humanize %}
-                    <h1 id="moneyNumber" class="tCantidadDash" style="color: {{frec.color}};">{{ frec.total_ahorrado|intcomma }}</h1>
-                    
-
+                    <div>
+                        {% load humanize %}
+                        <h1 id="moneyNumber" class="tCantidadDash" style="color: {{frec.color}};">{{ frec.total_ahorrado|intcomma }}</h1>
+                        <p id="metaNumber" class="metaNumber">Meta: ${{ frec.meta|intcomma }}.00 </p>
+                    </div>   
                     <div class="btnTarjeta {{ frec.exito }}" href="{{ frec.get_absolute_url }}" onMouseOut="this.style.background='{{frec.color}}'" onMouseOver="this.style.background='rgb(255 106 0 / 100%)'" style="background-color: {{frec.color}};">AHORRAR</div>
 
                 </a>
@@ -116,6 +117,9 @@
            
         } else if (numbers[i].innerHTML.length == 7){
             numbers[i].style.fontSize = "30px"
+        
+        } else if (numbers[i].innerHTML.length >= 8){
+            numbers[i].style.fontSize = "25px"
             
         } else if (numbers[i].innerHTML.length == 4){
             numbers[i].style.fontSize = "40px"

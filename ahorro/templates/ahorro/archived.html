@@ -32,8 +32,8 @@
             <div class="menu">
                 <!-- <a href="{% url 'ahorro:logout' %}?next={{request.path}}">SALIR&emsp;</a> -->
                 <!-- <a href="{% url 'ahorro:password_change' %}?next={{request.path}}">CAMBIAR CONTRASEÑA&emsp;</a> -->
-                <a href="{% url 'ahorro:edit' %}?next={{request.path}}">EDITA TU PERFIL</a>
                 <a href="{% url 'ahorro:dashboard' %}?next={{request.path}}">AHORROS ACTIVOS</a>
+                <a href="{% url 'ahorro:edit' %}?next={{request.path}}">EDITA TU PERFIL</a>
         {% else %}
                 <a href="{% url 'login' %}">Login</a>
             </div>
@@ -41,14 +41,14 @@
         
     </div>    
     
-        <p class="boveda">Aqui estan,<br /> tus ahorros archivados.</p>
+        <p class="boveda">Aqui est&aacute;n,<br /> tus ahorros archivados.</p>
         <br>    
 
     </div>
 
     <!-- <h1 class="titulo">ELIGE TU FRECUENCIA DE AHORRO</h1> -->
     
-    <div class=contenedorTarjeta>
+    <div class="contenedorTarjeta">
         {% for frec in archived %}
            
                 <a href="{{ frec.archived_url }}" class="tarjeta tarjetaDash t1 sombra">
@@ -63,6 +63,7 @@
                
                     {% load humanize %}
                     <h1 id="moneyNumber" class="tCantidadDash" style="color: {{frec.color}};">{{ frec.total_ahorrado|intcomma }}</h1>
+                    <p id="metaNumber" class="metaNumber"> {{ frec.meta|intcomma }} </p>
                     
 
                     <div class="btnTarjeta {{ frec.exito }}" href="{{ frec.archived_url }}" onMouseOut="this.style.background='{{frec.color}}'" onMouseOver="this.style.background='rgb(255 106 0 / 100%)'" style="background-color: {{frec.color}};">DETALLES</div>

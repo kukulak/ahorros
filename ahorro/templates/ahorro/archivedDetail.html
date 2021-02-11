@@ -24,6 +24,8 @@
             <!-- <h3>Hola <span class="upperCase"> {{ user.username|default:'Guest' }} </span> </h3> -->
             <p class="upperCase"> {{ sistema.nombre }} </p>
             <h5>AHORRO ARCHIVADO</h5>
+            {% load humanize %}
+            <p id="metaNumber" class="metaNumber">Meta: ${{ sistema.meta|intcomma }}.00 </p>
             <a  href="{% url 'ahorro:archived' %}"> &lt; REGRESAR </a>
            
     
@@ -117,7 +119,7 @@
                 
                 <p>¿Estás segur@ que quieres desarchivar este ahorro?</p> 
                 
-                <a onclick="autoPress(ahorrarBtn);" id ="archive" name="archiveButton" >DESARCHIVAR</a>
+                <a onclick="autoPress(ahorrarBtn);" id ="archive" class="btnDesarchivarConfirma" name="archiveButton" >DESARCHIVAR</a>
                 
                 <button id ="cancelDdelete" onclick="formArchivarThird()" name="NoDeleteButton" >CANCELAR</button>
             
