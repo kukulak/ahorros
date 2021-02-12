@@ -976,7 +976,8 @@ input[type=text]:focus {
     /* display: none; */
     box-shadow: 0px -80px 560px 0px #0000007a;
     /* box-shadow: inset 0px 4px 12px 0px #0000004f; */
-    overflow: auto;
+    /* overflow: auto; */
+    overflow: hidden;
     padding: 0px;
     height: 0px;
     background-color: #f2f2f2;

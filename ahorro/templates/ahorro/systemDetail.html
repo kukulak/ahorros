@@ -235,6 +235,7 @@
                             lDetalle.style.height = "249px";
                             lDetalle.style.padding = "21px";
                             lDetalle.style.paddingTop = "51px";
+                            lDetalle.style.overflow = "hidden";
                             numberDecorado.style.paddingTop = "36px";
                             detailDecorado.style.marginTop = "117px";
                             detailDecorado.style.width = "260px";
@@ -247,6 +248,10 @@
                             yes = 0;
                             nData.style.gridRowStart = "3";
                             ocultar.style.opacity = "1";
+                            if (lDetalle.childNodes.length > 8){
+                                lDetalle.style.overflowY = "scroll";
+                                console.log('cuantos tiene el detalle', lDetalle.childNodes.length)
+                            }
                         } else {
                             ocultar.style.transform = "rotate(1deg)";
                             ocultar.style.marginTop = "-798px";
@@ -254,6 +259,7 @@
                             nData.style.gridRowStart = "auto";
                             lDetalle.style.height = "0px";
                             lDetalle.style.padding = "0px";
+                            lDetalle.style.overflow = "auto";
                             numberDecorado.style.paddingTop = "0px";
                             detailDecorado.style.marginTop = "84px";
                             detailDecorado.style.width = "-webkit-fill-available";
@@ -263,6 +269,8 @@
                         }
                         console.log("el valos de YES", yes)
                     }
+
+
                     // code for sleep
                     function sleep(milliseconds) {
                         const date = Date.now();
