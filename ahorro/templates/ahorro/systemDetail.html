@@ -41,7 +41,7 @@
                         <div id="btnFirst" onclick="firstRandom();" class="btnFirst">
                             CLIC <br /> PARA  SABER <br />CUANTO AHORRAR
                         </div>
-                        <div class="nData" >
+                        <div class="nData" id="rData" >
                             <div class="nDecorado"> </div>
                             <div class="aNumber number">
                                 <span></span>
@@ -51,7 +51,7 @@
                         <button onclick="getMyNumber();" id="otro" class="unselectable btn otro">
                             OTRA CANTIDAD &#8634;
                         </button>
-                        <button onclick="autoPress(ahorrarBtn);" id="ahorrar" class="unselectable btn ahorrar">
+                        <button onclick="autoPress(ahorrarBtn), deactivate();" id="ahorrar" class="unselectable btn ahorrar">
                             AHORRAR
                         </button>
                     </div>
@@ -228,6 +228,13 @@
                 
 
                     var yes = 2;     
+
+                    function deactivate(){
+                        // ahorrar.style.display = "none";
+                        ahorrar.style.pointerEvents = "none";
+                        ahorrar.style.cursor = "wait";
+                        // alert('this does not work')
+                    }
                                         
                     function detalleList() {
                         if (yes > 1) {
@@ -235,7 +242,8 @@
                             lDetalle.style.height = "249px";
                             lDetalle.style.padding = "21px";
                             lDetalle.style.paddingTop = "51px";
-                            lDetalle.style.overflow = "hidden";
+                            // lDetalle.style.overflow = "hidden";
+                            // lDetalle.style.overflowY = "scroll";
                             numberDecorado.style.paddingTop = "36px";
                             detailDecorado.style.marginTop = "117px";
                             detailDecorado.style.width = "260px";
@@ -259,7 +267,7 @@
                             nData.style.gridRowStart = "auto";
                             lDetalle.style.height = "0px";
                             lDetalle.style.padding = "0px";
-                            lDetalle.style.overflow = "auto";
+                            // lDetalle.style.overflow = "auto";
                             numberDecorado.style.paddingTop = "0px";
                             detailDecorado.style.marginTop = "84px";
                             detailDecorado.style.width = "-webkit-fill-available";
@@ -313,6 +321,9 @@
                     
                     var thenumbers = 0
 
+                    var rData = document.getElementById("rData")
+                    rData.style.display = "none";
+                    
                     function getMyNumber(){
                         
                         var intval = setInterval(function(){randomNumber();}, 1);
@@ -320,6 +331,7 @@
                             var random = Math.floor(Math.random() * (+max - +min)) + +min;
                             const numberFormat2 = new Intl.NumberFormat('en-US');
                             // resultado = numberFormat2.format(cifra);
+                            rData.style.display = "grid";
                             cantidad.innerHTML = numberFormat2.format(getArray[random]);
                             // cantidad.innerHTML = getArray[random]
                             formCantidad.value = getArray[random];

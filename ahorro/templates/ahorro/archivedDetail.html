@@ -64,13 +64,14 @@
                 <div id="casAhorrado" class="casillaAhorrado">
                     <div class="casilla ahorrado sombra">
                         <p>TOTAL AHORRADO</p>
-                        <div id="lDetalle" class="lDetalle">       
+                        <div id="lDetalle" class="lDetalle">     
+                            {% load humanize %}    
                             {% load l10n %}                    
                             {% localize on %}
                                 {% for a in ahorro %}
                                     <p>
                                     {{ a.fecha.date }}
-                                    <span class="numberListDetail">{{a.cantidad}}</span></p>
+                                    <span class="numberListDetail">{{a.cantidad|intcomma}}</span></p>
                                 {% endfor %}
                             {% endlocalize %}
 
@@ -210,6 +211,13 @@
                     } else if (ahorrado.innerHTML.length == 7){
                         ahorrado.style.fontSize = "50px"
                         ahorrado.style.marginTop = "41px"
+                    } else if (ahorrado.innerHTML.length >= 8){
+                        var styleElem = document.head.appendChild(document.createElement("style"));
+                        styleElem.innerHTML = "#ahorrado:before {font-size: 20px;}";
+                        var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                        styleElemAfter.innerHTML = "#ahorrado:after {font-size: 20px;}";
+                        ahorrado.style.fontSize = "35px"
+                        ahorrado.style.marginTop = "50px"    
                     } else if (ahorrado.innerHTML.length == 4){
                         ahorrado.style.fontSize = "83px"
                         ahorrado.style.marginTop = "6px"
@@ -225,6 +233,10 @@
                             lDetalle.style.height = "249px";
                             lDetalle.style.padding = "21px";
                             lDetalle.style.paddingTop = "51px";
+                            if (lDetalle.childNodes.length > 8){
+                                lDetalle.style.overflowY = "scroll";
+                                console.log('cuantos tiene el detalle', lDetalle.childNodes.length)
+                            }
                             numberDecorado.style.paddingTop = "36px";
                             detailDecorado.style.marginTop = "117px";
                             detailDecorado.style.width = "260px";
