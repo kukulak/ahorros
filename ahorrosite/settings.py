@@ -145,7 +145,18 @@ LOGOUT_URL = 'ahorro:logout'
 PASSWORD_CHANGE_DONE  = 'ahorro:password_change_done'
 
 
+#email abckend
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#Email Settings
+
+# EMAIL_SUBJECT_PREFIX = "[AHORROS] "
+# EMAIL_HOST = "smtp.gmail.com"
+# EMAIL_HOST_USER = "ahorros@gmail.com"
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_PASSWORD = 'unpassword'
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

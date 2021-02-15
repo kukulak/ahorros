@@ -151,25 +151,18 @@ class Sistema(models.Model):
                               choices=TIEMPO,
                               default=UNANO)
  
-    # meta = models.CharField(max_length=15, validators=[MinLengthValidator(3), RegexValidator(regex='\D', message="Usa únicamente números")])
-    # meta = models.CharField(max_length=15, validators=[validate_number])
     meta = models.IntegerField(validators=[MinValueValidator(1825, message="Ahorra a partir de 2000")])
 
     description = models.TextField(blank=True)
     url = models.URLField(blank=True)
     image = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True)
     created = models.DateField(auto_now_add=True, db_index=True)
-    # users_like = models.ManyToManyField(settings.AUTH_USER_MODEL,
-    #                                     related_name='images_liked',
-    #                                     blank=True)
-    # total_likes = models.PositiveIntegerField(db_index=True, default=0)
+
 
 
     
     def my_list(self):
         "retorna la division de frecuencia y tiempo"
-        # finalMeta = re.sub('[\D]', '', self.meta)
-        # return sistema_Ahorro(int(self.frecuencia), int(self.tiempo), int(self.meta))
         return sistema_Ahorro(int(self.frecuencia), int(self.tiempo), int(self.meta))
 
     def __str__(self):
@@ -263,6 +256,13 @@ class Ahorro(models.Model):
 
 
 class PrePlazo(models.Model):
+    '''
+    
+    - nombre del sistema
+    - descripcion del sistema
+    - url al formulario del sistema
+
+    '''
     nombre = models.CharField(max_length=200)
     tiempo = models.CharField(max_length=200)
     frecuencia = models.CharField(max_length=200)

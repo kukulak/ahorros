@@ -4,6 +4,76 @@ import random
 
 # lista_de_totales = [1, 5]
 
+def mismaCantidad(frecuencia, tiempo, meta):
+    '''
+    Ahorro en que cada ves que se ahorra es la misma cantidad
+    tiempo entre meta igual a cantidad
+    t/m = C
+    '''
+    cantidad = tiempo/meta
+
+    print(cantidad)
+
+    ahorroIguales = 0
+    return ahorroIguales
+
+
+def sinLimiteDeTiempo(cantidad, frecuencia, meta):
+    '''
+     que pasa en el caso en el que el tiempo se define por la meta y lo que puedo ahorrar cada vez
+    En este caso yo defino la cantidad que puedo ahorrar, y mi meta el tiempo es el que será variable
+    m/c = T
+
+    '''
+
+    tiempo = meta/cantidad
+    
+    print(tiempo)
+
+    ahorroIguales = 0
+    return ahorroIguales
+
+
+
+def variableMeta(sumaCantidades, frecuencia, cantidad_variable, meta):
+    '''
+    Ahorro en el que cada vez que se ahorra es con una cantidad variable pero 
+    la meta es la misma
+    en este caso no hay tiempo?
+    ahorras cuando te decimos pero ahorras lo que puedes ahorrar y nosotros te decimos cuando
+    cumples te meta
+    t = m/vC
+    '''
+    
+    # sumaCantidades = 0
+
+    if meta >= sumaCantidades:
+        print('lograsteTuMeta')
+    else:
+        print('sigue ahorrando')    
+        # cantidad_variable += cantidad_variable    
+        # sumaCantidades = cantidad_variable
+
+    # tiempo = meta / cantidad_variable
+    # print(tiempo)
+    # ahorroVariableMeta = 0
+    return sumaCantidades
+    
+def variableNoMeta(frecuencia, cantidad_variable):
+    '''
+    tu meta es ahorrar. ahorras con periodicidad pero sin una meta especifica
+    ahorras una cantidad abierta, un porecntaje de sueldo o 
+    tu ganancias pasivas
+    aqui llevas el control de cuanto es lo que ahorras cada vez y cuanto es tu total
+    en este caso estaria chido tener cantidad que se reste?
+    '''
+
+    cantidad_variable += cantidad_variable
+
+    ahorroVariableNoMeta = 0
+    return ahorroVariableNoMeta
+
+
 #sacar la lista de las cantidades ahorradas y el total
 def Lista_total(lista_de_totales):
     """obtenemos los ahorros y los transformamos en una lista

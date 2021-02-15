@@ -138,3 +138,58 @@ class CreatePlazoSystem(forms.ModelForm):
 class EmailShareForm(forms.Form):
     name = forms.CharField(max_length=25)
     email = forms.EmailField()
+
+
+
+
+    ##########################################
+    ###### forms para sistemas de ahorro #####
+    ##########################################
+
+# model Sistema
+class FormMismaCantidad(forms.ModelForm):
+    '''
+    Ahorro en que cada ves que se ahorra es la misma cantidad
+    tiempo entre meta igual a cantidad
+    t/m = C
+    '''
+    model = Sistema
+    fields = ['nombre', 'user', 'frecuencia', 'tiempo', 'meta']
+
+#model: en el modelo sistema no tenemos cantidad!  
+#variacion de cantidad
+class FormSinLimiteDeTiempo(forms.ModelForm):
+    '''
+    Que pasa en el caso en el que el tiempo se define por la meta y lo que puedo ahorrar cada vez.
+    En este caso yo defino la cantidad que puedo ahorrar, y mi meta, el tiempo es el que será variable.
+    m/c = T
+
+    '''
+    model = Sistema
+    fields = ['nombre', 'user', 'frecuencia', 'cantidad', 'meta']   
+
+#model: modelo sistema no tiene cantidad
+class FormVariableMeta(forms.ModelForm):
+    '''
+    Ahorro en el que cada vez que se ahorra es con una cantidad variable pero la meta es la misma
+    en este caso no hay tiempo?
+    ahorras cuando te decimos pero ahorras lo que puedes ahorrar y nosotros te decimos cuando
+    cumples te meta
+    t = m/vC
+    '''
+
+    model = Sistema
+    fields = ['nombre', 'user', 'frecuencia', 'meta']    
+
+#model: sistema
+class FormVariableNoMeta(forms.ModelForm):
+    '''
+    Tu meta es ahorrar. ahorras con periodicidad pero sin una meta especifica
+    ahorras una cantidad abierta, un porecntaje de sueldo o 
+    tu ganancias pasivas
+    aqui llevas el control de cuanto es lo que ahorras cada vez y cuanto es tu total
+    en este caso estaria chido tener cantidad que se reste?
+    '''
+    
+    model = Sistema
+    fields = ['nombre', 'user']    

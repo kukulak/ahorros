@@ -1,5 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 
+import pymysql
+
 import os
 import sys
 sys.path.append(
@@ -7,18 +9,13 @@ sys.path.append(
 )
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ahorrosite.settings")
 
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", os.environ.get("ENV.SETTINGS", "settings"))
-
-
-# import ahorrosite.settings as app_settings
-
-# settings.configure(INSTALLED_APPS=app_settings.INSTALLED_APPS,DATABASES=app_settings.DATABASES)
 
 import django
 
+django.setup()
+
 from django.conf import settings
 
-django.setup()
 
 from ahorro.models import Color, Plazo, Ahorro, Sistema, PrePlazo, Profile
 from django.contrib.auth.models import User
@@ -27,6 +24,8 @@ import datetime
 
 from time import strftime
 import smtplib, ssl
+
+from django.core.mail import send_mail
 
 current_month = strftime('%B')
 
@@ -73,7 +72,7 @@ def sender():
     user_ids = users.values_list('pk', flat=True)
     print(list(user_ids))
     print(user_ids)
-    sistemas = Sistema.objects.all().filter(user = '3')
+    sistemas = Sistema.objects.all().filter(user = 'valderrama')
     febrero = 2
     todayMonth = datetime.datetime.now().month
     dt = datetime.datetime.today()

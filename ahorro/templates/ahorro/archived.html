@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
-{% block title %} AHORRO | DASHBOARD {% endblock %}
-
+{% block title %} ARCHIVO | DASHBOARD {% endblock %}
+{% load static %}
 
 {% block content %}
 
@@ -32,8 +32,14 @@
             <div class="menu">
                 <!-- <a href="{% url 'ahorro:logout' %}?next={{request.path}}">SALIR&emsp;</a> -->
                 <!-- <a href="{% url 'ahorro:password_change' %}?next={{request.path}}">CAMBIAR CONTRASEÑA&emsp;</a> -->
-                <a href="{% url 'ahorro:dashboard' %}?next={{request.path}}">AHORROS ACTIVOS</a>
-                <a href="{% url 'ahorro:edit' %}?next={{request.path}}">EDITA TU PERFIL</a>
+                <a href="{% url 'ahorro:dashboard' %}?next={{request.path}}">
+                    <img src="{% static 'svg/activo.svg' %}" alt="activos">
+                    BOVEDA
+                </a>
+                <a href="{% url 'ahorro:edit' %}?next={{request.path}}">
+                    <img src="{% static 'svg/editar.svg' %}" alt="editar">
+                    EDITA TU PERFIL
+                </a>
         {% else %}
                 <a href="{% url 'login' %}">Login</a>
             </div>
@@ -41,7 +47,7 @@
         
     </div>    
     
-        <p class="boveda">Aqui est&aacute;n,<br /> tus ahorros archivados.</p>
+        <p class="boveda">Aqu&iacute; viven,<br /> tus ahorros archivados.</p>
         <br>    
 
     </div>
@@ -61,10 +67,11 @@
 
                     <p style="color: {{frec.color}};">Para <span class="tTitulo"> {{ frec.nombre }} </span> llevas:</p>
                
-                    {% load humanize %}
-                    <h1 id="moneyNumber" class="tCantidadDash" style="color: {{frec.color}};">{{ frec.total_ahorrado|intcomma }}</h1>
-                    <p id="metaNumber" class="metaNumber"> {{ frec.meta|intcomma }} </p>
-                    
+                    <div>
+                        {% load humanize %}
+                        <h1 id="moneyNumber" class="tCantidadDash" style="color: {{frec.color}};">{{ frec.total_ahorrado|intcomma }}</h1>
+                        <p id="metaNumber" class="metaNumber">Meta: ${{ frec.meta|intcomma }}.00 </p>
+                    </div>
 
                     <div class="btnTarjeta {{ frec.exito }}" href="{{ frec.archived_url }}" onMouseOut="this.style.background='{{frec.color}}'" onMouseOver="this.style.background='rgb(255 106 0 / 100%)'" style="background-color: {{frec.color}};">DETALLES</div>
 

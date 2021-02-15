@@ -18,8 +18,6 @@ from django.views import View
 from django.views.generic import CreateView, ListView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 
-# packt
-
 from django.contrib.auth.decorators import login_required
 
 from django.core.exceptions import ValidationError
@@ -64,6 +62,7 @@ def index(request):
 
 def user(request):
     return render (request, 'ahorro/inIndex.html')
+
 
 def system(request):
     preplazo = PrePlazo.objects.all
@@ -215,10 +214,10 @@ def dashboard(request):
         if form.is_valid():
             # Form fields passed validation
             cd = form.cleaned_data
-            page_url = 'http://127.0.0.1:8000/'
+            page_url = 'http://www.ahorraahora.com'
             subject = '{} te recomienda "{}"'.format(user.username, page_url)
-            message = '{} te recomiendo ahorrar con esta herramienta:"miLadoQueAhorra.com" ({}) '.format(cd['name'], page_url)
-            send_mail(subject, message, 'admin@myblog.com', [cd['email']])
+            message = '{} te recomiendo ahorrar con esta herramienta:"ahorraahora.com" ({}) '.format(cd['name'], page_url)
+            send_mail(subject, message, 'recordatorio@ahorraahora.com', [cd['email']])
             sent = True
     else:
         form = EmailShareForm()
@@ -258,7 +257,6 @@ def archived(request):
                    {'archived': archived,})
 
 
-# PACKT 
 def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
@@ -348,10 +346,10 @@ def post_share(request, post_id):
         if form.is_valid():
             # Form fields passed validation
             cd = form.cleaned_data
-            page_url = 'http://127.0.0.1:8000/'
-            subject = '{} ({}) te recomienda "{}"'.format(cd['name'], cd['email'], '127.0.0')
+            page_url = 'ahorraahora.com'
+            subject = '{} ({}) te recomienda "{}"'.format(cd['name'], cd['email'], page_url)
             message = cd['name'], 'Te recomiendo ahorrar con esta herramienta:'.format(page_url, cd['comments'])
-            send_mail(subject, message, 'admin@myblog.com', [cd['to']])
+            send_mail(subject, message, 'recordatorio@ahorraahora.com', [cd['to']])
             sent = True
     else:
         form = EmailShareForm()

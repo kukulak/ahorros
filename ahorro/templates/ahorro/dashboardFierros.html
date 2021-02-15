@@ -2,12 +2,13 @@
 
 {% block title %} AHORRO | DASHBOARD {% endblock %}
 
+{% load static %}
 
 {% block content %}
 
 
 <section class="sectionSystem">
-    <div class="dashboard">
+    <div class="dashboardFierros">
         {% if user.is_authenticated %}
         
         
@@ -26,17 +27,20 @@
 
              {% endif %}
         
+             <p class="boveda">Estadisticas de ahorraahora.com.mx</p>
         
-            <div>
-                <a href="{% url 'ahorro:logout' %}?next={{request.path}}">SALIR&emsp;</a>
-                <a href="{% url 'ahorro:password_change' %}?next={{request.path}}">CAMBIAR CONTRASEÑA&emsp;</a>
-                <a href="{% url 'ahorro:edit' %}?next={{request.path}}">EDITA TU PERFIL</a>
+            <div class="menu">
+                <!-- <a href="{% url 'ahorro:logout' %}?next={{request.path}}">&larr;SALIR&emsp;</a> -->
+                <!-- <a href="{% url 'ahorro:password_change' %}?next={{request.path}}">CAMBIAR CONTRASEÑA&emsp;</a> -->
+                <a href="{% url 'ahorro:edit' %}?next={{request.path}}">
+                    <img src="{% static 'svg/editar.svg' %}" alt="editar">
+                    EDITA TU PERFIL
+                </a>
         {% else %}
                 <a href="{% url 'login' %}">Login</a>
             </div>
         {% endif %}
         
-        <p class="boveda">Estadisticas de ahorra.com.mx</p>
         <br>    
         
     </div>    
@@ -140,23 +144,7 @@
 
 </div>
 
-    <div class="formInvite">
-        <div class="formContainerDash">
-            {% if sent %}
-                <h1>Éxito</h1>
-                <p>
-                La invitación fue enviada a {{ form.cleaned_data.name }}.
-                </p>
-            {% else %}
-                <h1>¿Crees que a alguien le interese ahorrar con este sistema?</h1>
-                <form action="." method="post">
-                {{ form.as_p }}
-                {% csrf_token %}
-                <input id="enviar" type="submit" value="INVITAR">
-                </form>
-            {% endif %}
-        </div>
-    </div>
+    
 
 </section>
 

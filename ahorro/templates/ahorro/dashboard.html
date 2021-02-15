@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %} AHORRO | DASHBOARD {% endblock %}
-
+{% load static %}
 
 {% block content %}
 
@@ -40,18 +40,26 @@
                 </div>
 
                 {% else %}
-                <h1 class="titulo"> Hola, {{ request.user.username|default:'Guest' }}!</h1>
+                <h1 class="titulo"> Hola, {{ request.user.username|default:'Guest'|upper }}!</h1>
 
              {% endif %}
-
+             <p class="boveda">Bienvenido a tu <strong>BOVEDA</strong> de control,<br /> aqu&iacute; est&aacute;n tus ahorros activos.</p>
+             <br>    
+     
 
     <div class="menuBienvenido">
         
-            <div class="menu">
+            <div class="menu unselectable">
                 <!-- <a href="{% url 'ahorro:logout' %}?next={{request.path}}">SALIR&emsp;</a> -->
                 <!-- <a href="{% url 'ahorro:password_change' %}?next={{request.path}}">CAMBIAR CONTRASEÑA&emsp;</a> -->
-                <a href="{% url 'ahorro:archived' %}?next={{request.path}}">ARCHIVO</a>
-                <a href="{% url 'ahorro:edit' %}?next={{request.path}}">EDITA TU PERFIL</a>
+                <a href="{% url 'ahorro:archived' %}?next={{request.path}}">
+                    <img src="{% static 'svg/archivo.svg' %}" alt="archivados">
+                    ARCHIVO
+                </a>
+                <a href="{% url 'ahorro:edit' %}?next={{request.path}}">
+                    <img src="{% static 'svg/editar.svg' %}" alt="editar">
+                    EDITA TU PERFIL
+                </a>
         {% else %}
                 <a href="{% url 'login' %}">Login</a>
             </div>
@@ -59,9 +67,7 @@
         
     </div>    
     
-        <p class="boveda">Bienvenido a tu boveda de control,<br /> aqu&iacute; encontrar&aacute;s tus ahorros activos.</p>
-        <br>    
-
+     
     </div>
 
     <!-- <h1 class="titulo">ELIGE TU FRECUENCIA DE AHORRO</h1> -->
