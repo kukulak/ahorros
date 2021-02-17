@@ -429,3 +429,29 @@ def userArchived(request, id):
         return redirect('/')
 
 # end archived DETAIL
+
+
+@login_required
+def chooseSystems(request):
+    users = User.objects.all()
+    plazo = Plazo.objects.all()                                  
+    my_systems = Sistema.objects.all()
+    ahorro = Ahorro.objects.all()
+    total_users = len(User.objects.all())
+    t = 0
+    full_total = 0
+    full_total = Ahorro.objects.all()
+    by_meta = Lista_total(list(full_total))
+    # for ahorro in my_systems:
+    #     ahorro.total_ahorrado = by_meta
+    #     t = t + 1 
+
+    return render(request,
+                 'ahorro/systemChoose.html',
+                 {'plazo': plazo,
+                  'my_systems': my_systems,
+                  'ahorro': ahorro,
+                  'by_meta': by_meta,
+                  'total_users': total_users,
+                  'users': users}) 
+

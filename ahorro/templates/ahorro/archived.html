@@ -22,12 +22,13 @@
                 </div>
 
                 {% else %}
-                <h1 class="titulo"> Hola, {{ request.user.username|default:'Guest' }}!</h1>
+                <h1 class="titulo"> Hola, {{ request.user.username|default:'Guest'|upper }}!</h1>
 
              {% endif %}
 
-
-    <div class="menuBienvenido">
+             <p class="boveda">Aqu&iacute; viven<br /> tus ahorros archivados.</p>
+             <br>    
+    <div class="menuBienvenido unselectable">
         
             <div class="menu">
                 <!-- <a href="{% url 'ahorro:logout' %}?next={{request.path}}">SALIR&emsp;</a> -->
@@ -47,8 +48,7 @@
         
     </div>    
     
-        <p class="boveda">Aqu&iacute; viven,<br /> tus ahorros archivados.</p>
-        <br>    
+        
 
     </div>
 

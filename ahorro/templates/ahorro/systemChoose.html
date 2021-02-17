@@ -15,14 +15,14 @@
         
         <h1 class="titulo">ELIGE COMO QUIERES AHORRAR</h1>
         {% block content %}
-        <div class="contenedorTarjeta">
+        <div class="contenedorTarjetaPlazos">
             {% for frec in preplazo %}
                 <div class="tarjeta t1 sombra">
                     <div class="tColor" style="background-color: {{frec.color}};"></div>  
                     <h1 class="tTitulo" style="color: {{frec.color}};">{{ frec.nombre }}</h1>
                     <p style="color: {{frec.color}};">Ahorro total <br>al año:</p>
                     <h3 class="tCantidad" style="color: {{frec.color}};">${{ frec.meta }} mil</h3>
-                    <button onMouseOut="this.style.background='{{frec.color}}'" onMouseOver="this.style.background='rgb(255 255 255 / 18%)'" style="background-color: {{frec.color}};">AHORRAR</button>
+                    <a onMouseOut="this.style.background='{{frec.color}}'" onMouseOver="this.style.background='rgb(255 255 255 / 18%)'" style="background-color: {{frec.color}};">AHORRAR</a>
 
                     
                 </div>
@@ -30,74 +30,58 @@
             {% endfor %}
         {% endblock %}
 
-        <!-- <div class="tarjeta t2 sombra">
-            <div class="tColor"></div>  
-            <h1 class="tTitulo">DIARIO</h1>
-            <p>Ahorro total <br>al año:</p>
-            <h3 class="tCantidad">$60 mil</h3>
-            <button>AHORRAR</button>
-        </div>
 
-
-        <div class="tarjeta t3 sombra">
-            <div class="tColor"></div>  
-            <h1 class="tTitulo">DIARIO</h1>
-            <p>Ahorro total <br>al año:</p>
-            <h3 class="tCantidad">$60 mil</h3>
-            <button>AHORRAR</button>
-        </div> -->
-
-
-        <div class="tarjeta t4 sombra">
-            <div class="tColor" style="background-color: #03A83D;"></div>  
-            <h1 class="tTitulo" style="color: #03A83D;">ALEATORIO</h1>
+        <div class="tarjeta t4 sombra unselectable">
+            <div class="tColor" style="background-color: darkorange;"></div>  
+            <h1 class="tTitulo" style="color: darkorange;">ALEATORIO</h1>
             <p style="margin-top: 64px; ;">Dinos cual es tu meta, escoge la frecuencia y el tiempo, nosotros te decimos cuanto ahorrar cada vez, no siempre será la misma cantidad.</p>
             <h3 class="tCantidad"></h3>
-            <button onMouseOut="this.style.background='#03A83D'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #03A83D;">EMPEZAR</button>
+            <a href="{% url 'ahorro:create' %}" onMouseOut="this.style.background='darkorange'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #darkorange;">EMPEZAR</a>
         </div>
 
 
-        <div class="tarjeta t4 sombra">
-            <div class="tColor" style="background-color: #03A83D;"></div>  
-            <h1 class="tTitulo" style="color: #03A83D;">CANTIDAD FIJA</h1>
-            <p style="margin-top: 64px; ">Nosotros te decimos cuanto vas a ahorrar, siempre será la misma cantidad, durante un tiempo especifico hasta llegar a tu meta.</p>
+        <div class="tarjeta t4 sombra unselectable">
+            <div class="tColor" style="background-color: #00ffe7;"></div>  
+            <h1 class="tTitulo" style="color: #00ffe7;">CANTIDAD FIJA</h1>
+            <p style="margin-top: 64px; ">Nosotros te decimos que cantidad vas a ahorrar, siempre será la misma, durante un tiempo especifico que tu escojas hasta llegar a tu meta.</p>
             <h3 class="tCantidad"></h3>
-            <button onMouseOut="this.style.background='#03A83D'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #03A83D;">EMPEZAR</button>
+            <a href="{% url 'ahorro:create' %}" onMouseOut="this.style.background='#00ffe7'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #00ffe7;">EMPEZAR</a>
         </div>
 
 
-        <div class="tarjeta t4 sombra">
-            <div class="tColor" style="background-color: #03A83D;"></div>  
-            <h1 class="tTitulo" style="color: #03A83D;">SIN LIMITE DE TIEMPO</h1>
+        <div class="tarjeta t4 sombra unselectable">
+            <div class="tColor" style="background-color: #B132FD;"></div>  
+            <h1 class="tTitulo" style="color: #B132FD;">SIN LIMITE DE TIEMPO</h1>
             <p style="margin-top: 64px; ">Decide la cantidad que siempre vas a ahorrar para llegar a tu meta, tomar&aacute; el tiempo que sea necesario.</p>
             <h3 class="tCantidad"></h3>
-            <button onMouseOut="this.style.background='#03A83D'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #03A83D;">EMPEZAR</button>
+            <a href="{% url 'ahorro:create' %}" onMouseOut="this.style.background='#B132FD'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #B132FD;">EMPEZAR</a>
         </div>
 
 
-        <div class="tarjeta t4 sombra">
-            <div class="tColor" style="background-color: #03A83D;"></div>  
-            <h1 class="tTitulo" style="color: #03A83D;">LIBRE SIN LIMITE DE TIEMPO</h1>
-            <p style="margin-top: 64px; ">Tu decides cada cuanto tiempo ahorrar y cada vez que ahorres tu decides cuanto será, para que poco a poco llegues a tu meta.</p>
+        <div class="tarjeta t4 sombra unselectable">
+            <div class="tColor" style="background-color: #60d9ff;"></div>  
+            <h1 class="tTitulo" style="color: #60d9ff;">LIBRE SIN LIMITE DE TIEMPO</h1>
+            <p style="margin-top: 64px; ">Escoje cada cuanto tiempo ahorrar y cada vez que ahorres tu decides cuanto será, para que poco a poco llegues a tu meta.</p>
             <h3 class="tCantidad"></h3>
-            <button onMouseOut="this.style.background='#03A83D'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #03A83D;">EMPEZAR</button>
+            <a href="{% url 'ahorro:create' %}"  onMouseOut="this.style.background='#60d9ff'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #60d9ff;">EMPEZAR</a>
         </div>
 
-        <div class="tarjeta t4 sombra">
+        <div class="tarjeta t4 sombra unselectable">
             <div class="tColor" style="background-color: #03A83D;"></div>  
-            <h1 class="tTitulo" style="color: #03A83D;">META FIJA CANTIDAD VARIABLE</h1>
+            <!-- <h1 class="tTitulo" style="color: #03A83D;">META FIJA CANTIDAD VARIABLE</h1> -->
+            <h1 class="tTitulo" style="color: #37FB86;">LA META ES AHORRAR</h1>
             <p style="margin-top: 64px; ">Esta opci&oacute;n te ayudar&aacute; a tener las cuentas de tu ahorro más claras, aqu&iacute; la meta es ahorrar.  </p>
             <h3 class="tCantidad"></h3>
-            <button onMouseOut="this.style.background='#03A83D'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #03A83D;">EMPEZAR</button>
+            <a href="{% url 'ahorro:create' %}" onMouseOut="this.style.background='#03A83D'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #03A83D;">EMPEZAR</a>
         </div>
 
-        <div class="tarjeta tarjetaDash t4 sombra">
+        <!-- <div class="tarjeta tarjetaDash t4 sombra">
             <div class="tColor" style="background-color: #03A83D;"></div>  
             <p style="color: #03A83D;">Crea un nuevo AHORRO<br/></p>
-            <!-- <h1 class="tTitulo" style="color: #03A83D;">+</h1> -->
+            
             
             <a class="btnNuevoAhorro" href="{% url 'ahorro:create' %}" onMouseOut="this.style.background=initial" onMouseOver="this.style.background=initial"style="font-size: 100px; margin: 0; background-color: initial; color: #03A83D;">+</a>
-        </div>
+        </div> -->
 
         </div>
 

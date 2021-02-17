@@ -114,7 +114,7 @@
 
         <div class="tarjetaDash t1 sombra estadisticCardUserMeses">
             <h1>Nuevos usuarios por mes</h1>
-            {% regroup users by date_joined|date:"M/Y" as dateG %}
+            {% regroup users by date_joined|date:"M" as dateG %}
             <ul>
                 <div class="contenedorData">
                 {% for d in dateG %}
