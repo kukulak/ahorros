@@ -183,6 +183,7 @@ footer a{
     display: grid;
     justify-content: center;
     align-items: center;
+    transform: translateZ(21px);
 
     /* background-color: #efefef; */
 }
@@ -580,12 +581,26 @@ input[type=text]:focus {
     color: darkorange;
     margin-bottom: 40px;
     transition-duration: 0.4s;
-    transform: perspective(1px) scale(1);
+    /* de tilt.js */
+    /* transform: perspective(1px) scale(1); */
+
     /* transform: scale(1.15); */
     backface-visibility: hidden;
     -webkit-font-smoothing: subpixel-antialiased;
     -webkit-font-smoothing: antialiased;
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
 }
+
+
+.tarjeta div{
+    transform: translateZ(20px);
+}
+
+.logro{
+    transform: translateZ(21px) !important;
+}
+
 
 .contenedorTarjetaPlazos .tarjeta{
     grid-template-rows: 7px 109px 94px 90px 30px;
@@ -594,7 +609,11 @@ input[type=text]:focus {
     /* background-color: darkorange; */
     /* transform: perspective(500px) translateZ(80px); */
     /* transform: perspective(1px) scale(1.15); */
-    transform: scale(1.15);
+
+    /* de tilt.js */
+    /* transform: scale(1.15); */
+    
+    
     backface-visibility: hidden;
     /* box-shadow: 0px 1px 12px 1px black;
     box-shadow: 10px 7px 602px -2px rgb(0 0 0 / 42%); */

@@ -50,7 +50,7 @@
     <div class="contenedorTarjetaFierros">
 
 
-        <div class=" tarjetaDash t1 sombra estadisticCardUsers">
+        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" class=" tarjetaDash t1 sombra estadisticCardUsers">
             
            
             
@@ -64,12 +64,12 @@
         </div>
 
         
-        <div class="tarjetaDash t1 sombra estadisticCardMotivo">
+        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" class="tarjetaDash t1 sombra estadisticCardMotivo">
             
             <!-- <div class="tColor"></div>   -->
             
                 <h1>Motivo de Ahorro</h1>
-                <div class="contenedorData">
+                <div  class="contenedorData">
                     {% for frec in my_systems %}
                         <p class="eData"> {{ frec.nombre }} </p>
                     {% endfor %}
@@ -88,7 +88,7 @@
         {% load humanize %}
 
 
-        <div class="tarjetaDash t1 sombra estadisticCardMetas">
+        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1"  class="tarjetaDash t1 sombra estadisticCardMetas">
             
             
             
@@ -107,7 +107,7 @@
 
 
 
-        <div class=" tarjetaDash t1 sombra estadisticCardTotal">
+        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" class=" tarjetaDash t1 sombra estadisticCardTotal">
             
             
             
@@ -121,7 +121,7 @@
         </div>
 
 
-        <div class="tarjetaDash t1 sombra estadisticCardUserMeses">
+        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" class="tarjetaDash t1 sombra estadisticCardUserMeses">
             <h1>Nuevos usuarios por mes</h1>
             {% regroup users by date_joined|date:"M" as dateG %}
             <ul>

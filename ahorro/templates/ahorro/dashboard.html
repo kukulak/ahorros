@@ -75,7 +75,7 @@
     <div id="contenedorTarjetas" class="contenedorTarjeta">
         {% for frec in my_systems %}
            
-                <a onclick="loaderFunc()" href="{{ frec.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
+                <a data-tilt data-tilt-gyroscope="true" data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" onclick="loaderFunc()" href="{{ frec.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
                     
                     <div class="tColor" style="background-color: {{frec.color}};"></div>  
 
@@ -98,7 +98,7 @@
 
         {% for fija in my_systemsF %}
            
-        <a onclick="loaderFunc()" href="{{ fija.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
+        <a data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" onclick="loaderFunc()" href="{{ fija.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
             
             <div class="tColor" style="background-color: {{fija.color}}; background-color: #00ffe7;"></div>  
 
@@ -122,7 +122,7 @@
 
     {% for laMeta in my_systemsAM %}
             
-        <a onclick="loaderFunc()" href="{{ laMeta.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
+        <a data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" onclick="loaderFunc()" href="{{ laMeta.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
             
             <div class="tColor" style="background-color: {{laMeta.color}}; background-color: #03A83D;"></div>  
 
@@ -140,7 +140,7 @@
     
 
     </div>
-        <div class="tarjeta tarjetaDash t4 sombra">
+        <div data-tilt data-tilt-full-page-listening data-tilt-scale="1.1" data-tilt-reverse="true" class="tarjeta tarjetaDash t4 sombra">
             <div class="tColor" style="background-color: #03A83D;"></div>  
             <p style="color: #03A83D;">Crea un nuevo AHORRO<br/></p>
             <!-- <h1 class="tTitulo" style="color: #03A83D;">+</h1> -->
