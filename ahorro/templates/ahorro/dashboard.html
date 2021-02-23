@@ -71,8 +71,8 @@
     </div>
 
     <!-- <h1 class="titulo">ELIGE TU FRECUENCIA DE AHORRO</h1> -->
-    
-    <div class="contenedorTarjeta">
+        <section class="gridTarjetasCrea">
+    <div id="contenedorTarjetas" class="contenedorTarjeta">
         {% for frec in my_systems %}
            
                 <a onclick="loaderFunc()" href="{{ frec.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
@@ -95,16 +95,59 @@
                 </a>
              
         {% endfor %}
-  
 
-    <div class="tarjeta tarjetaDash t4 sombra">
-        <div class="tColor" style="background-color: #03A83D;"></div>  
-        <p style="color: #03A83D;">Crea un nuevo AHORRO<br/></p>
-        <!-- <h1 class="tTitulo" style="color: #03A83D;">+</h1> -->
-        
-        <a class="btnNuevoAhorro" href="{% url 'ahorro:create' %}" onMouseOut="this.style.background=initial" onMouseOver="this.style.background=initial"style="font-size: 100px; margin: 0; background-color: initial; color: #03A83D;">+</a>
+        {% for fija in my_systemsF %}
+           
+        <a onclick="loaderFunc()" href="{{ fija.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
+            
+            <div class="tColor" style="background-color: {{fija.color}}; background-color: #00ffe7;"></div>  
+
+            <div style="background-color: #00ffe7;" class="{{ fija.exito }}"> 
+                <p> META CUMPLIDA </p>
+            </div>
+
+            <p style="color: {{fija.color}};">Para <span class="tTitulo"> {{ fija.nombre }} </span> llevas:</p>
+       
+            <div>
+                {% load humanize %}
+                <h1 id="moneyNumber" class="tCantidadDash" style="color: {{fija.color}};">{{ fija.total_ahorrado|intcomma }}</h1>
+                <p id="metaNumber" class="metaNumber">Meta: ${{ fija.meta|intcomma }}.00 </p>
+            </div>   
+            <div class="btnTarjeta {{ fija.exito }}" href="{{ fija.get_absolute_url }}" onMouseOut="this.style.background='#00ffe7'"  style="background-color: #00ffe7;" onMouseOver="this.style.background='#00B09F'" style="background-color: {{fija.color}};">AHORRAR</div>
+
+        </a>
+     
+{% endfor %}
+
+
+    {% for laMeta in my_systemsAM %}
+            
+        <a onclick="loaderFunc()" href="{{ laMeta.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
+            
+            <div class="tColor" style="background-color: {{laMeta.color}}; background-color: #03A83D;"></div>  
+
+            <p style="color: {{laMeta.color}};">Para <span class="tTitulo"> {{ laMeta.nombre }} </span> llevas:</p>
+
+            <div>
+                {% load humanize %}
+                <h1 id="moneyNumber" class="tCantidadDash" style="color: {{laMeta.color}};">{{ laMeta.total_ahorrado|intcomma }}</h1>
+            </div>   
+            <div class="btnTarjeta {{ laMeta.exito }}" href="{{ laMeta.get_absolute_url }}" onMouseOut="this.style.background='#03A83D'"  style="background-color: #03A83D;" onMouseOver="this.style.background='#37FB86'" style="background-color: {{laMeta.color}};">AHORRAR</div>
+
+        </a>
+
+    {% endfor %}
+    
+
     </div>
-    </div>
+        <div class="tarjeta tarjetaDash t4 sombra">
+            <div class="tColor" style="background-color: #03A83D;"></div>  
+            <p style="color: #03A83D;">Crea un nuevo AHORRO<br/></p>
+            <!-- <h1 class="tTitulo" style="color: #03A83D;">+</h1> -->
+            
+            <a class="btnNuevoAhorro" href="{% url 'ahorro:system' %}" onMouseOut="this.style.background=initial" onMouseOver="this.style.background=initial"style="font-size: 100px; margin: 0; background-color: initial; color: #03A83D;">+</a>
+        </div>
+</section>
 
     <div class="formInvite">
         <div class="formContainerDash">
@@ -127,6 +170,28 @@
 </section>
 
 <script>
+
+    var contenedorTarjetas = document.getElementById('contenedorTarjetas')
+
+    function shuffle() {
+        var parent = contenedorTarjetas;
+        var divs = parent.children;
+        console.log(divs);
+        var i = 0;
+        // while (i < divs.length) {
+        //     // parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
+        //     parent.append(divs.splice(0 , 1, divs[2]));
+        //     i++
+        // }
+        for (let index = 0; index < divs.length; index++) {
+            const element = divs[index];
+            parent.append(element)
+            
+        }
+    }
+
+    shuffle()
+
 
     var numbers = document.getElementsByClassName("tCantidadDash")
 

@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 
 from django.forms import modelform_factory
 
-from .models import Ahorro, Sistema, Profile, Plazo
+from .models import Ahorro, Sistema, Profile, Plazo, CantidadFija, AhorrarEsLaMeta
 
 class SistemaSelect(forms.Select):
     def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
@@ -26,6 +26,21 @@ class CantidadForm(ModelForm):
         model = Ahorro
         fields = ['cantidad', 'sistema']
         widgets = {'sistema': SistemaSelect}
+
+class CantidadFormF(ModelForm):
+    class Meta:
+        model = Ahorro
+        fields = ['cantidad', 'sistemaF']
+        widgets = {'sistemaF': SistemaSelect}        
+
+
+
+class CantidadFormAM(ModelForm):
+    class Meta:
+        model = Ahorro
+        fields = ['cantidad', 'sistemaAM']
+        widgets = {'sistemaF': SistemaSelect}        
+
 
 # class DeleteCantidadForm(ModelForm):
 #     class Meta:
@@ -118,6 +133,8 @@ class CreateNewSystem(forms.ModelForm):
         return self.cleaned_data
 
 
+
+
 # class ArchiveSystem(forms.ModelForm):
 #     class Meta:
 #         model = Sistema
@@ -146,15 +163,70 @@ class EmailShareForm(forms.Form):
     ###### forms para sistemas de ahorro #####
     ##########################################
 
+
+
+class FormCantidadFija(forms.ModelForm):
+    class Meta:
+        model = CantidadFija
+        fields = ['nombre', 'user', 'frecuencia', 'tiempo', 'meta']
+        # fields = '__all__'
+    def validate(self):
+        super(CreateNewSystem, self).clean()
+        meta = self.cleaned_data.get('meta')
+        validate_number = RegexValidator(regex="\D")
+        print("@@@@@@#####@@@@@@@")
+        # if validate_number(meta):
+        if len(meta) < 5:
+            self._errors['meta'] = self.error_class(['Usa únicamente números'])
+        return self.cleaned_data
+
+
+
+# class FormCantidadFija(forms.ModelForm):
+#     class Meta:
+#         model = AhorrarEsLaMeta
+#         fields = ['nombre', 'user', 'frecuencia']
+#         # fields = '__all__'
+#     def validate(self):
+#         super(CreateNewSystem, self).clean()
+#         meta = self.cleaned_data.get('meta')
+#         validate_number = RegexValidator(regex="\D")
+#         print("@@@@@@#####@@@@@@@")
+#         # if validate_number(meta):
+#         if len(meta) < 5:
+#             self._errors['meta'] = self.error_class(['Usa únicamente números'])
+#         return self.cleaned_data
+
+
+
+class FormCantidadLaMetaEsAhorrar(forms.ModelForm):
+    class Meta:
+        model = AhorrarEsLaMeta
+        fields = ['nombre', 'user', 'frecuencia']
+        # fields = '__all__'
+    def validate(self):
+        super(CreateNewSystem, self).clean()
+        meta = self.cleaned_data.get('meta')
+        validate_number = RegexValidator(regex="\D")
+        print("@@@@@@#####@@@@@@@")
+        # if validate_number(meta):
+        if len(meta) < 5:
+            self._errors['meta'] = self.error_class(['Usa únicamente números'])
+        return self.cleaned_data
+
+
+
+
+
 # model Sistema
-class FormMismaCantidad(forms.ModelForm):
-    '''
-    Ahorro en que cada ves que se ahorra es la misma cantidad
-    tiempo entre meta igual a cantidad
-    t/m = C
-    '''
-    model = Sistema
-    fields = ['nombre', 'user', 'frecuencia', 'tiempo', 'meta']
+# class FormCantidadFija(forms.ModelForm):
+#     '''
+#     Ahorro en que cada ves que se ahorra es la misma cantidad
+#     tiempo entre meta igual a cantidad
+#     t/m = C
+#     '''
+#     model = CantidadFija
+#     fields = ['nombre', 'user', 'frecuencia', 'tiempo', 'meta']
 
 #model: en el modelo sistema no tenemos cantidad!  
 #variacion de cantidad

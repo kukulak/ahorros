@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 # Register your models here.
 
-from .models import Profile, Color, Plazo, Ahorro, Sistema, PrePlazo
+from .models import Profile, Color, Plazo, Ahorro, Sistema, PrePlazo, CantidadFija, AhorrarEsLaMeta
 
 
 @admin.register(Profile)
@@ -18,7 +18,7 @@ class PLazoAdmin(admin.ModelAdmin):
 # admin.site.register(Plazo, ShowID)
 
 class AhorroAdmin(admin.ModelAdmin):
-    list_display = ('cantidad', 'sistema', 'fecha', 'id')
+    list_display = ('cantidad', 'sistema', 'sistemaF', 'fecha', 'id')
 admin.site.register(Ahorro, AhorroAdmin)
 
 admin.site.register(PrePlazo)
@@ -28,5 +28,17 @@ class SistemaAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'user', 'meta', 'url', 'image', 'created', 'id']
     list_filter = ['created']
 
+
+@admin.register(CantidadFija)
+class CantidadFijaAdmin(admin.ModelAdmin):
+    list_display = ['nombre', 'user', 'meta', 'url', 'image', 'created', 'id']
+    list_filter = ['created']
+
+
+
+@admin.register(AhorrarEsLaMeta)
+class AhorrarEsLaMetaAdmin(admin.ModelAdmin):
+    list_display = ['nombre', 'user', 'url', 'image', 'created', 'id']
+    list_filter = ['created']
 
 

@@ -73,6 +73,12 @@
                     {% for frec in my_systems %}
                         <p class="eData"> {{ frec.nombre }} </p>
                     {% endfor %}
+                    {% for frec in my_systemsF %}
+                        <p class="eData"> {{ frec.nombre }} </p>
+                    {% endfor %}
+                    {% for frec in my_systemsAM %}
+                        <p class="eData"> {{ frec.nombre }} </p>
+                    {% endfor %}
                 </div>
                 
         </div>
@@ -89,6 +95,9 @@
             <h1>Metas de ahorro</h1>
             <div class="contenedorData">
                 {% for pl in my_systems %}
+                    <p class="eData"> ${{ pl.meta|intcomma }}.00 </p>
+                {% endfor %}
+                {% for pl in my_systemsF %}
                     <p class="eData"> ${{ pl.meta|intcomma }}.00 </p>
                 {% endfor %}
             </div>   

@@ -460,6 +460,13 @@ input[type=text]:focus {
 }
 
 
+.gridTarjetasCrea{
+    display: grid;
+    justify-items: center;
+
+}
+
+
 .loader{
     top: 0;
     position: fixed;
@@ -511,7 +518,7 @@ input[type=text]:focus {
     justify-items: center;
     /* max-width: 870px; */
     width: 56%;
-    grid-row: 2;
+    /* grid-row: 2; */
     /* grid-column-start: 2; */
     grid-column-start: 1;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -1054,6 +1061,10 @@ input[type=text]:focus {
     /* transform: scale(1.1); */
 }
 
+.rCantidad{
+    outline: none;
+}
+
 .rCantidad::after{
     content: ".00";
     font-size: 40px;
@@ -1062,6 +1073,21 @@ input[type=text]:focus {
 .rCantidad::before{
     content: "$";
     font-size: 40px;
+}
+
+.rCantidad:focus{
+    /* border: solid 5px red; */
+}
+
+
+.rCantidad:focus-visible{
+    border-bottom: solid 1px darkorange;
+
+}
+
+.rCantidad:active{
+    /* border: solid 15px green; */
+
 }
 
 #ahorrado{
@@ -1562,6 +1588,10 @@ input[type=text]:focus {
     display: none;
 }
 
+
+#aviso{
+    font-size: 20px;
+}
 
 /* ###########
 ################

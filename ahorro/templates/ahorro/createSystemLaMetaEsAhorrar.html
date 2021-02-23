@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}LA META ES AHORRAR{% endblock %}
+
+{% block content %}
+
+<section class="sectionCreate sectionUser">
+    <style>
+        select{
+            padding: 10px 10px;
+            color: #333333;
+            font-weight: 500;
+            outline: none;
+            transition: background-color 0.4s ease-in-out;
+            width: -webkit-fill-available;
+        }
+
+        /* .formContainerCreate{
+            width: 220px;
+        } */
+    </style>
+    <div class="welcomeText">
+        <div class="logText">
+          <h1>Personaliza tu ahorro</h1>
+          <br />
+          <p>
+              Aqu&iacute; la Meta es Ahorrar. 
+              Sólo ponle meta a tu ahorro.  
+              Tu decides con que freciencia quieres que te recordemos ahorrar o No.
+              Tu ahorras y nosotros te decimo cuanto llevas y cuando lo ahorraste.
+          </p>
+        </div>
+
+        <div>
+            <br>
+            <a  href="{% url 'ahorro:dashboard' %}"> &lt; REGRESAR &emsp;</a>
+          
+               
+            
+        </div>
+  
+      
+    </div>  
+    <div class="login-form logForm">
+        
+        <div class="formContainer formContainerCreate">
+            <form action="." method="POST" enctype="multipart/form-data" >
+                {% csrf_token %}
+                {{ form.as_p }}
+              
+              
+                <p><input id="enviar" type="submit" value="CREAR"></p>
+            </form>
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+</section>
+
+
+
+{% endblock %}

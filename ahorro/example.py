@@ -4,38 +4,44 @@ import random
 
 # lista_de_totales = [1, 5]
 
-def mismaCantidad(frecuencia, tiempo, meta):
+def cantidadFija(frecuencia, tiempo, meta):
     '''
     Ahorro en que cada ves que se ahorra es la misma cantidad
     tiempo entre meta igual a cantidad
+    es entre frecuencia dentro de un tiempo especifico
+    primero es cuantas frecuencias hay en el tiempo y de ahi sacar que cantidad en cada frecuencia
     t/m = C
     '''
-    cantidad = tiempo/meta
 
-    print(cantidad)
+    nfrecuencia = tiempo/frecuencia
+    cantidad = meta/math.floor(nfrecuencia)
+    cantidad = math.ceil(cantidad)
+    print(nfrecuencia)
+    print('Cantidad fija:', cantidad)
 
-    ahorroIguales = 0
-    return ahorroIguales
+    
+    return cantidad
 
+cantidadFija(15, 365, 60000)
 
 def sinLimiteDeTiempo(cantidad, frecuencia, meta):
     '''
      que pasa en el caso en el que el tiempo se define por la meta y lo que puedo ahorrar cada vez
     En este caso yo defino la cantidad que puedo ahorrar, y mi meta el tiempo es el que será variable
     m/c = T
-
+    en este caso ahorras y ahorras hasta llegar a la meta, nada que deba llevar logica
     '''
 
     tiempo = meta/cantidad
-    
-    print(tiempo)
+    tiempo = math.ceil(tiempo)
+    print(tiempo, 'pagos * la frecuencia')
 
-    ahorroIguales = 0
-    return ahorroIguales
+    # ahorroIguales = 0
+    return tiempo
 
+sinLimiteDeTiempo(230, 1, 60000)
 
-
-def variableMeta(sumaCantidades, frecuencia, cantidad_variable, meta):
+def libreSinTiempo(sumaCantidades, frecuencia, cantidad_variable, meta):
     '''
     Ahorro en el que cada vez que se ahorra es con una cantidad variable pero 
     la meta es la misma
@@ -59,15 +65,17 @@ def variableMeta(sumaCantidades, frecuencia, cantidad_variable, meta):
     # ahorroVariableMeta = 0
     return sumaCantidades
     
-def variableNoMeta(frecuencia, cantidad_variable):
+
+
+def ahorrarEsLaMeta(frecuencia, cantidad_variable):
     '''
     tu meta es ahorrar. ahorras con periodicidad pero sin una meta especifica
     ahorras una cantidad abierta, un porecntaje de sueldo o 
-    tu ganancias pasivas
+    tus ganancias pasivas
     aqui llevas el control de cuanto es lo que ahorras cada vez y cuanto es tu total
     en este caso estaria chido tener cantidad que se reste?
     '''
-
+    
     cantidad_variable += cantidad_variable
 
     ahorroVariableNoMeta = 0
@@ -98,6 +106,7 @@ def Lista_total(lista_de_totales):
     lTotales = lista_de_totales
 
     lPaso1 = str(lista_de_totales)[1:-1]
+    
 
     # print(lPaso1)
 
@@ -169,7 +178,8 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
     # frecuencia = int(frecuencia)
     # meta = int(meta)
     # total = 0
-    maxN = 365
+    # maxN = 365
+    maxN = 275
     mytotal = 0
     metaList = []
     cantidadList = []
@@ -177,32 +187,37 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
     # ahorroList = []
 
     posList = [0, 0, frecuencia/2, frecuencia-1]
+    print("posList:")
+    print(posList)
     # numDown = maxN/2
     ix = str(maxN)
     x = math.trunc(maxN / int(ix[0]))
 
-    #creamos una lista length frecuancia index con 0 como valor
+    #creamos una lista length frecuencia index con 0 como valor
     for i in range(frecuencia):
         cantidadList.append(0*i)
 
-    # print("originalListUNO:")
-    # print(cantidadList)
+    print("originalListUNO:")
+    print(cantidadList)
 
 
-    #tomamos la lista y le gregamos los valores en [posList] 
+    #tomamos la lista y le agregamos los valores en [posList] 
     for i in range(3+1):
         cantidadList[int(posList[i])]=(x*i)
+        print(cantidadList)
 
-    # print("originalListDOS:")
-    # print(cantidadList)
+    cantidadList[0] = 1
+
+    print("originalListDOS:")
+    print(cantidadList)
 
     #lista llena de valores diferentes a cero, entre los valores resultantes de posList
     for i in range(frecuencia):
         if cantidadList[i] == 0:
             cantidadList[i] = cantidadList[i-1]+1
 
-    # print("originalListTRES:")
-    # print(cantidadList)
+    print("originalListTRES:")
+    print(cantidadList)
 
     #sumamos todos los valores de la lista para ver que tenemos que hacer
     for ele in range(0, len(cantidadList)):

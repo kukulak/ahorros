@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} ARCHIVO | DASHBOARD {% endblock %}
+{% block title %} ARCHIVO {% endblock %}
 {% load static %}
 
 {% block content %}
@@ -55,6 +55,7 @@
     <!-- <h1 class="titulo">ELIGE TU FRECUENCIA DE AHORRO</h1> -->
     
     <div class="contenedorTarjeta">
+        
         {% for frec in archived %}
            
                 <a href="{{ frec.archived_url }}" class="tarjeta tarjetaDash t1 sombra">
@@ -77,6 +78,54 @@
 
                 </a>
              
+        {% endfor %}
+
+        {% for ahorroF in archivedF %}
+           
+            <a href="{{ ahorroF.archived_url }}" class="tarjeta tarjetaDash t1 sombra">
+                
+                <div class="tColor" style="background-color: #00ffe7;"></div>  
+
+                <div style="background-color: #00ffe7;" class="{{ ahorroF.exito }}"> 
+                    <p> META CUMPLIDA </p>
+                </div>
+
+                <p style="color: {{ahorroF.color}};">Para <span class="tTitulo"> {{ ahorroF.nombre }} </span> llevas:</p>
+        
+                <div>
+                    {% load humanize %}
+                    <h1 id="moneyNumber" class="tCantidadDash" style="color: {{ahorroF.color}};">{{ ahorroF.total_ahorrado|intcomma }}</h1>
+                    <p id="metaNumber" class="metaNumber">Meta: ${{ ahorroF.meta|intcomma }}.00 </p>
+                </div>
+
+                <div class="btnTarjeta {{ ahorroF.exito }}" href="{{ ahorroF.archived_url }}" onMouseOut="this.style.background='#00ffe7'" onMouseOver="this.style.background='#00B09F'" style="background-color: #00ffe7;">DETALLES</div>
+
+            </a>
+        
+        {% endfor %}
+
+        {% for ahorroAM in archivedAM %}
+                
+            <a href="{{ ahorroAM.archived_url }}" class="tarjeta tarjetaDash t1 sombra">
+                
+                <div class="tColor" style="background-color: #03A83D;"></div>  
+
+                <!-- <div class="{{ ahorroAM.exito }}"> 
+                    <p> META CUMPLIDA </p>
+                </div> -->
+
+                <p style="color: {{ahorroAM.color}};">Para <span class="tTitulo"> {{ ahorroAM.nombre }} </span> llevas:</p>
+
+                <div>
+                    {% load humanize %}
+                    <h1 id="moneyNumber" class="tCantidadDash" style="color: {{ahorroAM.color}};">{{ ahorroAM.total_ahorrado|intcomma }}</h1>
+                    <!-- <p id="metaNumber" class="metaNumber">Meta: ${{ ahorroAM.meta|intcomma }}.00 </p> -->
+                </div>
+
+                <div class="btnTarjeta {{ ahorroAM.exito }}" href="{{ ahorroAM.archived_url }}" onMouseOut="this.style.background='#03A83D'" onMouseOver="this.style.background='#37FB86'" style="background-color: #03A83D">DETALLES</div>
+
+            </a>
+
         {% endfor %}
   
 

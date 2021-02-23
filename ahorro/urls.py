@@ -2,7 +2,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from ahorro.views import ahorros, dashboard, register, edit, createSys, dashFierros, archived, userArchived
+from ahorro.views import ahorros, dashboard, register, edit, createSys, dashFierros, archived, userArchived, userArchivedF, userArchivedAM, userSystemFijo, createSysLaMetaEsAhorrar, userSystemAhorrarMeta
 from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
@@ -19,6 +19,8 @@ urlpatterns = [
     path("estadistics/", views.dashFierros, name="estadistics"),
     
     path("crearSistema/", views.createSys, name="create"),
+    path("crearSistemaFijo/", views.createSysFijo, name="createFijo"),
+    path("crearSistemaLaMetaEsAhorrar/", views.createSysLaMetaEsAhorrar, name="createLaMetaEsAhorrar"),
     # path("crearPlazo/", views.createPla, name="createp"),
     path("register/", views.register, name="register"),
     
@@ -29,8 +31,12 @@ urlpatterns = [
     path('user', views.user, name='loguser'),
    
     path('system', views.system, name='system'),
+    path('fijoSystem/<int:id>', views.userSystemFijo, name='fijoSystem'),
+    path('MetaAhorrarSystem/<int:id>', views.userSystemAhorrarMeta, name='MetaAhorrarSystem'),
     path('userSystem/<int:id>', views.userSystem, name='userSystem'),
     path('userArchived/<int:id>', views.userArchived, name='userArchived'),
+    path('userArchivedF/<int:id>', views.userArchivedF, name='userArchivedF'),
+    path('userArchivedAM/<int:id>', views.userArchivedAM, name='userArchivedAM'),
   
 
     # change password urls
