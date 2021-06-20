@@ -381,8 +381,8 @@ def edit(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, 'Profile updated successfully')
-        else: messages.error(request, 'Error updating your profile') 
+            messages.success(request, 'Perfil actualizado con éxito')
+        else: messages.error(request, 'Error al actualizar perfil') 
     else:
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(
@@ -795,6 +795,7 @@ def userSystemFijo(request, id):
 
 '''
 EL SISTEMA LA META ES AHORRAR COMPLETO
+    AHORRAR ES LA META
 '''
 
 def userSystemAhorrarMeta(request, id):
@@ -826,9 +827,21 @@ def userSystemAhorrarMeta(request, id):
                 sistema = form.save()
                 elSistema = str(sistema.sistemaAM)
                 messages.success(request, f'¡Ahorraste ${intcomma(sistema.cantidad)}.00 para {elSistema.upper()}!')
-                print("^^^SAVED^^^")
+
+                # if user_form.is_valid() and profile_form.is_valid():
+                #     user_form.save()
+                #     profile_form.save()
+                #     messages.success(request, 'Perfil actualizado con éxito')
+                # else: messages.error(request, 'Error al actualizar perfil') 
+
+                print("^^^SAVED MEGA^^^")
                 time.sleep(0.3)
                 return redirect('/')
+            else:
+                print(CantidadFormAM().non_field_errors()) 
+                form = CantidadFormAM()
+                messages.error(request, 'Ahorra más de $10.00 pesos y usa únicamente números') 
+
         else:
             form = CantidadFormAM()
 

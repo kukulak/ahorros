@@ -2,6 +2,7 @@ from django import forms
 
 from django.forms import ModelForm, CharField, TextInput
 from django.core.exceptions import ValidationError
+from django.forms.utils import ErrorList
 
 from django.core.validators import RegexValidator
 
@@ -36,11 +37,30 @@ class CantidadFormF(ModelForm):
 
 
 class CantidadFormAM(ModelForm):
+    cantidad = forms.IntegerField(error_messages={'required': 'Please let us know what to call you!'})
     class Meta:
         model = Ahorro
         fields = ['cantidad', 'sistemaAM']
-        widgets = {'sistemaF': SistemaSelect}        
-
+        widgets = {'sistemaAM': SistemaSelect}   
+    
+    # def clean_cantidad(self):
+    #     cantidad = self.cleaned_data.get('cantidad')
+    #     if not cantidad:
+    #         raise forms.ValidationError('requerido')
+    #     return cantidad          
+    # def validate(self):
+    #     meta = self.cleaned_data.get('meta')
+    #     validate_number = RegexValidator(regex="\D")
+    #     # if validate_number(meta):
+    #     print("*-*-**-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
+    #     if len(meta) < 5:
+    #         # self._errors['meta'] = self.error_class(['Usa números únicamente'])
+    #         raise formsValidationError('Usa números únicamente')
+    #     if meta < 10:
+    #         raise formsValidationError('Ahorra más de $10.00 pesos, tu puedes')
+    #         # self._errors['meta'] = self.error_class(['Ahorra más de $10.00 pesos, tu puedes'])   
+    #         # raise forms.ValidationError("End date should be greater than start date.") 
+    #     return self.cleaned_data
 
 # class DeleteCantidadForm(ModelForm):
 #     class Meta:
@@ -211,7 +231,11 @@ class FormCantidadLaMetaEsAhorrar(forms.ModelForm):
         print("@@@@@@#####@@@@@@@")
         # if validate_number(meta):
         if len(meta) < 5:
-            self._errors['meta'] = self.error_class(['Usa únicamente números'])
+            self._errors['meta'] = self.error_class(['Usa números únicamente'])
+        if meta < 10:
+            # raise formsValidationError('Ahorra más de $10.00 pesos, tu puedes')
+            self._errors['meta'] = self.error_class(['Ahorra más de $10.00 pesos, tu puedes'])   
+            # raise forms.ValidationError("End date should be greater than start date.") 
         return self.cleaned_data
 
 
@@ -257,7 +281,7 @@ class FormVariableMeta(forms.ModelForm):
 class FormVariableNoMeta(forms.ModelForm):
     '''
     Tu meta es ahorrar. ahorras con periodicidad pero sin una meta especifica
-    ahorras una cantidad abierta, un porecntaje de sueldo o 
+    ahorras una cantidad abierta, un porcentaje de sueldo o 
     tu ganancias pasivas
     aqui llevas el control de cuanto es lo que ahorras cada vez y cuanto es tu total
     en este caso estaria chido tener cantidad que se reste?

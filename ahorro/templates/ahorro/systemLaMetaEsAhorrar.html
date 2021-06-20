@@ -28,9 +28,12 @@
         {% block content %}
         <div class="saludo">
             {% load humanize %}
-            <h3>Hola <span class="upperCase"> {{ user.username|default:'Guest' }} </span> </h3><h5>Continua tu ahorro para</h5>
+            <!-- <h3>Hola <span class="upperCase"> {{ user.username|default:'Guest' }} </span> </h3> -->
+            <h5>Continua tu ahorro para</h5>
             <p class="upperCase"> {{ sistema.nombre }} </p>
-            <p id="aviso"></p>
+            <!-- <p id="aviso">
+
+            </p> -->
             <!-- <p id="metaNumber" class="metaNumber">Meta ${{ sistema.meta|intcomma }}.00 </p> -->
             
             <a  href="{% url 'ahorro:dashboard' %}"> &lt; REGRESAR </a>
@@ -42,6 +45,12 @@
             <div id="contenedorCasillas">    
 
                 <div class="casillaCantidad">
+
+                
+
+                    <!-- <p id="aviso">
+                
+                    </p> -->
                     
                     
                     {% if my_ahorro >= sistema.meta %}
@@ -52,7 +61,25 @@
                     {% else %}
                     <div id="exito"></div>
                     <div id="casillaCantidad" class="casilla cantidad sombra">
-                            <p>&iquest;CUANTO VAS A AHORRAR?</p>
+                        
+
+                        {% if messages %}
+                            <div class="messages">
+                                {% for message in messages %}
+                                    <p id="avis" class="{{ message.tags }}">
+                                    {{ message|safe|intcomma  }}
+                                        <a href="#" class="close">x</a>
+                                    </p>
+                                {% endfor %}
+                            </div>
+        
+                        {% else %}
+                        <p id="avis1o">&iquest;CUANTO VAS A AHORRAR?</p>
+                        {% endif %}
+                        <!-- <h1 class="titulo"> Hola, {{ request.user.username|default:'Guest'|upper }}!</h1> -->
+        
+
+    
                             
                             <div class="nData" id="rData" >
                                 <div class="nDecorado"> </div>

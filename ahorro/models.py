@@ -441,16 +441,17 @@ class AhorrarEsLaMeta(models.Model):
 
 
 
-##################################################
-#
-#         EN DONDE SE GUARDAN LOS AHORROS
-#
-###############################################
+#####################################################
+#                                                   #
+#         EN DONDE SE GUARDAN LOS AHORROS           #
+#                                                   #
+#####################################################
 
 
 
 class Ahorro(models.Model):
-    cantidad = models.IntegerField(validators=[MinValueValidator(10, message="Vamos, a que puedes ahorrar mas de 10 pesos")])
+    cantidad = models.IntegerField(validators=[MinValueValidator(10, message="Vamos, a que puedes ahorrar más de 10 pesos")])
+    # cantidad = models.IntegerField()
     # meta = models.IntegerField(validators=[MinValueValidator(1825, message="Ahorra a partir de 2000")])
     fecha = models.DateTimeField(default = timezone.now)
     sistema = models.ForeignKey(Sistema, related_name = 'ahorros', on_delete=models.CASCADE, null=True, blank=True)
