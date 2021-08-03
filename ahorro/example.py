@@ -132,14 +132,18 @@ def Lista_total(lista_de_totales):
 
 
     miAhorro = 0
-    # print("debug ERROR")
-    # print(lista_de_totales)
+
+    print("debug ERROR")
+    print(lista_de_totales)
     # print(lista_de_totales[1])
     # print(clean_list[2])
-    # print(clean_list)
-
+    print(clean_list)
+    print("MIAHORRO")    
+    print(miAhorro)
     for ele in range(0, len(clean_list)):
         miAhorro = miAhorro + clean_list[ele]  
+    print("MIAHORRO")    
+    print(miAhorro)
 
     return miAhorro
 # def totals():
@@ -171,10 +175,10 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
     #     print('aqui vamos otra vez')
     #     print(meta)
 
-    print('numero clave', int(tiempo/frecuencia))
-    print('frecuencia:', frecuencia)
-    print('tiempo:', tiempo)
-    print('meta:', meta)
+    # print('numero clave', int(tiempo/frecuencia))
+    # print('frecuencia:', frecuencia)
+    # print('tiempo:', tiempo)
+    # print('meta:', meta)
     # frecuencia = int(frecuencia)
     # meta = int(meta)
     # total = 0
@@ -187,8 +191,8 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
     # ahorroList = []
 
     posList = [0, 0, frecuencia/2, frecuencia-1]
-    print("posList:")
-    print(posList)
+    # print("posList:")
+    # print(posList)
     # numDown = maxN/2
     ix = str(maxN)
     x = math.trunc(maxN / int(ix[0]))
@@ -197,27 +201,32 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
     for i in range(frecuencia):
         cantidadList.append(0*i)
 
-    print("originalListUNO:")
-    print(cantidadList)
+    # print("originalListUNO:")
+    # print(cantidadList)
 
 
     #tomamos la lista y le agregamos los valores en [posList] 
     for i in range(3+1):
         cantidadList[int(posList[i])]=(x*i)
-        print(cantidadList)
+        # print(cantidadList)
 
-    cantidadList[0] = 1
+    cantidadList[0] = 10
+    cantidadList[int(len(cantidadList)/2)] = int(meta/(tiempo/frecuencia))
+    cantidadList[len(cantidadList)-1] = int(meta/(tiempo/frecuencia)*2)
 
-    print("originalListDOS:")
-    print(cantidadList)
+    # print('METAENTREFRECUENCIA')
+    # print(meta/frecuencia)
+
+    # print("originalListDOS:")
+    # print(cantidadList)
 
     #lista llena de valores diferentes a cero, entre los valores resultantes de posList
     for i in range(frecuencia):
         if cantidadList[i] == 0:
             cantidadList[i] = cantidadList[i-1]+1
 
-    print("originalListTRES:")
-    print(cantidadList)
+    # print("originalListTRES:")
+    # print(cantidadList)
 
     #sumamos todos los valores de la lista para ver que tenemos que hacer
     for ele in range(0, len(cantidadList)):
@@ -231,34 +240,56 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
     for ele in range(0, len(cantidadList)):
         ototal = ototal + cantidadList[ele] 
 
-
+   
+    cantidadList[0] = 10  
     while ototal < meta:
-        # print("pero soy menor", ototal)
         for i in range(frecuencia):
-            ototal+=1
-            cantidadList[i] = cantidadList[i]+1
+            ototal+=100
+            # print(i+1, "pero soy menor", ototal)
+            cantidadList[i] = cantidadList[i]+100
            
     else:
         pass  
 
-        
     ototal = 0
     for ele in range(0, len(cantidadList)):
         ototal = ototal + cantidadList[ele] 
     
+    
+    # print("")
+    # print("")
+    # print("<><<><><><")
+    # print(ototal)
+    # print(cantidadList)
+    # print("")
+    # print("")
+
     remanent = 0
 
     if ototal < meta:
         remanent = meta - ototal
-        # print("menor que remanent", remanent)
+        print("menor que remanent", remanent)
 
     diferenceList = []
+    recoveryList = []
     valorX = 0
     untotal = 0
+    for ra in range(len(cantidadList)):
+        recoveryList.append(int(cantidadList[len(cantidadList)-1]/len(cantidadList)))
+        cantidadList[len(cantidadList)-1] = cantidadList[0]
+        cantidadList[ra] = cantidadList[ra]+recoveryList[ra]
+
     while ototal > meta:
+        # print("WORKING")
+        # print(recoveryList)
+        for lp in range(len(cantidadList)):
+            if cantidadList[lp] < 10:
+                # print(cantidadList)
+                cantidadList[lp] = cantidadList[lp] + 1
+
         remanent = ototal - meta  
-        
         # print("mayor que remanent", remanent)
+        
         # print("")
 
         valorX = remanent/frecuencia
@@ -268,7 +299,17 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
         for i in range(frecuencia):
             diferenceList.append(math.trunc(valorX))
 
+        # print("first")
+        # print("diferenciList:", diferenceList)
         diferenceList = diferenceList[:frecuencia]
+
+        # divergentList = []
+        # for i in range(frecuencia):
+        #     divergentList.append(diferenceList[i]+i+1)
+        #     print('waitWhat what IS THIS', i)
+        #     print(divergentList)
+
+        # print("second")
         # print("diferenciList:", diferenceList)
 
         for i in range(frecuencia):
@@ -276,6 +317,7 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
                 cantidadList[i] = cantidadList[i] - diferenceList[i]
            
         untotal = 0    
+      
         for ele in range(0, len(cantidadList)):
             untotal = untotal + cantidadList[ele]
         ototal = untotal
@@ -287,10 +329,14 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
             while ototal>meta:
 
                 untotal = 0    
+                
+             
+                
                 for ele in range(0, len(cantidadList)):
                     untotal = untotal + cantidadList[ele]
-                cantidadList.sort(reverse=True)
 
+                cantidadList.sort(reverse=True)
+        
                 # print("LISTA EN PROCESO - con estos valores:")
                 # print(cantidadList)
                 # print("la suma de la lista es:")
@@ -301,9 +347,10 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
                 for i in range(remanent):
                     metaList.append(1)
                 
-
+                
                 metaList.extend(diferenceList) 
                 metaList = metaList[:frecuencia]
+                # print("this IS METALIST")
                 # print(metaList)
                 
                 for i in range(frecuencia):
@@ -403,9 +450,12 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
     
     # print("antes de la resta de cantidadList en mytotal:", mytotal)
     # print(lTotales)
+
+
+
     restarLista = clean_list
-    # print(restarLista)
-    # print("@@@@@@------@@@@@@")
+    print(restarLista)
+    print("@@@@@@------@@@@@@")
 
     # t.lista_de_totales
     for lt in range(0, len(restarLista)):
@@ -416,9 +466,11 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
             # print(restarLista[lt])
             cantidadList.remove(restarLista[lt])
 
-    # print("@@@@@@------@@@@@@")
+    print("@@@@@@------@@@@@@")
 
-    # print(cantidadList) 
+
+    print("CANTIDAD LIST")
+    print(cantidadList) 
 
     mytotal = 0
 
@@ -442,3 +494,73 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
 
 
 # sistema_Ahorro(365, 365, 365)
+
+
+def restArray(originalList, restarLista):
+    print(type(originalList), originalList)
+    print('***restar lisa***')
+    print(type(restarLista), restarLista)
+
+    if len(originalList) <= 0:
+        originalList = [0, 0] 
+
+
+    if len(restarLista) <= 0:
+        restarLista = [0, 0] 
+
+    lPaso1 = str(restarLista)[1:-1]
+
+    lPaso2 = lPaso1.replace('QuerySet', '').replace(' ', '').replace('[', '').replace(']', '').replace(':', '').replace('Ahorro', '').replace('<', '').replace('>', '')
+  
+    splitList = lPaso2.split (",")
+ 
+
+    global clean_list
+    clean_list = []
+    
+    for c in splitList:
+        clean_list.append(int(c))
+
+
+    print("(*)()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()")
+    a = 1235456
+    originalList = originalList.split(',')
+    print(originalList)
+
+    # originalList = originalList.replace('[', '').replace(']', '')
+    paso_list = []
+    for list in originalList:
+        new_lis = list.replace('[', '').replace(']', '').replace("\'", "")
+        paso_list.append(new_lis)
+
+    # print(type(new_list))
+    # print(originalList)
+    print('-')
+    new_list = []
+    for list in paso_list:
+        new = int(list)
+        new_list.append(new)
+
+    print("originalList es igual a newList", new_list)
+    print("restar lista es igual a cleanLIst", clean_list)
+    # t.lista_de_totales
+    for lt in range(0, len(clean_list)):
+        if not clean_list[lt] in new_list:
+            print('anti EXISTENCIA')
+            print(lt, new_list[1], clean_list[0])
+        else:
+            print('ERASER')
+            print(clean_list[lt])
+            new_list.remove(clean_list[lt])
+
+    print(")()()()()()()()()()()()()(*)()()()()()()()()()()()()()()()()()(")
+
+    print('')
+    print('')
+    print("MINUEVALISTA")
+    print(new_list) 
+    print('')
+    
+    print('¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘')
+    print('')
+    return new_list

@@ -83,7 +83,7 @@
                         <p> META CUMPLIDA </p>
                     </div>
 
-                    <p style="color: {{frec.color}};">Para <span class="tTitulo"> {{ frec.nombre }} </span> llevas:</p>
+                    <p class="txtChico" style="color: {{frec.color}};">Para <span class="tTitulo"> {{ frec.nombre }} </span> llevas:</p>
                
                     <div>
                         {% load humanize %}
@@ -106,7 +106,7 @@
                 <p> META CUMPLIDA </p>
             </div>
 
-            <p style="color: {{fija.color}};">Para <span class="tTitulo"> {{ fija.nombre }} </span> llevas:</p>
+            <p class="txtChico" style="color: {{fija.color}};">Para <span class="tTitulo"> {{ fija.nombre }} </span> llevas:</p>
        
             <div>
                 {% load humanize %}
@@ -126,11 +126,11 @@
             
             <div class="tColor" style="background-color: {{laMeta.color}}; background-color: #03A83D;"></div>  
 
-            <p style="color: {{laMeta.color}};">Para <span class="tTitulo"> {{ laMeta.nombre }} </span> llevas:</p>
+            <p class="txtChico" style="color: {{laMeta.color}};">Para <span class="tTitulo"> {{ laMeta.nombre }} </span> llevas:</p>
 
             <div>
                 {% load humanize %}
-                <h1 id="moneyNumber" class="tCantidadDash" style="color: {{laMeta.color}};">{{ laMeta.total_ahorrado|intcomma }}</h1>
+                <h1 id="moneyNumber" class="tCantidadDash" style="color: {{laMeta.color}}">{{ laMeta.total_ahorrado|intcomma }}</h1>
             </div>   
             <div class="btnTarjeta {{ laMeta.exito }}" href="{{ laMeta.get_absolute_url }}" onMouseOut="this.style.background='#03A83D'"  style="background-color: #03A83D;" onMouseOver="this.style.background='#37FB86'" style="background-color: {{laMeta.color}};">AHORRAR</div>
 

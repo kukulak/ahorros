@@ -45,7 +45,7 @@
                 {{ form.as_p }}
               
               
-                <p><input id="enviar" type="submit" value="CREAR"></p>
+                <p><input onclick=getArray() id="enviar" type="submit" value="CREAR"></p>
             </form>
 
 
@@ -58,6 +58,18 @@
     </div>
 
 
+
+
+        <script type="text/javascript">
+            
+            var descriptionArr = document.getElementById("id_description");
+            var laCadena = ["{{ sistema.my_list|escapejs }}"];
+            
+        function getArray(){
+            descriptionArr.innerHTML = "laCadena";
+        }    
+                    
+        </script>
 
 
 

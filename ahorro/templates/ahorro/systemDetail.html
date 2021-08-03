@@ -34,13 +34,26 @@
             <div id="contenedorCasillas">    
 
                 <div class="casillaCantidad">
+ 
+                    {% if my_ahorro >= sistema.meta %}
+
+                    <div id="cantidad" style="display: none;">
+                        <div id="btnFirst"> </div>
+                        <div id="otro"></div>
+                        <div id="rData"></div>
+                        <div id="ahorrar"></div>
+                    </div>
 
                     <div id="exito" class="exito casilla">
                         ¡CUMPLISTE <br />TU META!
                     </div> 
 
+                    {% else %}
+
+                    <div id="exito"></div>
                     <div id="casillaCantidad" class="casilla cantidad sombra">
                         <p>CANTIDAD A AHORRAR</p>
+
                         <div id="btnFirst" onclick="firstRandom();" class="btnFirst">
                             CLIC <br /> PARA  SABER <br />CUANTO AHORRAR
                         </div>
@@ -58,6 +71,7 @@
                             AHORRAR
                         </button>
                     </div>
+                    {% endif%}
                     
                 </div>
 
@@ -80,6 +94,7 @@
                             <!-- <p>1 de enero $32.00</p><p>2 de enero $55.00</p><p>3 de enero $18.00</p><p>5 de enero $17</p><p>6 de enero $445.00</p><p>7 de enero $275.00</p><p>8 de enero $275.00</p> -->
 
                         </div>
+
                         <div class="nData" id="nData">
                             <div class="nDecorado" id="detailDecorado"> </div>
                             <div class="number" id="numberDecorado">
@@ -89,6 +104,7 @@
                                 
                             </div>    
                         </div>
+
                         <button onclick="detalleList(); window.location.href='#casAhorrado';" id="ver" class="unselectable btn detalle">
                             VER DETALLE
                         </button>
@@ -197,6 +213,7 @@
                     var ahorrado = document.getElementById("ahorrado");
                     var nData = document.getElementById("nData");
                     var formCantidad = document.getElementById("id_cantidad");
+                    
                     var lDetalle = document.getElementById("lDetalle");
                     var btnFirst = document.getElementById("btnFirst");
                     var otro = document.getElementById("otro");
@@ -209,6 +226,7 @@
                     btnFirst.style.display = "inherit";
                     otro.style.display = "none";
                     ahorrar.style.display = "none";
+                  
                     // lDetalle.style.display = "none";
 
                     console.log(">>>>>>>>", ahorrado.innerHTML.length)
@@ -295,7 +313,11 @@
                     
                     // var laCadena = document.getElementById("laCadena");
                     // var laCadena = ["{{ plazo.my_list|escapejs }}"];
-                    var laCadena = ["{{ sistema.my_list|escapejs }}"];
+                    // var laCadena = ["{{ sistema.my_list|escapejs }}"];
+                    // var laCadena = ["{{ sistema.description|escapejs }}"];
+                    var laCadena = ["{{ listaFinal|escapejs }}"];
+                    console.log("A NO MANCHES", laCadena)
+                    
                     var cantidad = document.getElementById("cantidad");
                     var nuevaCadena = Array.from(laCadena);
                     var extractFirst = nuevaCadena[0]
@@ -313,22 +335,23 @@
                     console.log(getArray.length)
                     console.log(min)
                     console.log(max)
-
-                    var casillaCantidad = document.getElementById("casillaCantidad");
-
-                    var exito = document.getElementById("exito");    
-                    exito.style.display = "none"                
-                    if (getArray[0] === "") { 
-                        casillaCantidad.style.display = "none";
-                        exito.style.display = "grid";
-                        console.log("Array is empty!")
-                     }
                     
-                    var thenumbers = 0
-
+                    var casillaCantidad = document.getElementById("casillaCantidad");
+                    
+                    var exito = document.getElementById("exito");    
+                    // exito.style.display = "none"                
+                    // if (getArray[0] === "") { 
+                        //     casillaCantidad.style.display = "none";
+                        //     exito.style.display = "grid";
+                        //     console.log("Array is empty!")
+                        //  }
+                        
+                        var thenumbers = 0
+                        
                     var rData = document.getElementById("rData")
                     rData.style.display = "none";
-                    
+                    console.log('˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘¯˘')
+                        
                     function getMyNumber(){
                         
                         var intval = setInterval(function(){randomNumber();}, 1);
@@ -487,7 +510,7 @@
                     
                     
                     
-                    // PARA ARCHIVAR EL SISTEMA SE USA ESTOS BOTONES    contenedorArchivarSistema
+                    // PARA ARCHIVAR EL SISTEMA SE USAN ESTOS BOTONES    contenedorArchivarSistema
                     
                     
                     function formBorrarArchivar(){

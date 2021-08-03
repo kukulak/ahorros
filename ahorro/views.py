@@ -8,6 +8,7 @@ import time
 from .models import Color, Plazo, Ahorro, Sistema, PrePlazo, Profile, CantidadFija, AhorrarEsLaMeta
 
 from .example import sistema_Ahorro
+from .example import restArray
 
 from .example import Lista_total
 
@@ -99,21 +100,12 @@ def userSystem(request, id):
         ahorro = sistema.ahorros.all()                           
         #retorna el total ahorrado
         my_ahorro = Lista_total(list(ahorro))
+        
+        listaFinal = restArray(sistema.description, list(ahorro))
 
         form = CantidadForm(request.POST)
         form_archived = ArchiveSystem(request.POST, instance=sistema)
 
-        # if request.method == 'POST':
-        #     if form.is_valid():
-            
-        #         archive = form_archived.save()
-                
-        #         messages.success(request, f'¡Archivaste {sistema.nombre}!')
-        #         print("^^^ARCHIVED^^^")
-        #         time.sleep(0.3)
-        #         return redirect('/')
-        # else:
-        #     form_archived = ArchiveSystem()
 
         if request.method == 'POST':
             if form.is_valid():
@@ -131,13 +123,19 @@ def userSystem(request, id):
                     'ahorro/systemDetail.html',
                     {'sistema': sistema,
                     'ahorro': ahorro,
-                    "my_ahorro": my_ahorro,
+                    'my_ahorro': my_ahorro,
+                    'listaFinal': listaFinal,
                     'form': form,
                     'form_archived': form_archived})
     else:
         print('something') 
         return redirect('/')
 # end def user system
+
+
+
+
+
 
 
 def ahorros(request):
@@ -393,9 +391,20 @@ def edit(request):
                    'profile_form': profile_form})                  
 
 
+
+
+
+
+##########
+##############FORMULARIO
+########### guardar el array desde el origen
+##########
+
+
+
 def createSys(request):
     '''
-    CON PLAZO INCLUIDO
+    CON PLAZO INCLUIDO con cantidades variables
     '''
     user = request.user
     if request.method == 'POST':
@@ -405,6 +414,8 @@ def createSys(request):
             new_sistema = sys_form.save(commit=False)
           
             new_sistema.user = request.user
+            # rellenar la descripcion con el array de las cantidades asi no se tiene que computar esto cada vez que accedemos
+            new_sistema.description = sistema_Ahorro(int(new_sistema.frecuencia), int(new_sistema.tiempo), int(new_sistema.meta))
             new_sistema.save()
             
                         
@@ -428,7 +439,7 @@ def createSys(request):
 
 def createSysFijo(request):
     '''
-    CON PLAZO INCLUIDO
+    CON PLAZO INCLUIDO Cantidad Fija
     '''
     user = request.user
     if request.method == 'POST':

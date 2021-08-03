@@ -31,22 +31,6 @@ import re
 # Create your models here.
 
 
-# class CustomUser(AbstractBaseUser, PermissionsMixin):
-#     email = models.EmailField(_('email address'), unique=True)
-#     first_name = models.EmailField(max_length=200)
-#     is_staff = models.BooleanField(default=False)
-#     is_active = models.BooleanField(default=True)
-#     date_joined = models.DateTimeField(default=timezone.now)
-#     nombre = models.CharField(max_length=200)
-#     USERNAME_FIELD = 'email'
-#     # USERNAME_FIELD = 'username'
-#     REQUIRED_FIELDS = []
-
-#     objects = CustomUserManager()
-
-#     def __str__(self):
-#         return self.email
-
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_of_birth = models.DateField(blank=True, null=True)
@@ -61,40 +45,6 @@ class Color(models.Model):
         return self.HEX
 
 
-
-
-
-# class Sistema(models.Model):
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-#                             related_name='system_created',
-#                             on_delete=models.CASCADE)
-#     nombre = models.CharField(max_length=200)
-#     slug = models.SlugField(max_length=200, blank=True)
-#     # plazo = models.ForeignKey(Plazo, on_delete=models.CASCADE)
-#     description = models.TextField(blank=True)
-#     url = models.URLField(blank=True)
-#     image = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True)
-#     created = models.DateField(auto_now_add=True, db_index=True)
-#     users_like = models.ManyToManyField(settings.AUTH_USER_MODEL,
-#                                         related_name='images_liked',
-#                                         blank=True)
-#     total_likes = models.PositiveIntegerField(db_index=True, default=0)
-
-#     def __str__(self):
-#         return self.nombre
-
-#     def save(self, *args, **kwargs):
-#         if not self.slug:
-#             self.slug = slugify(self.nombre)
-#         super(Sistema, self).save(*args, **kwargs)
-    
-#     def get_absolute_url(self): 
-#         return reverse('ahorro:userSystem',
-#                         args=[self.id,])
-
-#     def absolute_url(self):
-#         return reverse('ahorro:sistemaDetalle',
-#                         args=[self.id,])
 
 
 
@@ -161,10 +111,11 @@ class Sistema(models.Model):
 
 
 
-    
+
     def my_list(self):
+        description = sistema_Ahorro(int(self.frecuencia), int(self.tiempo), int(self.meta))
         "retorna la division de frecuencia y tiempo"
-        return sistema_Ahorro(int(self.frecuencia), int(self.tiempo), int(self.meta))
+        return description
 
     def __str__(self):
         return self.nombre
@@ -185,12 +136,6 @@ class Sistema(models.Model):
     def archived_url(self):
         return reverse('ahorro:userArchived',
                         args=[self.id,])                    
-
-
-
-
-
-
 
 
 
@@ -229,14 +174,16 @@ class Plazo(models.Model):
  
     meta = models.CharField(max_length=200)
     sistema = models.ForeignKey(Sistema, related_name = 'sistema', on_delete=models.CASCADE)
+
+
+
  
     def my_list(self):
         "retorna la division de frecuencia y tiempo"
         # return int(self.frecuencia) * int(self.tiempo)
         return sistema_Ahorro(int(self.frecuencia), int(self.tiempo), int(self.meta))
-    # def absolute_url(self):
-    #     return reverse('ahorro:ahorroDetalle',
-    #                     args=[self.id,])    
+
+  
     def __str__(self):
         return self.meta
     
@@ -462,172 +409,5 @@ class Ahorro(models.Model):
     
 
 
-
-
-
-
-
-
-# class SinLimiteDeTiempo(models.Model):
-#     nombre = models.CharField(max_length=200)
-#     not_archived = models.BooleanField(default=True)
-#     slug = models.SlugField(max_length=200, blank=True)
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-#                             related_name='system_created',
-#                             on_delete=models.CASCADE)
-#     # plazo = models.ForeignKey(Plazo, on_delete=models.CASCADE)
-#     # PLAZO INCLUIDO
-#     ##############
-
-#     DIARIO = '1'
-#     QUINCENAL = '15'
-#     MENSUAL = '30'
-
-#     FRECUENCIA = [
-#         (DIARIO, _('Todos los días')),
-#         (QUINCENAL, _('Cada quince días')),
-#         (MENSUAL, _('Al mes')),
-#     ]
-
-#     frecuencia = models.CharField(max_length=200,
-#                                   choices=FRECUENCIA,
-#                                   default=MENSUAL,
-#                                   )
-
- 
-#     meta = models.IntegerField(validators=[MinValueValidator(1825, message="Ahorra a partir de 2000")])
-
-#     cantidad = models.IntegerField()
-
-#     description = models.TextField(blank=True)
-#     url = models.URLField(blank=True)
-#     image = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True)
-#     created = models.DateField(auto_now_add=True, db_index=True)
-
-
-
-    
-#     def my_list(self):
-#         "retorna la division de frecuencia y tiempo"
-#         return sistema_Ahorro(int(self.frecuencia), int(self.tiempo), int(self.meta))
-
-#     def __str__(self):
-#         return self.nombre
-
-#     def save(self, *args, **kwargs):
-#         if not self.slug:
-#             self.slug = slugify(self.nombre)
-#         super(Sistema, self).save(*args, **kwargs)
-    
-#     def get_absolute_url(self): 
-#         return reverse('ahorro:userSystem',
-#                         args=[self.id,])
-
-#     def absolute_url(self):
-#         return reverse('ahorro:sistemaDetalle',
-#                         args=[self.id,])
-
-#     def archived_url(self):
-#         return reverse('ahorro:userArchived',
-#                         args=[self.id,])                    
-
-
-
-
-
-
-
-# class LibreSinLimiteDeTiempo(models.Model):
-#     nombre = models.CharField(max_length=200)
-#     not_archived = models.BooleanField(default=True)
-#     slug = models.SlugField(max_length=200, blank=True)
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-#                             related_name='system_created',
-#                             on_delete=models.CASCADE)
-#     # plazo = models.ForeignKey(Plazo, on_delete=models.CASCADE)
-#     # PLAZO INCLUIDO
-#     ##############
-
-#     DIARIO = '1'
-#     QUINCENAL = '15'
-#     MENSUAL = '30'
-
-#     FRECUENCIA = [
-#         (DIARIO, _('Todos los días')),
-#         (QUINCENAL, _('Cada quince días')),
-#         (MENSUAL, _('Al mes')),
-#     ]
-
-#     frecuencia = models.CharField(max_length=200,
-#                                   choices=FRECUENCIA,
-#                                   default=MENSUAL,
-#                                   )
-
- 
-#     meta = models.IntegerField(validators=[MinValueValidator(1825, message="Ahorra a partir de 2000")])
-
-#     cantidad = models.IntegerField()
-
-#     description = models.TextField(blank=True)
-#     url = models.URLField(blank=True)
-#     image = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True)
-#     created = models.DateField(auto_now_add=True, db_index=True)
-
-
-
-    
-#     def my_list(self):
-#         "retorna la division de frecuencia y tiempo"
-#         return sistema_Ahorro(int(self.frecuencia), int(self.tiempo), int(self.meta))
-
-#     def __str__(self):
-#         return self.nombre
-
-#     def save(self, *args, **kwargs):
-#         if not self.slug:
-#             self.slug = slugify(self.nombre)
-#         super(Sistema, self).save(*args, **kwargs)
-    
-#     def get_absolute_url(self): 
-#         return reverse('ahorro:userSystem',
-#                         args=[self.id,])
-
-#     def absolute_url(self):
-#         return reverse('ahorro:sistemaDetalle',
-#                         args=[self.id,])
-
-#     def archived_url(self):
-#         return reverse('ahorro:userArchived',
-#                         args=[self.id,])                    
-
-
-
-
-
-
-    
-#     def my_list(self):
-#         "retorna la division de frecuencia y tiempo"
-#         return sistema_Ahorro(int(self.frecuencia), int(self.tiempo), int(self.meta))
-
-#     def __str__(self):
-#         return self.nombre
-
-#     def save(self, *args, **kwargs):
-#         if not self.slug:
-#             self.slug = slugify(self.nombre)
-#         super(Sistema, self).save(*args, **kwargs)
-    
-#     def get_absolute_url(self): 
-#         return reverse('ahorro:userSystem',
-#                         args=[self.id,])
-
-#     def absolute_url(self):
-#         return reverse('ahorro:sistemaDetalle',
-#                         args=[self.id,])
-
-#     def archived_url(self):
-#         return reverse('ahorro:userArchived',
-#                         args=[self.id,])                    
 
 

@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,7 @@
 
      {% endif %}
         
-        <div data-tilt data-tilt-max="5" data-tilt-reverse="false" data-tilt-scale="1.02" class="contenedorTarjetaPlazos">
+        <div data-tilt data-tilt-max="2" data-tilt-reverse="false" data-tilt-scale="1" class="contenedorTarjetaPlazos">
             {% for frec in preplazo %}
                 <div class="tarjeta t1 sombra">
                     <div class="tColor" style="background-color: {{frec.color}};"></div>  
@@ -47,18 +48,18 @@
         {% endblock %}
 
 
-        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" class="tarjeta t4 sombra unselectable">
+        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-max="5" data-tilt-reverse="true" data-tilt-scale="1.2" class="tarjeta t4 sombra unselectable">
             <div class="tColor" style="background-color: darkorange;"></div>  
-            <h1 class="tTitulo" style="color: darkorange;">ALEATORIO</h1>
+            <h1 class="sistemaTitulo" style="color: darkorange;">ALEATORIO</h1>
             <p style="margin-top: 64px; ;">Dinos cual es tu meta, escoge la frecuencia y el tiempo, nosotros te decimos cuanto ahorrar cada vez, no siempre será la misma cantidad.</p>
             <h3 class="tCantidad"></h3>
             <a href="{% url 'ahorro:create' %}" onMouseOut="this.style.background='darkorange'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #darkorange;">EMPEZAR</a>
         </div>
 
 
-        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" class="tarjeta t4 sombra unselectable">
+        <div data-tilt data-tilt-glare data-tilt-max="5" data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" class="tarjeta t4 sombra unselectable">
             <div class="tColor" style="background-color: #00ffe7;"></div>  
-            <h1 class="tTitulo" style="color: #00ffe7;">CANTIDAD FIJA</h1>
+            <h1 class="sistemaTitulo" style="color: #00ffe7;">CANTIDAD FIJA</h1>
             <p style="margin-top: 64px; ">Nosotros te decimos que cantidad vas a ahorrar, siempre será la misma, durante un tiempo especifico que tu escojas hasta llegar a tu meta. <br /> <span style="font-size: 12px;">Por cuestiones de "redondeo" probablemente ahorres un poco m&aacute;s normalmente 4 pesos extras </span></p>
             <h3 class="tCantidad"></h3>
             <a href="{% url 'ahorro:createFijo' %}" onMouseOut="this.style.background='#00ffe7'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #00ffe7;">EMPEZAR</a>
@@ -82,10 +83,10 @@
             <a href="{% url 'ahorro:create' %}"  onMouseOut="this.style.background='#60d9ff'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #60d9ff;">EMPEZAR</a>
         </div> -->
 
-        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" class="tarjeta t4 sombra unselectable">
+        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-max="5" data-tilt-reverse="true" data-tilt-scale="1.1" class="tarjeta t4 sombra unselectable">
             <div class="tColor" style="background-color: #03A83D;"></div>  
             <!-- <h1 class="tTitulo" style="color: #03A83D;">META FIJA CANTIDAD VARIABLE</h1> -->
-            <h1 class="tTitulo" style="color: #37FB86;">LA META ES AHORRAR</h1>
+            <h1 class="sistemaTitulo" style="color: #37FB86;">LA META ES AHORRAR</h1>
             <p style="margin-top: 64px; ">Esta opci&oacute;n te ayudar&aacute; a tener las cuentas de tu ahorro más claras, aqu&iacute; la meta es ahorrar.  </p>
             <h3 class="tCantidad"></h3>
             <a href="{% url 'ahorro:createLaMetaEsAhorrar' %}" onMouseOut="this.style.background='#03A83D'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #03A83D;">EMPEZAR</a>

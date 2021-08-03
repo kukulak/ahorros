@@ -48,6 +48,37 @@ footer a{
     margin-right:30px;
 }
 
+
+.header{
+    display: grid;
+    grid-template-columns: 30% 40% 30% ;
+    width: 100vw;
+    justify-items: stretch;
+    padding: 10px 0;
+    margin: 0 0 30px 0;
+}
+
+.logo{
+
+}
+
+.menuHeader{
+grid-column-start: 3;
+display: grid;
+gap: 50px;
+grid-template-columns: 1fr 1fr 1fr;
+text-transform: uppercase;
+}
+.about{
+
+}
+
+.contacto{
+
+}
+
+
+
 .simple{
     display: none;
 }
@@ -218,7 +249,7 @@ footer a{
 }
 
 .user{
-    margin: 20px 20px;
+    /* margin: 20px 20px; */
     display: block;
 }
 
@@ -525,10 +556,29 @@ input[type=text]:focus {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 20px;
-    margin: 30px auto;
-    
-    
+    margin: 30px auto;   
 }
+
+.tTitulo{
+    color: rgb(255 106 0 / 100%);
+    color: #cacaca;
+    font-weight: 400;
+    font-size: 17px;
+    text-transform: uppercase;
+}
+.sistemaTitulo{
+    color: rgb(255 106 0 / 100%);
+    color: #cacaca;
+    font-weight: 400;
+    font-size: 22px;
+    text-transform: uppercase;
+}
+
+.txtChico{
+    font-size: 11px;
+}
+
+
 
 .contenedorTarjetaPlazos{
     display: grid;
@@ -690,13 +740,8 @@ input[type=text]:focus {
     margin-left: -17px;
 }
 
-.tTitulo{
-    color: rgb(255 106 0 / 100%);
-    color: #cacaca;
-    font-weight: 400;
-    /* font-size: 25px; */
-    text-transform: uppercase;
-}
+
+
 
 .tCantidad{
     color: #FFA800;
