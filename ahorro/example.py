@@ -283,7 +283,7 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
         # print("WORKING")
         # print(recoveryList)
         for lp in range(len(cantidadList)):
-            if cantidadList[lp] < 10:
+            if cantidadList[lp] < 0:
                 # print(cantidadList)
                 cantidadList[lp] = cantidadList[lp] + 1
 
@@ -453,20 +453,22 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
 
 
 
-    restarLista = clean_list
-    print(restarLista)
-    print("@@@@@@------@@@@@@")
 
-    # t.lista_de_totales
-    for lt in range(0, len(restarLista)):
-        if not restarLista[lt] in cantidadList:
-            # print('anti EXISTENCIA')
-            print(restarLista[lt])
-        else:
-            # print(restarLista[lt])
-            cantidadList.remove(restarLista[lt])
 
-    print("@@@@@@------@@@@@@")
+
+    # comented CLEAN_LIST ˘˘˘˘
+
+    # restarLista = clean_list
+    # print(restarLista)
+    # print("@@@@@@------@@@@@@")
+
+    # for lt in range(0, len(restarLista)):
+    #     if not restarLista[lt] in cantidadList:
+    #         print(restarLista[lt])
+    #     else:       
+    #         cantidadList.remove(restarLista[lt])
+
+    # print("@@@@@@------@@@@@@")
 
 
     print("CANTIDAD LIST")

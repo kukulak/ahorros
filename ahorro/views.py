@@ -614,47 +614,41 @@ EL ARCHIVEDDETAIL FIJO COMPLETO
 '''
 
 def userArchivedF(request, id):
-
     
-    sistemaF = get_object_or_404(CantidadFija,
+    sistema = get_object_or_404(CantidadFija,
                                id=id,)
-
-
-                    
-
-
+                 
     if (request.GET.get('DeleteButton')):
         CantidadFija.objects.filter(id = request.GET.get('DeleteButton')).delete()
+        print("IAM LOST SO WHERE I AM")
         return redirect('/')
 
-
-
-    if sistemaF.user.id == request.user.id:
+    if sistema.user.id == request.user.id:
                                   
-        ahorro = sistemaF.ahorrosF.all()                           
+        ahorro = sistema.ahorrosF.all()                           
         #retorna el total ahorrado
         my_ahorro = Lista_total(list(ahorro))
 
         form = CantidadForm(request.POST)
         if request.method == 'POST':
-            form_archived = ArchiveSystem(request.POST, instance=sistemaF)
+            form_archived = ArchiveSystem(request.POST, instance=sistema)
             if form_archived.is_valid:
             
                 # sistema = form.save()
                 # sistema = form
                 form_archived.save()
-                messages.success(request, f'¡Desarchivaste {sistemaF.nombre}!')
+                messages.success(request, f'¡Desarchivaste {sistema.nombre}!')
                 print("^^^unArchived^^^")
                 time.sleep(0.3)
                 return redirect('/')
         else:
-            print("the form was not valid")
+            print("El formulario no es valido en USERARCHIVEDF")
             form = CantidadForm()
             form_archived = ArchiveSystem()
 
         return render (request,
                     'ahorro/archivedDetail.html',
-                    {'sistemaF': sistemaF,
+                    {'sistema': sistema,
                     'ahorro': ahorro,
                     "my_ahorro": my_ahorro,
                     'form': form,
@@ -673,40 +667,41 @@ EL ARCHIVEDDETAIL AM AHORRAR ES LA META COMPLETO
 
 def userArchivedAM(request, id):
    
-    sistemaAM = get_object_or_404(AhorrarEsLaMeta,
+    sistema = get_object_or_404(AhorrarEsLaMeta,
                                id=id,)
                     
     if (request.GET.get('DeleteButton')):
         AhorrarEsLaMeta.objects.filter(id = request.GET.get('DeleteButton')).delete()
-        return redirect('/')
+        print('IAMHEREDOYOUSEEME')
+        return redirect('/archived')
 
 
-    if sistemaAM.user.id == request.user.id:
+    if sistema.user.id == request.user.id:
                                   
-        ahorro = sistemaAM.ahorrosAM.all()                           
+        ahorro = sistema.ahorrosAM.all()                           
         #retorna el total ahorrado
         my_ahorro = Lista_total(list(ahorro))
 
         form = CantidadForm(request.POST)
         if request.method == 'POST':
-            form_archived = ArchiveSystem(request.POST, instance=sistemaAM)
+            form_archived = ArchiveSystem(request.POST, instance=sistema)
             if form_archived.is_valid:
             
                 # sistema = form.save()
                 # sistema = form
                 form_archived.save()
-                messages.success(request, f'¡Desarchivaste {sistemaAM.nombre}!')
+                messages.success(request, f'¡Desarchivaste {sistema.nombre}!')
                 print("^^^unArchived^^^")
                 time.sleep(0.3)
                 return redirect('/')
         else:
-            print("the form was not valid")
+            print("El formulario no es valido en USERARCHIVEDAM")
             form = CantidadForm()
             form_archived = ArchiveSystem()
 
         return render (request,
                     'ahorro/archivedDetail.html',
-                    {'sistemaAM': sistemaAM,
+                    {'sistema': sistema,
                     'ahorro': ahorro,
                     "my_ahorro": my_ahorro,
                     'form': form,

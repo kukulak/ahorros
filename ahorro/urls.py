@@ -17,6 +17,8 @@ urlpatterns = [
     path("", views.dashboard, name="dashboard"),
     path("archived/", views.archived, name="archived"),
     path("estadistics/", views.dashFierros, name="estadistics"),
+    path("informacion/", views.dashFierros, name="informacion"),
+    path("contacto/", views.dashFierros, name="contacto"),
     
     path("crearSistema/", views.createSys, name="create"),
     path("crearSistemaFijo/", views.createSysFijo, name="createFijo"),

@@ -167,6 +167,12 @@
             <p>y aqui su tiempo  {{ plazo.tiempo }}  </p>
             <p>y si lo divido <span id="laCadena">{{ plazo.my_list }} </span></p>
             -->
+            <script src="{% static 'js/fittext.js' %}"></script>
+            <script type="text/javascript">
+                fitText( document.getElementById("ahorrado"), 1.5 );
+                fitText( document.getElementById("cantidad"), 0.5 );
+
+            </script>    
 
             
                 <script type="text/javascript">
@@ -233,20 +239,22 @@
 
                     if (ahorrado.innerHTML.length == 5){
                         ahorrado.style.fontSize = "65px"
-                        ahorrado.style.marginTop = "25px"
+                        // ahorrado.style.marginTop = "25px"
                     } else if (ahorrado.innerHTML.length == 6){
                         ahorrado.style.fontSize = "59px"
-                        ahorrado.style.marginTop = "33px"
+                        // ahorrado.style.marginTop = "33px"
                     } else if (ahorrado.innerHTML.length == 7){
                         ahorrado.style.fontSize = "50px"
-                        ahorrado.style.marginTop = "41px"
+                        // ahorrado.style.marginTop = "41px"
                     } else if (ahorrado.innerHTML.length >= 8){
                         ahorrado.style.fontSize = "40px"
-                        ahorrado.style.marginTop = "50px"    
+                        // ahorrado.style.marginTop = "50px"    
                     } else if (ahorrado.innerHTML.length == 4){
                         ahorrado.style.fontSize = "83px"
-                        ahorrado.style.marginTop = "6px"
-                    }
+                        // ahorrado.style.marginTop = "6px"
+                    }else{
+                        ahorrado.style.fontSize = "90px"
+                            }
 
                 
 
@@ -369,19 +377,21 @@
                             // SI ES GRANDE EL NUEMRO REDUCIR SU TAMAÑO
                             if (cantidad.innerHTML.length == 5){
                                 cantidad.style.fontSize = "80px"
-                                cantidad.style.marginTop = "12px"
+                                // cantidad.style.marginTop = "12px"
                             } else if (cantidad.innerHTML.length == 6){
                                 cantidad.style.fontSize = "59px"
-                                cantidad.style.marginTop = "33px"
+                                // cantidad.style.marginTop = "33px"
                             } else if (cantidad.innerHTML.length == 7){
                                 cantidad.style.fontSize = "50px"
-                                cantidad.style.marginTop = "41px"
+                                // cantidad.style.marginTop = "41px"
                             } else if (ahorrado.innerHTML.length >= 8){
                                 cantidad.style.fontSize = "40px"
-                                cantidad.style.marginTop = "50px"       
+                                // cantidad.style.marginTop = "50px"       
                             } else if (cantidad.innerHTML.length == 4){
                                 cantidad.style.fontSize = "83px"
-                                cantidad.style.marginTop = "6px"
+                                // cantidad.style.marginTop = "6px"
+                            }else{
+                                cantidad.style.fontSize = "90px"
                             }
 
                             console.log(cantidad.innerHTML.length)

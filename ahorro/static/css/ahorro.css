@@ -1033,6 +1033,7 @@ input[type=text]:focus {
     grid-row-start: 2;
     grid-column-start: 1;
     z-index: 2;
+    align-items: center;
 }
 
 .number span:nth-child(2){
@@ -1127,6 +1128,8 @@ input[type=text]:focus {
 
 .rCantidad{
     outline: none;
+    margin-bottom: 45px;
+    line-height: 0;
 }
 
 .rCantidad::after{
@@ -1157,6 +1160,8 @@ input[type=text]:focus {
 #ahorrado{
     font-size: 90px;
     font-weight: 600 !important;
+    margin-bottom: 36px;
+    line-height: 0;
 }
 
 #ahorrado::after{
@@ -1551,7 +1556,7 @@ input[type=text]:focus {
     grid-template-rows: 60px 50px 38px;
     grid-template-rows: 40px auto 38px;
     background-color: #333333;
-    width: max-content;
+    /* width: max-content; */
     text-align: center;
     /* padding: 0 50px 0px 50px; */
     align-items: center;

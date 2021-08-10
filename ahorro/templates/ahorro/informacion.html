@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}INFORMACION{% endblock %}
+
+{% block content %}
+
+<section class="sectionCreate sectionUser">
+    <style>
+        select{
+            padding: 10px 10px;
+            color: #333333;
+            font-weight: 500;
+            outline: none;
+            transition: background-color 0.4s ease-in-out;
+            width: -webkit-fill-available;
+        }
+
+        /* .formContainerCreate{
+            width: 220px;
+        } */
+    </style>
+    <div class="welcomeText">
+        <div class="logText">
+          <h1>Ahorra Ahora</h1>
+          <h3>Cambia tu forma de ahorrar.</h3>
+          <br />
+          <p>Te ayudamos a organizar y planear tus ahorros
+              
+          </p>
+        </div>
+
+        <div>
+            <br>
+            <a  href="{% url 'ahorro:dashboard' %}"> &lt; REGRESAR &emsp;</a>
+          
+               
+            
+        </div>
+  
+      
+    </div>  
+    <div class="login-form logForm">
+        
+        <div class="formContainer formContainerCreate">
+            <form action="." method="POST" enctype="multipart/form-data" >
+                {% csrf_token %}
+                {{ form.as_p }}
+              
+              
+                <p><input onclick=getArray() id="enviar" type="submit" value="CREAR"></p>
+            </form>
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+
+
+        <script type="text/javascript">
+            
+            var descriptionArr = document.getElementById("id_description");
+            var laCadena = ["{{ sistema.my_list|escapejs }}"];
+            
+        function getArray(){
+            descriptionArr.innerHTML = "laCadena";
+        }    
+                    
+        </script>
+
+
+
+
+</section>
+
+
+
+{% endblock %}

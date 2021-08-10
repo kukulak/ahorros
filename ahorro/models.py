@@ -397,7 +397,7 @@ class AhorrarEsLaMeta(models.Model):
 
 
 class Ahorro(models.Model):
-    cantidad = models.IntegerField(validators=[MinValueValidator(10, message="Vamos, a que puedes ahorrar más de 10 pesos")])
+    cantidad = models.IntegerField(validators=[MinValueValidator(1, message="Vamos, a que puedes ahorrar más de 10 pesos")])
     # cantidad = models.IntegerField()
     # meta = models.IntegerField(validators=[MinValueValidator(1825, message="Ahorra a partir de 2000")])
     fecha = models.DateTimeField(default = timezone.now)
