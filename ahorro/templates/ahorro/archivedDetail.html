@@ -27,12 +27,14 @@
             <p class="upperCase"> {{ sistemaAM.nombre }} </p>
             <h5>AHORRO ARCHIVADO</h5>
             {% load humanize %}
+            {%if sistema.meta%}
             <p id="metaNumber" class="metaNumber">Meta:
                 $<span>{{ sistema.meta|intcomma }}</span>
                 <span>{{ sistemaF.meta|intcomma }}</span>
                 <span>{{ sistemaAM.meta|intcomma }}</span>
                 .00
             </p>
+            {% endif %}
             <a  href="{% url 'ahorro:archived' %}"> &lt; REGRESAR </a>
            
     
@@ -210,24 +212,38 @@
                     console.log(">>>>>>>>", ahorrado.innerHTML.length)
 
                     if (ahorrado.innerHTML.length == 5){
-                        ahorrado.style.fontSize = "65px"
-                        ahorrado.style.marginTop = "25px"
+                        ahorrado.style.fontSize = "80px"
+                        ahorrado.style.marginTop = "5px"
                     } else if (ahorrado.innerHTML.length == 6){
                         ahorrado.style.fontSize = "59px"
-                        ahorrado.style.marginTop = "33px"
+                        ahorrado.style.marginTop = "11px"
                     } else if (ahorrado.innerHTML.length == 7){
+                        ahorrado.style.fontSize = "55px"
+                        ahorrado.style.marginTop = "11px"
+                    } else if (ahorrado.innerHTML.length == 4){
+                        ahorrado.style.fontSize = "83px"
+                        ahorrado.style.marginTop = "6px"
+                    } else if (ahorrado.innerHTML.length == 10){
+                        var styleElem = document.head.appendChild(document.createElement("style"));
+                        styleElem.innerHTML = "#ahorrado:before {font-size: 25px;}";
+                        var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                        styleElemAfter.innerHTML = "#ahorrado:after {font-size: 25px;}";
                         ahorrado.style.fontSize = "50px"
-                        ahorrado.style.marginTop = "41px"
-                    } else if (ahorrado.innerHTML.length >= 8){
+                        ahorrado.style.marginTop = "19px"    
+                    } else if (ahorrado.innerHTML.length == 9){
+                        var styleElem = document.head.appendChild(document.createElement("style"));
+                        styleElem.innerHTML = "#ahorrado:before {font-size: 25px;}";
+                        var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                        styleElemAfter.innerHTML = "#ahorrado:after {font-size: 25px;}";
+                        ahorrado.style.fontSize = "45px"
+                        ahorrado.style.marginTop = "13px"    
+                    } else if (ahorrado.innerHTML.length >= 11){
                         var styleElem = document.head.appendChild(document.createElement("style"));
                         styleElem.innerHTML = "#ahorrado:before {font-size: 20px;}";
                         var styleElemAfter = document.head.appendChild(document.createElement("style"));
                         styleElemAfter.innerHTML = "#ahorrado:after {font-size: 20px;}";
-                        ahorrado.style.fontSize = "35px"
-                        ahorrado.style.marginTop = "50px"    
-                    } else if (ahorrado.innerHTML.length == 4){
-                        ahorrado.style.fontSize = "83px"
-                        ahorrado.style.marginTop = "6px"
+                        ahorrado.style.fontSize = "40px"
+                        ahorrado.style.marginTop = "25px"    
                     }
 
                 
@@ -334,14 +350,58 @@
                                 cantidad.style.marginTop = "12px"
                             } else if (cantidad.innerHTML.length == 6){
                                 cantidad.style.fontSize = "59px"
-                                cantidad.style.marginTop = "33px"
+                                cantidad.style.marginTop = "20px"
                             } else if (cantidad.innerHTML.length == 7){
                                 cantidad.style.fontSize = "50px"
                                 cantidad.style.marginTop = "41px"
                             } else if (cantidad.innerHTML.length == 4){
                                 cantidad.style.fontSize = "83px"
                                 cantidad.style.marginTop = "6px"
+                            } else if (cantidad.innerHTML.length == 8){
+                                cantidad.style.fontSize = "20px"
+                                cantidad.style.marginTop = "6px"
+                            } else if (cantidad.innerHTML.length == 10){
+                                cantidad.style.fontSize = "20px"
+                                cantidad.style.marginTop = "6px"
+                            } else if (cantidad.innerHTML.length == 11){
+                                cantidad.style.fontSize = "18px"
+                                cantidad.style.marginTop = "6px"
+                            } else if (cantidad.innerHTML.length >= 12){
+                                cantidad.style.fontSize = "20px"
+                                cantidad.style.marginTop = "6px"
+                            } else if (cantidad.innerHTML.length >= 17){
+                                cantidad.style.fontSize = "20px"
+                                cantidad.style.marginTop = "6px"
                             }
+
+        //                     if (numbers[i].innerHTML.length == 5){
+        //     numbers[i].style.fontSize = "40px"
+           
+        // } else if (numbers[i].innerHTML.length == 6){
+        //     numbers[i].style.fontSize = "40px"
+           
+        // } else if (numbers[i].innerHTML.length == 7){
+        //     numbers[i].style.fontSize = "30px"
+        
+        // } else if (numbers[i].innerHTML.length == 8){
+        //     numbers[i].style.fontSize = "28px"
+            
+        // } else if (numbers[i].innerHTML.length == 10){
+        //     numbers[i].style.fontSize = "25px"
+            
+        // } else if (numbers[i].innerHTML.length == 4){
+        //     numbers[i].style.fontSize = "40px"
+            
+        // }else if (numbers[i].innerHTML.length == 11){
+        //     numbers[i].style.fontSize = "22px"
+            
+        // }else if (numbers[i].innerHTML.length >= 12){
+        //     numbers[i].style.fontSize = "20px"
+            
+        // }else if (numbers[i].innerHTML.length >= 17){
+        //     numbers[i].style.fontSize = "17px"
+            
+        // }
 
                             console.log(cantidad.innerHTML.length)
 

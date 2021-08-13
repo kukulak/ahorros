@@ -35,9 +35,8 @@ class CantidadFormF(ModelForm):
         widgets = {'sistemaF': SistemaSelect}        
 
 
-
 class CantidadFormAM(ModelForm):
-    cantidad = forms.IntegerField(error_messages={'required': 'Please let us know what to call you!'})
+    cantidad = forms.IntegerField(min_value=1, max_value=999, error_messages={'campo requerido': 'Cuanto quieres ahorrar?'})
     class Meta:
         model = Ahorro
         fields = ['cantidad', 'sistemaAM']

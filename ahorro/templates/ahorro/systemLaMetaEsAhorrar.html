@@ -86,7 +86,8 @@
                                 <div class="aNumber number">
                                     <span></span>
                                     
-                                    <div onkeyup="getMyNumber()" contentEditable="true" id="cantidad" class="rCantidad">000</div>
+                                    <!-- <div onkeyup="getMyNumber()" contentEditable="true" id="cantidad" class="rCantidad">000</div> -->
+                                    <div class="CBA cantidadBefore">$<input onkeyup="getMyNumber()" contentEditable="true" id="cantidad" class="rCantidad inputCantidad" value="000" type="number" min="1" max="999999999"><span class="CBA cantidadBefore">.00</span></div>
                                 </div>
                             </div>
                         
@@ -256,20 +257,59 @@
                     console.log(">>>>>>>>", ahorrado.innerHTML.length)
 
                     if (ahorrado.innerHTML.length == 5){
-                        ahorrado.style.fontSize = "65px"
-                        ahorrado.style.marginTop = "25px"
+                        ahorrado.style.fontSize = "70px"
+                        ahorrado.style.marginTop = "5px"
                     } else if (ahorrado.innerHTML.length == 6){
                         ahorrado.style.fontSize = "59px"
-                        ahorrado.style.marginTop = "33px"
+                        ahorrado.style.marginTop = "13px"
                     } else if (ahorrado.innerHTML.length == 7){
                         ahorrado.style.fontSize = "50px"
-                        ahorrado.style.marginTop = "41px"
-                    } else if (ahorrado.innerHTML.length >= 8){
+                        ahorrado.style.marginTop = "11px"
+                    } else if (ahorrado.innerHTML.length == 8){
                         ahorrado.style.fontSize = "40px"
                         ahorrado.style.marginTop = "50px"    
                     } else if (ahorrado.innerHTML.length == 4){
                         ahorrado.style.fontSize = "83px"
-                        ahorrado.style.marginTop = "6px"
+                        ahorrado.style.marginTop = "0px"
+                    } else if (ahorrado.innerHTML.length == 9){
+                        var styleElem = document.head.appendChild(document.createElement("style"));
+                        styleElem.innerHTML = "#ahorrado:before {font-size: 25px;}";
+                        var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                        styleElemAfter.innerHTML = "#ahorrado:after {font-size: 25px;}";
+                        ahorrado.style.fontSize = "50px"
+                        ahorrado.style.marginTop = "20px"    
+                    }
+                    else if (ahorrado.innerHTML.length == 10){
+                        var styleElem = document.head.appendChild(document.createElement("style"));
+                        styleElem.innerHTML = "#ahorrado:before {font-size: 20px;}";
+                        var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                        styleElemAfter.innerHTML = "#ahorrado:after {font-size: 20px;}";
+                        ahorrado.style.fontSize = "48px"
+                        ahorrado.style.marginTop = "21px"    
+                    }
+                    else if (ahorrado.innerHTML.length == 11){
+                        var styleElem = document.head.appendChild(document.createElement("style"));
+                        styleElem.innerHTML = "#ahorrado:before {font-size: 20px;}";
+                        var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                        styleElemAfter.innerHTML = "#ahorrado:after {font-size: 20px;}";
+                        ahorrado.style.fontSize = "45px"
+                        ahorrado.style.marginTop = "21px"    
+                    }
+                    else if (ahorrado.innerHTML.length == 12){
+                        var styleElem = document.head.appendChild(document.createElement("style"));
+                        styleElem.innerHTML = "#ahorrado:before {font-size: 20px;}";
+                        var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                        styleElemAfter.innerHTML = "#ahorrado:after {font-size: 20px;}";
+                        ahorrado.style.fontSize = "40px"
+                        ahorrado.style.marginTop = "21px"    
+                    }
+                    else if (ahorrado.innerHTML.length >= 13){
+                        var styleElem = document.head.appendChild(document.createElement("style"));
+                        styleElem.innerHTML = "#ahorrado:before {font-size: 15px;}";
+                        var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                        styleElemAfter.innerHTML = "#ahorrado:after {font-size: 15px;}";
+                        ahorrado.style.fontSize = "30px"
+                        ahorrado.style.marginTop = "27px"    
                     }
 
                 
@@ -376,29 +416,63 @@
                     formCantidad.value = "{{ sistema.my_cantidad|escapejs }}";
                     console.log(formCantidad.value)
 
-                    if (cantidad.innerHTML.length == 5){
-                        cantidad.style.fontSize = "80px"
-                        cantidad.style.marginTop = "12px"
-                    } else if (cantidad.innerHTML.length == 6){
-                        cantidad.style.fontSize = "59px"
-                        cantidad.style.marginTop = "33px"
-                    } else if (cantidad.innerHTML.length == 7){
-                        cantidad.style.fontSize = "50px"
-                        cantidad.style.marginTop = "41px"
-                    } else if (ahorrado.innerHTML.length >= 8){
-                        cantidad.style.fontSize = "40px"
-                        cantidad.style.marginTop = "50px"       
-                    } else if (cantidad.innerHTML.length == 4){
+                    if (cantidad.innerHTML.length == 4){
                         cantidad.style.fontSize = "83px"
                         cantidad.style.marginTop = "6px"
-                    }
+                    } else if (cantidad.innerHTML.length == 5){
+                        cantidad.style.fontSize = "80px"
+                        cantidad.style.marginTop = "5px"
+                    }else if (cantidad.innerHTML.length == 6){
+                        cantidad.style.fontSize = "59px"
+                        cantidad.style.marginTop = "8px"
+                    } else if (cantidad.innerHTML.length == 7){
+                        cantidad.style.fontSize = "50px"
+                        cantidad.style.marginTop = "9px"
+                    } else if (cantidad.innerHTML.length >= 8){
+                        cantidad.style.fontSize = "40px"
+                        cantidad.style.marginTop = "50px"       
+                    } 
 
+
+              
 
                     function autoFill(){
 
                     }
 
-                    function getMyNumber(){
+                    cantidad.addEventListener('keydown', function(e){
+                            // if (isNaN(String.fromCharCode(e.which))){
+                            //     e.preventDefault();
+                            // } else 
+                            if (e.keyCode == "13") {
+                                e.preventDefault();
+                                console.log('what?')
+                            }
+                                
+                            // console.log("pressed")
+                        })  
+
+                    function getMyNumber(e){
+
+
+                        // document.addEventListener('keydown', function(e) {
+                        //             alert("hallo");
+                        //         }); 
+                                // var e = new KeyboardEvent("keydown", {
+                                //         key: "Enter",
+                                //         bubbles: true,
+                                //         cancelable: true
+                                        
+                                //     });
+                                //     console.log('hello')
+                                //     document.dispatchEvent(e);
+
+                                  
+
+                        // $("#myeditablediv").keypress(function(e) {
+                        //     });
+
+                        // if (isNaN(String.fromCharCode(e.which))) e.preventDefault();
                         
                         var intval = setInterval(function(){randomNumber();}, 1);
                         function randomNumber(){
@@ -408,7 +482,7 @@
                             rData.style.display = "grid";
                             // cantidad.innerHTML = numberFormat2.format(getArray[random]);
                             // cantidad.innerHTML = getArray[random]
-                            formCantidad.value = cantidad.innerHTML;
+                            formCantidad.value = cantidad.value;
                             console.log(formCantidad.value)
                             thenumbers += 1;
                             // console.log(thenumbers)
@@ -419,11 +493,11 @@
                                 cantidad.style.marginTop = "12px"
                             } else if (cantidad.innerHTML.length == 6){
                                 cantidad.style.fontSize = "59px"
-                                cantidad.style.marginTop = "33px"
+                                cantidad.style.marginTop = "8px"
                             } else if (cantidad.innerHTML.length == 7){
                                 cantidad.style.fontSize = "50px"
-                                cantidad.style.marginTop = "41px"
-                            } else if (ahorrado.innerHTML.length == 8){
+                                cantidad.style.marginTop = "14px"
+                            } else if (cantidad.innerHTML.length == 8){
                                 cantidad.style.fontSize = "38px"
                                 cantidad.style.marginTop = "50px"       
                             } else if (cantidad.innerHTML.length == 4){
@@ -434,6 +508,28 @@
                                 cantidad.style.marginTop = "60px"
                             }
 
+
+
+                            if (cantidad.value.length == 4){
+                        cantidad.style.fontSize = "83px"
+                        cantidad.style.marginTop = "6px"
+                    } else if (cantidad.value.length == 5){
+                        cantidad.style.fontSize = "83px"
+                        cantidad.style.marginTop = "5px"
+                    }else if (cantidad.value.length == 6){
+                        cantidad.style.fontSize = "71px"
+                        cantidad.style.marginTop = "8px"
+                    } else if (cantidad.value.length == 7){
+                        cantidad.style.fontSize = "59px"
+                        cantidad.style.marginTop = "17px"
+                    } else if (cantidad.value.length == 8){
+                        cantidad.style.fontSize = "53px"
+                        cantidad.style.marginTop = "27px"       
+                    } 
+                    else if (cantidad.value.length >= 9){
+                        cantidad.style.fontSize = "30px"
+                        cantidad.style.marginTop = "50px"       
+                    } 
                             // console.log(cantidad.innerHTML.length)
 
                             // console.log("the ramndom number", random)
@@ -464,9 +560,9 @@
                     var numbers = /^[0-9]+$/;
                     var aviso = document.getElementById("aviso")
                     function alcancia(){
-                        if (cantidad.innerHTML < 10 && cantidad.innerHTML.match(numbers)) {
+                        if (cantidad.value < 10 && cantidad.value.match(numbers)) {
                             aviso.innerHTML = "Vamos, seguro puedes ahorrar mas de $10.00 pesos"
-                        } else if (cantidad.innerHTML.match(numbers)) {
+                        } else if (cantidad.value.match(numbers)) {
                             deactivate()
 
                             anime({

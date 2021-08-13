@@ -1,10 +1,11 @@
+<!-- <div  data-barba="wrapper"> -->
 {% extends 'base.html' %}
 
 {% block title %} AHORRO | DASHBOARD {% endblock %}
 {% load static %}
 
 {% block content %}
-
+<!-- <div data-barba="container" data-barba-namespace="dashboard" > -->
 
 <div class="loader" id="loader">
     <div style="display: grid; justify-items: center;">
@@ -169,6 +170,26 @@
 
 </section>
 
+
+    <script>
+        barba.init({
+                transitions: [{
+                name: 'opacity-transition',
+                leave(data) {
+                    return gsap.to(data.current.container, {
+                    opacity: 0
+                    });
+                },
+                enter(data) {
+                    return gsap.from(data.next.container, {
+                    opacity: 0
+                    });
+                }
+                }]
+            });
+
+    </script>
+
 <script>
 
     var contenedorTarjetas = document.getElementById('contenedorTarjetas')
@@ -207,23 +228,40 @@
         } else if (numbers[i].innerHTML.length == 7){
             numbers[i].style.fontSize = "30px"
         
-        } else if (numbers[i].innerHTML.length >= 8){
+        } else if (numbers[i].innerHTML.length == 8){
+            numbers[i].style.fontSize = "28px"
+            
+        } else if (numbers[i].innerHTML.length == 9){
+            numbers[i].style.fontSize = "25px"
+            
+        }else if (numbers[i].innerHTML.length == 10){
             numbers[i].style.fontSize = "25px"
             
         } else if (numbers[i].innerHTML.length == 4){
             numbers[i].style.fontSize = "40px"
+            
+        }else if (numbers[i].innerHTML.length == 11){
+            numbers[i].style.fontSize = "22px"
+            
+        }else if (numbers[i].innerHTML.length >= 12){
+            numbers[i].style.fontSize = "20px"
+            
+        }else if (numbers[i].innerHTML.length >= 17){
+            numbers[i].style.fontSize = "17px"
             
         }
 
     }
 
     var loader = document.getElementById("loader")
-    loader.style.display = "none"
-
-
+    loader.style.display = 'grid'
+    
+    
+    
     function loaderFunc(){
+        loader.style.display = "none"
 
-        loader.style.display = 'grid'
+        
 
         anime({
                 targets: '.loader',
@@ -242,7 +280,12 @@
   
     }
 
-
+ 
+    window.addEventListener("load", function(event) {
+        loaderFunc();
+        console.log("Script terminó de cargarse y ejecutarse");
+    });
+  
     function alcancia(){
 
         anime({
@@ -296,5 +339,6 @@
 
 
 </script>
-
+<!-- </div> -->
+<!-- </div> -->
 {% endblock %}

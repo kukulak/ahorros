@@ -1,35 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ sistema.nombre|title }} {% endblock %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- FAVICONS -->
+
+{% load mathfilters %}
+
+{% block content %}
+<!-- <div data-barba="container" data-barba-namespace="detalle">  -->
 
 
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'core/favicon/favicon.ico' %}">
-
-    <script src="{% static 'js/anime.min.js' %}"></script>
-
-    <link rel="stylesheet" href="{% static 'css/ahorro.css' %}">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="fullContainer">
-        {% block content %}
-        <div class="saludo">
-            {% load humanize %}
-            <h3>Hola <span class="upperCase"> {{ user.username|default:'Guest' }} </span> </h3><h5>sigue ahorrando para</h5>
-            <p class="upperCase"> {{ sistema.nombre }} </p>
-            <p id="metaNumber" class="metaNumber">Meta ${{ sistema.meta|intcomma }}.00 </p>
+    <div class="loader" id="loader">
+        <div style="display: grid; justify-items: center;">
             
-            <a  href="{% url 'ahorro:dashboard' %}"> &lt; REGRESAR </a>
-           
+            <h2>Estamos preparando tu ahorro.</h2>
+            <p>
+                Si se tarda en cargar es por que tu objetivo de ahorro es muy alto. <br>
+                Bien hecho estamos aqui para ayudarte a lograrlo. <br> Pero,
+                la paciencia es necesaria para lograr tus metas.
+            </p>
+            <div class="contentAnim">
+                <div class="loaderAnim01">
     
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="saludo">
+        {% load humanize %}
+
+        {% if my_ahorro >= sistema.meta %}
+        <h3><span class="upperCase"> {{ user.username|default:'Guest' }} </span> </h3><h6> Lograste tu meta para {{ sistema.nombre }} </h6 >
+        <p >¡Felicidades!</p>
+
+           
+           
+            <a  href="{% url 'ahorro:dashboard' %}"> &lt; REGRESAR </a>
+            
+        {% else %} 
+        <h3>Hola <span class="upperCase"> {{ user.username|default:'Guest' }} </span> </h3><h5>sigue ahorrando para</h5>
+        <p class="upperCase"> {{ sistema.nombre }} </p>
+
+            <p id="metaNumber" class="metaNumber">Ahorro {{ ahorro|length|add:1 }} / {{ sistema.tiempo|div:sistema.frecuencia|floatformat:'0' }} </p>
+            <p id="metaNumber" class="metaNumber">Meta ${{ sistema.meta|intcomma }}.00 </p>
+            <p id="metaNumber" class="metaNumber">Por {{ sistema.tiempo|div:365|floatformat }} años  <span id="metaNumber" class="metaNumber">cada {{ sistema.frecuencia }} d&iacute;as</span></p>
+        
+            <a  href="{% url 'ahorro:dashboard' %}"> &lt; REGRESAR </a>
+        {% endif%}
+
             
         </div>
+
         <section id="fullcontenedorCasillas">   
             <div id="contenedorCasillas">    
 
@@ -354,7 +375,7 @@
                         //     console.log("Array is empty!")
                         //  }
                         
-                        var thenumbers = 0
+                    var thenumbers = 0
                         
                     var rData = document.getElementById("rData")
                     rData.style.display = "none";
@@ -362,7 +383,8 @@
                         
                     function getMyNumber(){
                         
-                        var intval = setInterval(function(){randomNumber();}, 1);
+                        var intval = setInterval(function(){randomNumber();}, 0.1);
+
                         function randomNumber(){
                             var random = Math.floor(Math.random() * (+max - +min)) + +min;
                             const numberFormat2 = new Intl.NumberFormat('en-US');
@@ -372,26 +394,65 @@
                             // cantidad.innerHTML = getArray[random]
                             formCantidad.value = getArray[random];
                             thenumbers += 1;
-                            // console.log(thenumbers)
+                            console.log("the numbers?", thenumbers)
 
                             // SI ES GRANDE EL NUEMRO REDUCIR SU TAMAÑO
-                            if (cantidad.innerHTML.length == 5){
-                                cantidad.style.fontSize = "80px"
+                            if (cantidad.innerHTML.length == 4){
+                                cantidad.style.fontSize = "83px"
                                 // cantidad.style.marginTop = "12px"
-                            } else if (cantidad.innerHTML.length == 6){
+                            } else if (cantidad.innerHTML.length == 5){
+                                cantidad.style.fontSize = "80px"
+                                // cantidad.style.marginTop = "6px"
+                            }else if (cantidad.innerHTML.length == 6){
                                 cantidad.style.fontSize = "59px"
                                 // cantidad.style.marginTop = "33px"
                             } else if (cantidad.innerHTML.length == 7){
                                 cantidad.style.fontSize = "50px"
                                 // cantidad.style.marginTop = "41px"
-                            } else if (ahorrado.innerHTML.length >= 8){
-                                cantidad.style.fontSize = "40px"
+                            } else if (cantidad.innerHTML.length == 9){
+                                var styleElem = document.head.appendChild(document.createElement("style"));
+                                styleElem.innerHTML = "#cantidad:before {font-size: 20px;}";
+                                var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                                styleElemAfter.innerHTML = "#cantidad:after {font-size: 20px;}";
+                                cantidad.style.fontSize = "50px"
+                                cantidad.style.marginTop = "21px"    
                                 // cantidad.style.marginTop = "50px"       
-                            } else if (cantidad.innerHTML.length == 4){
-                                cantidad.style.fontSize = "83px"
-                                // cantidad.style.marginTop = "6px"
-                            }else{
+                            } 
+                            else if (cantidad.innerHTML.length == 10){
+                                var styleElem = document.head.appendChild(document.createElement("style"));
+                                styleElem.innerHTML = "#cantidad:before {font-size: 20px;}";
+                                var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                                styleElemAfter.innerHTML = "#cantidad:after {font-size: 20px;}";
+                                cantidad.style.fontSize = "48px"
+                                cantidad.style.marginTop = "18px"    
+                            }
+                            else if (cantidad.innerHTML.length == 11){
+                                var styleElem = document.head.appendChild(document.createElement("style"));
+                                styleElem.innerHTML = "#cantidad:before {font-size: 20px;}";
+                                var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                                styleElemAfter.innerHTML = "#cantidad:after {font-size: 20px;}";
+                                cantidad.style.fontSize = "45px"
+                                cantidad.style.marginTop = "21px"    
+                            }
+                            else if (cantidad.innerHTML.length == 12){
+                                var styleElem = document.head.appendChild(document.createElement("style"));
+                                styleElem.innerHTML = "#cantidad:before {font-size: 20px;}";
+                                var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                                styleElemAfter.innerHTML = "#cantidad:after {font-size: 20px;}";
+                                cantidad.style.fontSize = "40px"
+                                cantidad.style.marginTop = "21px"    
+                            }
+                            else if (cantidad.innerHTML.length >= 13){
+                                var styleElem = document.head.appendChild(document.createElement("style"));
+                                styleElem.innerHTML = "#cantidad:before {font-size: 15px;}";
+                                var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                                styleElemAfter.innerHTML = "#cantidad:after {font-size: 15px;}";
+                                cantidad.style.fontSize = "30px"
+                                cantidad.style.marginTop = "27px"    
+                            }
+                            else{
                                 cantidad.style.fontSize = "90px"
+                                cantidad.style.marginTop = "-5px" 
                             }
 
                             console.log(cantidad.innerHTML.length)
@@ -404,7 +465,7 @@
                                 scale: 1.2,
                                 marginTop: 3
                             })
-                            if (thenumbers > 180) {
+                            if (thenumbers > 80) {
                                 clearInterval(intval);
                                 thenumbers = 0;
                                 anime({
@@ -653,14 +714,88 @@
                     moneyFunction(numero)
                     console.log(numero.innerHTML)
                   
+                    var loader = document.getElementById("loader")
+                    loader.style.display = 'grid'
 
+                    function loaderFunc(){
+                        loader.style.display = "none"
+
+                        
+
+                        anime({
+                                targets: '.loader',
+                                
+                                keyframes: [
+
+                                    {scale: 1, translateY: -20, color: 'rgba(1,1,1, .0)'},
+                                    
+                                    {scale: 1, translateY: 0},
+                                    
+                                ],
+                                // marginTop: 3,
+                                // easing: 'easeInElastic(1, .6)'
+                                // easing: 'linear'
+                            })
+                
+                    }
+
+                
+                    window.addEventListener("load", function(event) {
+                        loaderFunc();
+                        console.log("Script terminó de cargarse y ejecutarse");
+                    });
+
+
+                    function loaderAnimFunc(){
+
+       
+
+                    anime({
+                            targets: '.loaderAnim01',
+                            loop: true,
+                            // direction: 'reverse',
+                            translateY: -30,
+                            // marginTop: 3,
+                            // easing: 'easeInElastic(1, .6)'
+                            // easing: 'linear'
+                        })
+
+                    anime({
+                        scale: 0.2,
+                        targets: '.contentAnim',
+                        loop: true,
+                        direction: 'reverse',
+                        rotate: 360,
+                        translateY: -50,
+                        // marginTop: 3,
+                        // easing: 'easeInElastic(1, .6)'
+                        // easing: 'linear'
+                    })    
+
+                    }
+                    loaderAnimFunc()
 
                 </script> 
-           
-        {% endblock %}
-    </div>
+                    <script>
+                        barba.init({
+                                transitions: [{
+                                name: 'opacity-transition',
+                                leave(data) {
+                                    return gsap.to(data.current.container, {
+                                    opacity: 0
+                                    });
+                                },
+                                enter(data) {
+                                    return gsap.from(data.next.container, {
+                                    opacity: 0
+                                    });
+                                }
+                                }]
+                            });
+                
+                    </script>
+   
+<!-- </div> -->
+   {% endblock %}
         
     
-
-</body>
-</html>

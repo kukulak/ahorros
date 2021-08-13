@@ -1,20 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}CREA TU AHORRO{% endblock %}
 
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'css/ahorro.css' %}">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-</head>
-<body>
+
     <div class="lineaTop lSystem"></div>
+    {% block content %}
     <section class="sectionSystem">
         
-        {% block content %}
         
         {% if messages %}
         <div class="messages">
@@ -32,9 +25,10 @@
 
      {% endif %}
         
-        <div data-tilt data-tilt-max="2" data-tilt-reverse="false" data-tilt-scale="1" class="contenedorTarjetaPlazos">
+        <div class="contenedorTarjetaPlazos">
+
             {% for frec in preplazo %}
-                <div class="tarjeta t1 sombra">
+                <div class="tarjeta t1 sombra choose">
                     <div class="tColor" style="background-color: {{frec.color}};"></div>  
                     <h1 class="tTitulo" style="color: {{frec.color}};">{{ frec.nombre }}</h1>
                     <p style="color: {{frec.color}};">Ahorro total <br>al año:</p>
@@ -45,24 +39,23 @@
                 </div>
                 <a href="{% url 'ahorro:loguser' %}">DE QUE VA ESTO</a>
             {% endfor %}
-        {% endblock %}
 
 
-        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-max="5" data-tilt-reverse="true" data-tilt-scale="1.2" class="tarjeta t4 sombra unselectable">
-            <div class="tColor" style="background-color: darkorange;"></div>  
+        <div class="tarjeta t4 sombra unselectable choose">
+            <div class="tColor colorChoose" style="background-color: darkorange;"></div>  
             <h1 class="sistemaTitulo" style="color: darkorange;">ALEATORIO</h1>
-            <p style="margin-top: 64px; ;">Dinos cual es tu meta, escoge la frecuencia y el tiempo, nosotros te decimos cuanto ahorrar cada vez, no siempre será la misma cantidad.</p>
+            <p >Dinos cuanto es tu meta. Escoge la frecuencia y el tiempo. Nosotros te decimos cuanto ahorrar cada vez, no siempre será la misma cantidad.</p>
             <h3 class="tCantidad"></h3>
-            <a href="{% url 'ahorro:create' %}" onMouseOut="this.style.background='darkorange'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #darkorange;">EMPEZAR</a>
+            <a href="{% url 'ahorro:create' %}" style="background-color: darkorange;">EMPEZAR</a>
         </div>
 
 
-        <div data-tilt data-tilt-glare data-tilt-max="5" data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" class="tarjeta t4 sombra unselectable">
-            <div class="tColor" style="background-color: #00ffe7;"></div>  
+        <div class="tarjeta t4 sombra unselectable choose">
+            <div class="tColor colorChoose" style="background-color: #00ffe7;"></div>  
             <h1 class="sistemaTitulo" style="color: #00ffe7;">CANTIDAD FIJA</h1>
-            <p style="margin-top: 64px; ">Nosotros te decimos que cantidad vas a ahorrar, siempre será la misma, durante un tiempo especifico que tu escojas hasta llegar a tu meta. <br /> <span style="font-size: 12px;">Por cuestiones de "redondeo" probablemente ahorres un poco m&aacute;s normalmente 4 pesos extras </span></p>
+            <p >La cantidad a ahorrar siempre será la misma durante el tiempo que tu escojas hasta llegar a tu meta. <br /> <br /> <span style="font-size: 12px;">Por cuestiones de "redondeo" probablemente ahorres un poco m&aacute;s normalmente 4 pesos extras </span></p>
             <h3 class="tCantidad"></h3>
-            <a href="{% url 'ahorro:createFijo' %}" onMouseOut="this.style.background='#00ffe7'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #00ffe7;">EMPEZAR</a>
+            <a href="{% url 'ahorro:createFijo' %}" style="background-color: #00ffe7;">EMPEZAR</a>
         </div>
 
 <!-- 
@@ -83,13 +76,13 @@
             <a href="{% url 'ahorro:create' %}"  onMouseOut="this.style.background='#60d9ff'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #60d9ff;">EMPEZAR</a>
         </div> -->
 
-        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-max="5" data-tilt-reverse="true" data-tilt-scale="1.1" class="tarjeta t4 sombra unselectable">
-            <div class="tColor" style="background-color: #03A83D;"></div>  
+        <div class="tarjeta t4 sombra unselectable choose">
+            <div class="tColor colorChoose" style="background-color: #03A83D;"></div>  
             <!-- <h1 class="tTitulo" style="color: #03A83D;">META FIJA CANTIDAD VARIABLE</h1> -->
             <h1 class="sistemaTitulo" style="color: #37FB86;">LA META ES AHORRAR</h1>
-            <p style="margin-top: 64px; ">Esta opci&oacute;n te ayudar&aacute; a tener las cuentas de tu ahorro más claras, aqu&iacute; la meta es ahorrar.  </p>
+            <p>Esta opci&oacute;n te ayudar&aacute; a tener las cuentas de tu ahorro más claras, aqu&iacute; <strong>la meta es ahorrar.</strong>     </p>
             <h3 class="tCantidad"></h3>
-            <a href="{% url 'ahorro:createLaMetaEsAhorrar' %}" onMouseOut="this.style.background='#03A83D'" onMouseOver="this.style.background='rgb(12 249 95)'"style="background-color: #03A83D;">EMPEZAR</a>
+            <a href="{% url 'ahorro:createLaMetaEsAhorrar' %}" style="background-color: #03A83D;">EMPEZAR</a>
         </div>
 
         <!-- <div class="tarjeta tarjetaDash t4 sombra">
@@ -105,5 +98,4 @@
     </section>
 
     <script src="{% static 'js/vanilla-tilt.min.js' %}"></script>
-</body>
-</html>
+    {% endblock %}

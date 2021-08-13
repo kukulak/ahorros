@@ -217,28 +217,57 @@
                     var ocultar = document.getElementById("ocultar");
                     var ver = document.getElementById("ver");
                     ocultar.style.display = "none";
-                    // btnFirst.style.display = "inherit";
-                    // otro.style.display = "none";
-                    // ahorrar.style.display = "none";
-                    // lDetalle.style.display = "none";
+                  
 
                     console.log(">>>>>>>>", ahorrado.innerHTML.length)
 
                     if (ahorrado.innerHTML.length == 5){
                         ahorrado.style.fontSize = "65px"
-                        ahorrado.style.marginTop = "25px"
+                        ahorrado.style.marginTop = "15px"
                     } else if (ahorrado.innerHTML.length == 6){
                         ahorrado.style.fontSize = "59px"
-                        ahorrado.style.marginTop = "33px"
+                        ahorrado.style.marginTop = "10px"
                     } else if (ahorrado.innerHTML.length == 7){
                         ahorrado.style.fontSize = "50px"
-                        ahorrado.style.marginTop = "41px"
-                    } else if (ahorrado.innerHTML.length >= 8){
-                        ahorrado.style.fontSize = "40px"
-                        ahorrado.style.marginTop = "50px"    
+                        ahorrado.style.marginTop = "14px"
+                    } else if (ahorrado.innerHTML.length == 9){
+                        ahorrado.style.fontSize = "47px"
+                        ahorrado.style.marginTop = "15px"    
                     } else if (ahorrado.innerHTML.length == 4){
                         ahorrado.style.fontSize = "83px"
                         ahorrado.style.marginTop = "6px"
+                    }
+                    else if (ahorrado.innerHTML.length == 10){
+                        var styleElem = document.head.appendChild(document.createElement("style"));
+                        styleElem.innerHTML = "#ahorrado:before {font-size: 20px;}";
+                        var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                        styleElemAfter.innerHTML = "#ahorrado:after {font-size: 20px;}";
+                        ahorrado.style.fontSize = "48px"
+                        ahorrado.style.marginTop = "21px"    
+                    }
+                    else if (ahorrado.innerHTML.length == 11){
+                        var styleElem = document.head.appendChild(document.createElement("style"));
+                        styleElem.innerHTML = "#ahorrado:before {font-size: 20px;}";
+                        var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                        styleElemAfter.innerHTML = "#ahorrado:after {font-size: 20px;}";
+                        ahorrado.style.fontSize = "45px"
+                        ahorrado.style.marginTop = "21px"    
+                    }
+                    else if (ahorrado.innerHTML.length == 12){
+                        var styleElem = document.head.appendChild(document.createElement("style"));
+                        styleElem.innerHTML = "#ahorrado:before {font-size: 20px;}";
+                        var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                        styleElemAfter.innerHTML = "#ahorrado:after {font-size: 20px;}";
+                        ahorrado.style.fontSize = "40px"
+                        ahorrado.style.marginTop = "21px"    
+                    }
+                    else if (ahorrado.innerHTML.length >= 13){
+                        var styleElem = document.head.appendChild(document.createElement("style"));
+                        styleElem.innerHTML = "#ahorrado:before {font-size: 15px;}";
+                        var styleElemAfter = document.head.appendChild(document.createElement("style"));
+                        styleElemAfter.innerHTML = "#ahorrado:after {font-size: 15px;}";
+                        ahorrado.style.fontSize = "37px"
+                        ahorrado.style.marginTop = "21px"    
                     }
 
                 

@@ -280,11 +280,8 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
         cantidadList[ra] = cantidadList[ra]+recoveryList[ra]
 
     # cantidadList.sort()
-    if ototal < meta:
-        remanent = meta - ototal
-        print("first of all what a fuck!!")
-    else :    
-        # while ototal > meta:
+
+    while ototal > meta:
         print("WORKING")
         # print(recoveryList)
         for lp in range(len(cantidadList)):
@@ -320,7 +317,7 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
             untotal = untotal + cantidadList[ele]
             # print(untotal)            
 
-        
+           
         print('BEFORE', cantidadList)
         print("untotal antes de Tero:", untotal)
 
@@ -333,7 +330,7 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
         for ele in range(0, len(cantidadList)):
             cototal = cototal + cantidadList[ele]
             # print(cototal)            
-
+  
 
         # ototal = 0
         # for ele in range(0, len(cantidadList)):
@@ -344,12 +341,165 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
         print('AFTER', cantidadList)
         print("untotal despuesd de COero:", cototal)
         
+        ototal = untotal
         print("untotal antes de Oero:", ototal)
 
         # print('LOOKING', diferenceList)
         print("")
 
-        ototal = untotal
+        
+
+
+      
+
+        if diferenceList[0] == 0:
+            while ototal>meta:
+
+                untotal = 0    
+                
+             
+                
+                for ele in range(0, len(cantidadList)):
+                    untotal = untotal + cantidadList[ele]
+
+                cantidadList.sort(reverse=True)
+        
+                # print("LISTA EN PROCESO - con estos valores:")
+                # print(cantidadList)
+                # print("la suma de la lista es:")
+                # print(untotal)
+                # print("me falta esto:", remanent)
+
+                metaList.clear()
+                for i in range(remanent):
+                    metaList.append(1)
+                
+                
+                metaList.extend(diferenceList) 
+                metaList = metaList[:frecuencia]
+                # print("this IS METALIST")
+                # print(metaList)
+                
+                for i in range(frecuencia):
+                    if cantidadList[i] > metaList[i]:
+                        cantidadList[i] = cantidadList[i] - metaList[i]
+                
+                untotal = 0    
+                for ele in range(0, len(cantidadList)):
+                    untotal = untotal + cantidadList[ele]
+
+                # print("untotal dentro de ==", untotal)
+
+                ototal = untotal
+
+                # print("meta LIST:", metaList)
+                # print("meta LIST LENGTH:", len(metaList))
+                # print("almost finale remanent:", remanent)
+                # print("aqui cuanto vale ototal", ototal)
+
+                # if ototal>meta:
+                # print("agan")
+                # print(remanent)
+                # print("-")
+                remanent = ototal - meta
+                if remanent < 0:
+                    remanent = 0
+                    
+                # print(remanent)
+                # print("-")
+                # remanent = abs(remanent)
+                # print("-")
+                # print(remanent)
+
+
+                print("volvemos a empezar:")
+                print("")
+                print("|||")
+                print("")
+
+                metaList.clear()
+                
+                for i in range(remanent):
+                    metaList.append(1)
+                    # break
+                metaList.extend(diferenceList) 
+                metaList = metaList[:frecuencia]
+                
+                # print("meta LIST:", metaList)
+                # print("meta LIST LENGTH:", len(metaList))
+
+                for i in range(frecuencia):
+                    if cantidadList[i] > metaList[i]:
+                        cantidadList[i] = cantidadList[i] - metaList[i]
+                        break
+                    break
+                
+                untotal = 0   
+                 
+                for ele in range(0, len(cantidadList)):
+                    untotal = untotal + cantidadList[ele]
+
+                ototal = untotal    
+
+                
+                # print("")
+                # print("finale remanent:", remanent)
+                # print("")
+
+                print("aqui cuanto vale ototal", ototal)
+                break
+
+
+
+    # ototal = 0
+    # for ele in range(0, len(diferenceList)):
+    #     ototal = ototal + diferenceList[ele]
+    # # print("saber cuanto vale el array", ele, ototal, len(diferenceList))
+    # print("Ototal1:", ototal)
+
+
+    # ototal = 0
+    # for ele in range(0, len(cantidadList)):
+    #     ototal = ototal + cantidadList[ele]
+    # print("Ototal2:", ototal)
+
+    # print("CANTIDADLIST") 
+    # print(cantidadList)    
+    # print("LENGTH", len(cantidadList))
+
+  
+
+    # for x in range(frecuencia):
+    #     cantidadList.append(0 * x) 
+
+    # mytotal = 0
+
+    # for ele in range(0, len(cantidadList)):
+    #     mytotal = mytotal + cantidadList[ele]    
+
+  
+    
+    # print("antes de la resta de cantidadList en mytotal:", mytotal)
+    # print(lTotales)
+
+
+
+
+
+
+    # comented CLEAN_LIST ˘˘˘˘
+
+    # restarLista = clean_list
+    # print(restarLista)
+    # print("@@@@@@------@@@@@@")
+
+    # for lt in range(0, len(restarLista)):
+    #     if not restarLista[lt] in cantidadList:
+    #         print(restarLista[lt])
+    #     else:       
+    #         cantidadList.remove(restarLista[lt])
+
+    # print("@@@@@@------@@@@@@")
 
 
     print("CANTIDAD LIST")

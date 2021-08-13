@@ -11,7 +11,13 @@
     <script src="{% static 'js/anime.min.js' %}"></script>
     <script src="{% static 'js/fittext.js' %}"></script>
 
-    
+    <!-- unpkg -->
+    <!-- <script src="https://unpkg.com/@barba/core"></script> -->
+
+    <!-- jsdelivr -->
+    <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
+    <script src="https://unpkg.com/gsap@latest/dist/gsap.min.js"></script>
+
     
     <title>{% block title %}Mi lado que ahorra{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/ahorro.css' %}">
@@ -28,7 +34,8 @@
 
 </head>
 
-<body>
+<body data-barba="wrapper">
+
     <section id="fullContainer">
     <div class="lineaTop lSystem"></div>
     <div class="header">

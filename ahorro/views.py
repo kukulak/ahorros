@@ -846,7 +846,7 @@ def userSystemAhorrarMeta(request, id):
             else:
                 print(CantidadFormAM().non_field_errors()) 
                 form = CantidadFormAM()
-                messages.error(request, 'Ahorra más de $10.00 pesos y usa únicamente números') 
+                messages.error(request, 'Eso es demaciado intentalo de nuevo') 
 
         else:
             form = CantidadFormAM()
