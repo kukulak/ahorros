@@ -280,76 +280,129 @@ def sistema_Ahorro(frecuencia, tiempo, meta):
         cantidadList[ra] = cantidadList[ra]+recoveryList[ra]
 
     # cantidadList.sort()
-    if ototal < meta:
-        remanent = meta - ototal
-        print("first of all what a fuck!!")
-    else :    
-        # while ototal > meta:
-        print("WORKING")
-        # print(recoveryList)
-        for lp in range(len(cantidadList)):
-            if cantidadList[lp] < 0:
-                cantidadList[lp] = cantidadList[lp] + 1
+    while ototal != meta:
+        if ototal < meta:
+            remanent = meta - ototal
+            print(remanent)
 
-        remanent = ototal - meta  
-        print("remanent", remanent)
+            valorX = remanent/frecuencia
+
+            diferenceList = []
+
+            for lp in range(len(cantidadList)):
+                if cantidadList[lp] < 0:
+                    cantidadList[lp] = cantidadList[lp] + 1
+
+            for i in range(frecuencia):
+                diferenceList.append(math.trunc(valorX))
+
+            diferenceList = diferenceList[:frecuencia]    
+
+            for i in range(frecuencia):
+                if cantidadList[i] > diferenceList[i]:
+                    cantidadList[i] = cantidadList[i] + diferenceList[i]
+            print("first of all what a fuck!!")
+
+            cototal = 0
+            for ele in range(0, len(cantidadList)):
+                cototal = cototal + cantidadList[ele]
+
+            ototal = cototal
+
+            if remanent < frecuencia:
+                print('welcome to HELL')
+                print('remanent', remanent)
+                print("theTOTAL", ototal)
+                print()
+                print("last_List", cantidadList)
+                micro_remanent = []
+                for i in range(remanent):
+                    cantidadList[i] = cantidadList[i] + 1
+                cototal = 0
+                for ele in range(0, len(cantidadList)):
+                    cototal = cototal + cantidadList[ele]
+                ototal = cototal    
+                print("last_List", cantidadList)
+                print()    
+                print("theTOTAL", ototal)
+
+
+                break
+
         
-        print("")
 
-        valorX = remanent/frecuencia
+        else :    
+            # while ototal > meta:
+            print("WORKING")
+            # print(recoveryList)
+            for lp in range(len(cantidadList)):
+                if cantidadList[lp] < 0:
+                    cantidadList[lp] = cantidadList[lp] + 1
 
-        diferenceList = []
+            remanent = ototal - meta  
+            print("remanent", remanent)
+            
+            print("")
 
-        for i in range(frecuencia):
-            diferenceList.append(math.trunc(valorX))
+            if remanent < frecuencia:
+                valorX = 1
+            else:    
+                valorX = remanent/frecuencia
 
-        print("first")
-        print("DIF:", len(diferenceList), diferenceList)
+            diferenceList = []
 
+            for i in range(frecuencia):
+                diferenceList.append(math.trunc(valorX))
 
-        diferenceList = diferenceList[:frecuencia]
-
-        # divergentList = []
-        # for i in range(frecuencia):
-        #     divergentList.append(diferenceList[i]+i+1)
-        #     print('waitWhat what IS THIS', i)
-        #     print(divergentList)
-        untotal = 0    
-
-        for ele in range(0, len(cantidadList)):
-            untotal = untotal + cantidadList[ele]
-            # print(untotal)            
-
-        
-        print('BEFORE', cantidadList)
-        print("untotal antes de Tero:", untotal)
-
-        # here is the magic??
-        for i in range(frecuencia):
-            if cantidadList[i] > diferenceList[i]:
-                cantidadList[i] = cantidadList[i] - diferenceList[i]
-
-        cototal = 0
-        for ele in range(0, len(cantidadList)):
-            cototal = cototal + cantidadList[ele]
-            # print(cototal)            
+            print("first")
+            print("DIF:", len(diferenceList), diferenceList)
 
 
-        # ototal = 0
-        # for ele in range(0, len(cantidadList)):
-        #     ototal = ototal + cantidadList[ele]   
-        # cantidadList.sort()
+            diferenceList = diferenceList[:frecuencia]
 
-        print("")
-        print('AFTER', cantidadList)
-        print("untotal despuesd de COero:", cototal)
-        
-        print("untotal antes de Oero:", ototal)
+            # divergentList = []
+            # for i in range(frecuencia):
+            #     divergentList.append(diferenceList[i]+i+1)
+            #     print('waitWhat what IS THIS', i)
+            #     print(divergentList)
+            untotal = 0    
 
-        # print('LOOKING', diferenceList)
-        print("")
+            for ele in range(0, len(cantidadList)):
+                untotal = untotal + cantidadList[ele]
+                # print(untotal)            
 
-        ototal = untotal
+            
+            print('BEFORE', cantidadList)
+            print("untotal antes de Tero:", untotal)
+
+            # here is the magic??
+            for i in range(frecuencia):
+                if cantidadList[i] > diferenceList[i]:
+                    cantidadList[i] = cantidadList[i] - diferenceList[i]
+
+            cototal = 0
+            for ele in range(0, len(cantidadList)):
+                cototal = cototal + cantidadList[ele]
+                # print(cototal)            
+
+
+            # ototal = 0
+            # for ele in range(0, len(cantidadList)):
+            #     ototal = ototal + cantidadList[ele]   
+            # cantidadList.sort()    
+
+            print("")
+            print('AFTER', cantidadList)
+            print("untotal despuesd de COero:", cototal)
+            
+            print("untotal antes de Oero:", ototal)
+
+            # print('LOOKING', diferenceList)
+            print("")
+
+            ototal = cototal
+
+            # break
 
 
     print("CANTIDAD LIST")

@@ -299,6 +299,26 @@ input{
     border: none;
 }
 
+
+/* CREARSISITEMA */
+
+#id_nombre{
+    font-size: 15px;
+    width: -webkit-fill-available;
+
+}
+
+#id_meta{
+    background-color: white;
+    width: auto;
+    padding: 10px;
+    color: #333333;
+    font-weight: 500;
+    font-size: 15px;
+    width: -webkit-fill-available;
+
+}
+
 .sectionUser{
     display: grid;
     grid-template-columns: 7% 40% 6% 40% 7%;

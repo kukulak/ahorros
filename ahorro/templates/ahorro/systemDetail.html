@@ -41,7 +41,7 @@
         <h3>Hola <span class="upperCase"> {{ user.username|default:'Guest' }} </span> </h3><h5>sigue ahorrando para</h5>
         <p class="upperCase"> {{ sistema.nombre }} </p>
 
-            <p id="metaNumber" class="metaNumber">Ahorro {{ ahorro|length|add:1 }} / {{ sistema.tiempo|div:sistema.frecuencia|floatformat:'0' }} </p>
+            <p id="metaNumber" class="metaNumber">Ahorro {{ ahorro|length }} / {{ sistema.tiempo|div:sistema.frecuencia|floatformat:'0' }} </p>
             <p id="metaNumber" class="metaNumber">Meta ${{ sistema.meta|intcomma }}.00 </p>
             <p id="metaNumber" class="metaNumber">Por {{ sistema.tiempo|div:365|floatformat }} años  <span id="metaNumber" class="metaNumber">cada {{ sistema.frecuencia }} d&iacute;as</span></p>
         
