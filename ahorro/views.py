@@ -110,10 +110,14 @@ def userSystem(request, id):
         if request.method == 'POST':
             if form.is_valid():
             
-                sistema = form.save()
-                
-                messages.success(request, f'¡Ahorraste ${intcomma(sistema.cantidad)}.00 para {sistema.sistema}!')
-                print("^^^SAVED^^^")
+                sistemaForm = form.save()
+                if (my_ahorro +sistemaForm.cantidad) == sistema.meta:
+                    messages.success(request, f'¡Felicidades lograste tu meta de ${intcomma(sistema.meta)}.00!')
+                    print("^^^SAVED^^^", my_ahorro, sistema.meta)
+                    
+                else:  
+                    messages.success(request, f'¡Ahorraste ${intcomma(sistemaForm.cantidad)}.00 para {sistemaForm.sistema}!')
+                    print("^^^SAVED^^^", my_ahorro, sistema.meta)
                 time.sleep(0.3)
                 return redirect('/')
         else:
@@ -564,7 +568,9 @@ def userArchived(request, id):
 
     if (request.GET.get('DeleteButton')):
         Sistema.objects.filter(id = request.GET.get('DeleteButton')).delete()
-        return redirect('/')
+        return redirect('/archived')
+        # return redirect('/')
+
 
 
 
@@ -621,7 +627,7 @@ def userArchivedF(request, id):
     if (request.GET.get('DeleteButton')):
         CantidadFija.objects.filter(id = request.GET.get('DeleteButton')).delete()
         print("IAM LOST SO WHERE I AM")
-        return redirect('/')
+        return redirect('/archived')
 
     if sistema.user.id == request.user.id:
                                   

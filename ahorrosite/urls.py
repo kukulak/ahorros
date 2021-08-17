@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # url(r'^', include('ahorro.urls')),
     # url(r'^admin/', admin.site.urls),
+    path('', include('pwa.urls')),
 ]
 
 

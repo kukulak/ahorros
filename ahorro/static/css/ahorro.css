@@ -2,6 +2,19 @@ html {
     scroll-behavior: smooth;
   }
 
+  .colordeahorro{
+    background-color: #00ffe7;
+}
+
+img {
+    image-rendering: auto;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1.0, 1.0);
+    transform: translateZ(0);
+  }
+
 *{
     font-family: 'Exo 2', sans-serif;
     
@@ -62,7 +75,12 @@ footer a{
     margin: 0 0 30px 0;
 }
 
-.logo{
+
+
+
+.logo img{
+    margin: 0 20px;
+    width: 130px
 
 }
 
@@ -200,7 +218,7 @@ justify-content: end;
     left: 0px;
     top: 108px;
     bottom: 0px;
-    padding: 20px 32px;
+    padding: 0px 32px;
     font-size: 18px;
     font-weight: 500;
     color: #313131;
@@ -222,6 +240,8 @@ justify-content: end;
     align-items: center;
     transform: translateZ(21px);
     align-content: center;
+    height: 75px;
+
 
     /* background-color: #efefef; */
 }
@@ -234,10 +254,12 @@ justify-content: end;
 
 .logro:hover{
     align-content: center;
-    top: 127px;
-    bottom: -17px;
+    /* top: 127px;
+    bottom: -17px; */
     /* left: 10px;
     right: 10px; */
+    height: 75px;
+    margin: 16px 0 0;
     padding: 0;
     box-shadow: 0px -18px 20px 2px #252525e0;
 }
@@ -254,6 +276,7 @@ justify-content: end;
     min-height: 100vh;
     position: relative;
     padding-bottom: 100px;
+    display: grid;
 }
 
 .user{
@@ -314,8 +337,9 @@ input{
     padding: 10px;
     color: #333333;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 25px;
     width: -webkit-fill-available;
+    text-align: left;
 
 }
 
@@ -386,8 +410,8 @@ input{
 }
 
 .formContainer input{
-    /* width: -webkit-fill-available; */
-    /* width: -moz-available; */
+    width: -webkit-fill-available;
+    width: -moz-available;
 }
 
 
@@ -516,7 +540,8 @@ input[type=text]:focus {
 }
 
 .dashboard .boveda{
-    margin: 20px auto;
+    margin: 24px auto;
+    font-size: 20px;
 }
 
 
@@ -716,13 +741,11 @@ input[type=text]:focus {
 
 .publicidad{
     /* background-color: black; */
-    width: 90%;
+ 
+    width: 100%;
     height: auto;
-    /* background-color: black; */
-    width: 90%;
-    height: auto;
-    position: absolute;
-    /* background-image: url(/static/img/publicidadscreen.png); */
+    /* position: absolute; */
+
     text-align: center;
     
 }
@@ -919,10 +942,12 @@ input[type=text]:focus {
 
 .saludo{
     font-size: 40px;
-    grid-row: 1;
+    grid-row: 3;
     margin-left: 60px;
     margin-bottom: 50px;
     margin-top: 35px;
+    z-index: 1000;
+
 }
 
 .saludo h1{
@@ -1003,6 +1028,9 @@ input[type=text]:focus {
     min-width: 313px;
 }
 
+
+
+
 .casilla{
     background-color: white;
     color: grey;
@@ -1061,6 +1089,9 @@ input[type=text]:focus {
     background-color: rgb(255, 106, 0);
     outline: none;
 }
+
+
+
 
 .casilla .otro:hover{
     background: none;
@@ -1152,6 +1183,11 @@ input[type=text]:focus {
 
 }
 
+#notAllowed{
+    justify-self: end;
+    z-index: 100;
+}
+
 .inputCantidad, input::-webkit-outer-spin-button,
 .inputCantidad, input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -1164,6 +1200,7 @@ input[type=text]:focus {
     background-color: transparent;
     /* background-color: beige; */
     /* width: 100%; */
+    text-align: center;
     font-size: 90px;
     padding: 0px 0px 69px;
 }
@@ -1194,6 +1231,12 @@ div .cantidadBefore{
     grid-row-start: 1;
     grid-column-start: 1;
 }
+.nDecoradoDF{
+    background-color: #00ffe7;
+    box-shadow: 1px 0px 9px #00ffe7;
+}
+
+
 
 .number{
     grid-row-start: 1;
@@ -1582,6 +1625,43 @@ div .cantidadBefore{
 
 
 
+button.detalleDF{
+
+    background-color: #00ffe7 !important;
+    /* background-color: #018d7f !important; */
+    color: #111111;
+
+}
+
+button.detalleDF:hover{
+    
+    background-color: #006d62 !important;
+}
+
+
+
+button.ahorrarMA{
+
+    background-color: #009e1a !important;
+    /* background-color: #018d7f !important; */
+    color: #111111;
+
+
+}
+
+.ahorrarMA{
+    box-shadow: 1px 0px 9px #009e1a;
+    background-color: #009e1a !important;
+    /* background-color: #018d7f !important; */
+    color: #111111;
+
+}
+
+button.ahorrarMA:hover{
+    
+    background-color: #016612 !important;
+}
+
 .estadisticCardUsers{
     justify-self: baseline;
     border-top: solid rgb(255 106 0 / 100%) 7px;
@@ -1753,6 +1833,21 @@ div .cantidadBefore{
     font-size: 20px;
 }
 
+
+canvas{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+}
+
 /* ###########
 ################
 #############BEFORE QUERIES#####
@@ -1760,7 +1855,9 @@ div .cantidadBefore{
 ########## */
 
 @media (max-width: 846px) {
-
+    .systemChooseRegresar{
+        font-size: 25px;
+    }
         
     .formContainerCreate{
         width: auto;
@@ -1927,7 +2024,7 @@ div .cantidadBefore{
 }
 
 
-@media (max-width: 600px){
+@media (max-width: 654px){
 
     .menu a:first-child{
         justify-self: center;
@@ -1948,14 +2045,14 @@ div .cantidadBefore{
     }
 
     .contenedorTarjeta {
-        grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(157px, 1fr));
         grid-row: auto;
         width: 90%;
     }
 
     .saludo{
         font-size: 26px;
-        grid-row: 2;
+        grid-row: 4;
         margin-left: 20px;
         margin-bottom: 20px;
         margin-top: 50px;
@@ -2017,7 +2114,7 @@ div .cantidadBefore{
 
     .saludo{
         font-size: 26px;
-        grid-row: 2;
+        grid-row: 4;
         margin-left: 20px;
         margin-bottom: 20px;
         margin-top: 20px;

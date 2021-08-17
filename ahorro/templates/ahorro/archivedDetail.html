@@ -1,4 +1,6 @@
+
 {% load static %}
+{% load mathfilters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +36,10 @@
                 <span>{{ sistemaAM.meta|intcomma }}</span>
                 .00
             </p>
+            <!-- more data -->
+            <p id="metaNumber" class="metaNumber">Ahorro {{ ahorro|length }} / {{ sistema.tiempo|div:sistema.frecuencia|floatformat:'0' }} </p>
+      
+            <p id="metaNumber" class="metaNumber">Por {{ sistema.tiempo|div:365|floatformat }} años  <span id="metaNumber" class="metaNumber">cada {{ sistema.frecuencia }} d&iacute;as</span></p>
             {% endif %}
             <a  href="{% url 'ahorro:archived' %}"> &lt; REGRESAR </a>
            

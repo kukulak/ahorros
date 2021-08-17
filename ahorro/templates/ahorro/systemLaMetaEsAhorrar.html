@@ -1,30 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ sistema.nombre|title }} {% endblock %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- FAVICONS -->
+
+{% load mathfilters %}
+
+{% load static %}
 
 
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'core/favicon/favicon.ico' %}">
-
-    <script src="{% static 'js/anime.min.js' %}"></script>
-
-    <link rel="stylesheet" href="{% static 'css/ahorro.css' %}">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <style>
-        .colordeahorro{
-            background-color: #00ffe7;
-        }
-    </style>
-
-</head>
-<body>
-    <div class="fullContainer">
+  
         {% block content %}
         <div class="saludo">
             {% load humanize %}
@@ -82,7 +66,7 @@
     
                             
                             <div class="nData" id="rData" >
-                                <div class="nDecorado"> </div>
+                                <div class="nDecorado ahorrarMA"> </div>
                                 <div class="aNumber number">
                                     <span></span>
                                     
@@ -90,10 +74,11 @@
                                     <div class="CBA cantidadBefore">$<input onkeyup="getMyNumber()" contentEditable="true" id="cantidad" class="rCantidad inputCantidad" value="000" type="number" min="1" max="999999999"><span class="CBA cantidadBefore">.00</span></div>
                                 </div>
                             </div>
-                        
-                            <button onclick="autoPress(ahorrarBtn);" id="ahorrar" class="unselectable btn ahorrar">
+                        <div id="notAllowed">
+                            <button onclick="autoPress(ahorrarBtn);" id="ahorrar" class="unselectable btn ahorrar ahorrarMA">
                                 AHORRAR
                             </button>
+                        </div>
                         </div>
                     {% endif%}
                     
@@ -119,7 +104,7 @@
 
                         </div>
                         <div class="nData" id="nData">
-                            <div class="nDecorado" id="detailDecorado"> </div>
+                            <div class="nDecorado ahorrarMA" id="detailDecorado"> </div>
                             <div class="number" id="numberDecorado">
                                 <span></span>
                                 {% load humanize %}
@@ -127,10 +112,10 @@
                                 
                             </div>    
                         </div>
-                        <button onclick="detalleList(); window.location.href='#casAhorrado';" id="ver" class="unselectable btn detalle">
+                        <button onclick="detalleList(); window.location.href='#casAhorrado';" id="ver" class="unselectable btn detalle ahorrarMA">
                             VER DETALLE
                         </button>
-                        <button onclick="detalleList();" id="ocultar" class="unselectable btn detalle">
+                        <button onclick="detalleList();" id="ocultar" class="unselectable btn detalle ahorrarMA">
                             OCULTAR DETALLE
                         </button>
                     </div> 
@@ -144,9 +129,9 @@
                 
                 <p>¿Estás segur@ que quieres borrar este ahorro?</p> 
                 
-                <button id ="delete" name="DeleteButton" value="{{ sistema.id }}">BORRAR</button>
+                <button id ="delete" class="ahorrarMA" name="DeleteButton" value="{{ sistema.id }}">BORRAR</button>
                 
-                <button id ="cancelDdelete" onclick="formBorrarThird()" name="NoDeleteButton" >CANCELAR</button>
+                <button id ="cancelDdelete" class="ahorrarMA" onclick="formBorrarThird()" name="NoDeleteButton" >CANCELAR</button>
             
             </form>
         </div>
@@ -159,9 +144,9 @@
                 <p>¿Estás segur@ que quieres archivar este ahorro?</p> 
                 
                 <!-- <a onclick="autoPress(archiveBtn);" id ="archive" name="ArchiveButton">ARCHIVAR</a> -->
-                <button value="{{ sistema.id }}" id ="archive" name="ArchiveButton">ARCHIVAR</button>
+                <button value="{{ sistema.id }}" id ="archive" class="ahorrarMA" name="ArchiveButton">ARCHIVAR</button>
                 
-                <button id ="cancelDdelete" onclick="formArchivarThird()" name="NoDeleteButton" >CANCELAR</button>
+                <button id ="cancelDdelete" class="ahorrarMA" onclick="formArchivarThird()" name="NoDeleteButton" >CANCELAR</button>
             
             </form>
         </div>
@@ -169,9 +154,9 @@
 
 
     <div class="botonesDetail">
-        <button onclick="formBorrarSecond()" id ="deleteFStep"> BORRAR SISTEMA </button>
+        <button onclick="formBorrarSecond()" id ="deleteFStep" class="ahorrarMA"> BORRAR SISTEMA </button>
 
-        <button id="btnArchivar" onclick="formArchivarSecond(), selectArchived()"> ARCHIVAR SISTEMA </button>
+        <button id="btnArchivar" class="ahorrarMA" onclick="formArchivarSecond(), selectArchived()"> ARCHIVAR SISTEMA </button>
     </div>
         <!-- <form action="/cantidad/" method="post"> -->
         <form id="hForm" method="POST" enctype="multipart/form-data">    
@@ -209,14 +194,14 @@
 
                     function autoPress(btnToPress){
                         btnToPress.click()
+                      
                         console.log("here yo go")
+
                     }
 
 
 
-                    function autoPress(btnToPress){
-                        btnToPress.click()
-                    }
+                   
                     
                     var ahorrarBtn = document.getElementById('ahorrarBtn');
 
@@ -451,8 +436,25 @@
                                 
                             // console.log("pressed")
                         })  
-
+                    
+                    let notAllowed = document.getElementById("notAllowed")
+                        
                     function getMyNumber(e){
+
+                        if(cantidad.value.length > 9){
+                            notAllowed.style.cursor = 'not-allowed'
+                            ahorrar.style.pointerEvents = 'none'
+
+                            ahorrar.innerHTML = "no process"
+                            console.log("ya no sirve el boton", cantidad.value.length )
+                            
+                        }else{
+                            console.log("length", cantidad.value.length )
+                            ahorrar.style.pointerEvents = 'all'
+                            ahorrar.innerHTML = "AHORRAR"
+
+
+                        }
 
 
                         // document.addEventListener('keydown', function(e) {
@@ -540,7 +542,7 @@
                                 scale: 1.2,
                                 marginTop: 3
                             })
-                            if (thenumbers > 180) {
+                            if (thenumbers > 10) {
                                 clearInterval(intval);
                                 thenumbers = 0;
                                 anime({
@@ -802,9 +804,3 @@
                 </script> 
            
         {% endblock %}
-    </div>
-        
-    
-
-</body>
-</html>

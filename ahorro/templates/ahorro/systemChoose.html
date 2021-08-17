@@ -21,7 +21,14 @@
         
         {% else %}
             <!-- <h1 class="titulo">ELIGE COMO QUIERES AHORRAR</h1> -->
-            <h1 class="titulo"> {{ request.user.username|default:'Guest'|upper }} elige como quieres ahorrar!</h1>
+            <div>
+
+                <h1 class="titulo"> {{ request.user.username|default:'Guest'|upper }} elige cómo quieres ahorrar!
+                    <br />
+                    <a class='systemChooseRegresar' href="{% url 'ahorro:dashboard' %}"> &lt; REGRESAR </a>
+                </h1>
+                
+            </div>
 
      {% endif %}
         

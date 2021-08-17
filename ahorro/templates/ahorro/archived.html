@@ -22,7 +22,7 @@
                 </div>
 
                 {% else %}
-                <h1 class="titulo"> Hola, {{ request.user.username|default:'Guest'|upper }}!</h1>
+                <!-- <h1 class="titulo"> Hola, {{ request.user.username|default:'Guest'|upper }}!</h1> -->
 
              {% endif %}
 
@@ -106,7 +106,7 @@
 
         {% for ahorroAM in archivedAM %}
                 
-            <a data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" href="{{ ahorroAM.archived_url }}" class="tarjeta tarjetaDash t1 sombra">
+            <a data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" href="{{ ahorroAM.archived_url }}" id="cardCumplida" class="tarjeta tarjetaDash t1 sombra">
                 
                 <div class="tColor" style="background-color: #03A83D;"></div>  
 
@@ -151,11 +151,29 @@
         } else if (numbers[i].innerHTML.length == 7){
             numbers[i].style.fontSize = "30px"
             
-        } else if (numbers[i].innerHTML.length >= 8){
+        } else if (numbers[i].innerHTML.length == 8){
             numbers[i].style.fontSize = "25px"
             
         } else if (numbers[i].innerHTML.length == 4){
             numbers[i].style.fontSize = "40px"
+            
+        }else if (numbers[i].innerHTML.length == 9){
+            numbers[i].style.fontSize = "25px"
+            
+        }else if (numbers[i].innerHTML.length == 10){
+            numbers[i].style.fontSize = "25px"
+            
+        }else if (numbers[i].innerHTML.length == 11){
+            numbers[i].style.fontSize = "24px"
+            
+        }else if (numbers[i].innerHTML.length == 12){
+            numbers[i].style.fontSize = "23px"
+            
+        }else if (numbers[i].innerHTML.length == 13){
+            numbers[i].style.fontSize = "20px"
+            
+        }else if (numbers[i].innerHTML.length >= 14){
+            numbers[i].style.fontSize = "16px"
             
         }
 

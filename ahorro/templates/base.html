@@ -1,6 +1,9 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+    {% load pwa %}
+    {% progressive_web_app_meta %}
+    <link rel='manifest' href='manifest.json'>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +13,8 @@
     
     <script src="{% static 'js/anime.min.js' %}"></script>
     <script src="{% static 'js/fittext.js' %}"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 
     <!-- unpkg -->
     <!-- <script src="https://unpkg.com/@barba/core"></script> -->
@@ -39,8 +44,12 @@
     <section id="fullContainer">
     <div class="lineaTop lSystem"></div>
     <div class="header">
-        <a href="" class="logo">
-            <img src="" alt="">
+        <a href="{% url 'ahorro:dashboard' %}" class="logo">
+            <!-- <img src="" alt=""> -->
+            <!-- <img src="/static/img/ahorraAhora_io.png" alt="amazon"> -->
+
+            <img src="{% static 'svg/lo_ahorraAhora.png' %}" alt="activos">
+
         </a>
         <div class="menuHeader">
             <a href="" class="about">
@@ -86,7 +95,7 @@
 <section id="contenedorPublicidad" class="contendorPublicidad">
     <div id="publicidad" class="publicidad">
         <!-- compra en amazon -->
-        <!-- <img src="/static/img/publicidadscreen.png" alt="amazon"> -->
+        <img src="/static/img/publicidadscreen.png" alt="amazon">
     </div> 
 </section>
 

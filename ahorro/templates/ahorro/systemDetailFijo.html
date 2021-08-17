@@ -1,34 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ sistema.nombre|title }} {% endblock %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ahorro fijo</title>
-    <!-- FAVICONS -->
 
-
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'core/favicon/favicon.ico' %}">
-
-    <script src="{% static 'js/anime.min.js' %}"></script>
-
-    <link rel="stylesheet" href="{% static 'css/ahorro.css' %}">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <style>
-        .colordeahorro{
-            background-color: #00ffe7;
-        }
-    </style>
-
-</head>
-<body>
-    <div class="fullContainer">
+{% load mathfilters %}
+    <!-- <div class="fullContainer"> -->
         {% block content %}
         <div class="saludo">
             {% load humanize %}
-            <h3>Hola <span class="upperCase"> {{ user.username|default:'Guest' }} </span> </h3><h5>sigue tu ahorro fijo para</h5>
+            <!-- <h3>Hola <span class="upperCase"> {{ user.username|default:'Guest' }} </span> </h3> -->
+            <h5>Sigue tu ahorro fijo para</h5>
             <p class="upperCase"> {{ sistema.nombre }} </p>
             <p id="metaNumber" class="metaNumber">Meta ${{ sistema.meta|intcomma }}.00 </p>
             
@@ -56,7 +37,7 @@
                             <p>CANTIDAD A AHORRAR</p>
                             
                             <div class="nData" id="rData" >
-                                <div class="nDecorado"> </div>
+                                <div class="nDecorado nDecoradoDF"> </div>
                                 <div class="aNumber number">
                                     <span></span>
                                     
@@ -64,7 +45,7 @@
                                 </div>
                             </div>
                         
-                            <button onclick="autoPress(ahorrarBtn), deactivate();" id="ahorrar" class="unselectable btn ahorrar">
+                            <button onclick="autoPress(ahorrarBtn), deactivate();" id="ahorrar" class="unselectable btn ahorrar detalleDF">
                                 AHORRAR
                             </button>
                         </div>
@@ -92,7 +73,7 @@
 
                         </div>
                         <div class="nData" id="nData">
-                            <div class="nDecorado" id="detailDecorado"> </div>
+                            <div class="nDecorado nDecoradoDF" id="detailDecorado"> </div>
                             <div class="number" id="numberDecorado">
                                 <span></span>
                                 {% load humanize %}
@@ -100,10 +81,10 @@
                                 
                             </div>    
                         </div>
-                        <button onclick="detalleList(); window.location.href='#casAhorrado';" id="ver" class="unselectable btn detalle">
+                        <button onclick="detalleList(); window.location.href='#casAhorrado';" id="ver" class="unselectable btn detalle detalleDF">
                             VER DETALLE
                         </button>
-                        <button onclick="detalleList();" id="ocultar" class="unselectable btn detalle">
+                        <button onclick="detalleList();" id="ocultar" class="unselectable btn detalle detalleDF">
                             OCULTAR DETALLE
                         </button>
                     </div> 
@@ -117,9 +98,9 @@
                 
                 <p>¿Estás segur@ que quieres borrar este ahorro?</p> 
                 
-                <button id ="delete" name="DeleteButton" value="{{ sistema.id }}">BORRAR</button>
+                <button id ="delete" class="detalleDF" name="DeleteButton" value="{{ sistema.id }}">BORRAR</button>
                 
-                <button id ="cancelDdelete" onclick="formBorrarThird()" name="NoDeleteButton" >CANCELAR</button>
+                <button id ="cancelDdelete" class="detalleDF" onclick="formBorrarThird()" name="NoDeleteButton" >CANCELAR</button>
             
             </form>
         </div>
@@ -132,9 +113,9 @@
                 <p>¿Estás segur@ que quieres archivar este ahorro?</p> 
                 
                 <!-- <a onclick="autoPress(archiveBtn);" id ="archive" name="ArchiveButton">ARCHIVAR</a> -->
-                <button value="{{ sistema.id }}" id ="archive" name="ArchiveButton">ARCHIVAR</button>
+                <button value="{{ sistema.id }}" class="detalleDF" id ="archive" name="ArchiveButton">ARCHIVAR</button>
                 
-                <button id ="cancelDdelete" onclick="formArchivarThird()" name="NoDeleteButton" >CANCELAR</button>
+                <button id ="cancelDdelete" class="detalleDF" onclick="formArchivarThird()" name="NoDeleteButton" >CANCELAR</button>
             
             </form>
         </div>
@@ -142,9 +123,9 @@
 
 
     <div class="botonesDetail">
-        <button onclick="formBorrarSecond()" id ="deleteFStep"> BORRAR SISTEMA </button>
+        <button onclick="formBorrarSecond()" class="detalleDF" id ="deleteFStep"> BORRAR SISTEMA </button>
 
-        <button id="btnArchivar" onclick="formArchivarSecond(), selectArchived()"> ARCHIVAR SISTEMA </button>
+        <button id="btnArchivar" class="detalleDF" onclick="formArchivarSecond(), selectArchived()"> ARCHIVAR SISTEMA </button>
     </div>
         <!-- <form action="/cantidad/" method="post"> -->
         <form id="hForm" method="POST" enctype="multipart/form-data">    
@@ -683,14 +664,44 @@
                     // moneyFunction(numero)
                     // console.log(numero.innerHTML)
                   
+    
+        var myCanvas = document.createElement('canvas');
 
+        var myConfetti = confetti.create(myCanvas, {
+            resize: true,
+            useWorker: true
+        });
+        myConfetti({
+            particleCount: 100,
+            spread: 160
+            // any other options from the global
+            // confetti function
+        });
+
+        // let exito = document.querySelectorAll('div.success')
+
+        console.log('INNEER', exito.innerHTML)
+        exito.appendChild(myCanvas);
+
+        if (exito.innerHTML.includes('CUMPLISTE')){
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#00ffe7'],
+            });
+            // success[0].style.color = 'red'
+            // success[0].style.backgroundColor = 'red'
+
+
+
+        }                         
 
                 </script> 
            
         {% endblock %}
-    </div>
+    <!-- </div> -->
         
     
 
-</body>
-</html>
+
