@@ -1,10 +1,12 @@
+{% load pwa %}
+{% load webpush_notifications %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    {% load pwa %}
-    {% progressive_web_app_meta %}
     <link rel='manifest' href='manifest.json'>
 <head>
+    {% progressive_web_app_meta %}
+    {% webpush_header %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
@@ -40,7 +42,6 @@
 </head>
 
 <body data-barba="wrapper">
-
     <section id="fullContainer">
     <div class="lineaTop lSystem"></div>
     <div class="header">
@@ -48,16 +49,19 @@
             <!-- <img src="" alt=""> -->
             <!-- <img src="/static/img/ahorraAhora_io.png" alt="amazon"> -->
 
-            <img src="{% static 'svg/lo_ahorraAhora.png' %}" alt="activos">
+            <img src="{% static 'img/ahorraAhoraLogo.png' %}" alt="activos">
 
         </a>
         <div class="menuHeader">
-            <a href="" class="about">
+            <!-- <a href="" class="about">
                 Información
             </a>
             <a href="" class="contacto">
                 Contacto
-            </a>
+            </a> -->
+
+           <!-- {% webpush_button with_class="btnPushNotifications" %} -->
+
             <span class="user">
                 {% if request.user.is_authenticated %}
                 <!-- Hello -->
@@ -68,7 +72,11 @@
                 <!-- <br> -->
                     {% if request.path == "/" %}
                         <a href="{% url 'ahorro:logout' %}?next={{request.path}}">SALIR&emsp;</a>
-                    {% endif %}
+                         {% else %}
+
+                        <a href="{% url 'ahorro:logout' %}?next={{request.path}}">SALIR&emsp;</a>
+                        {% endif %}
+                        
                 {% else %}
                 <a href="{% url 'ahorro:login' %}">Log-in</a>
                 {% endif %}

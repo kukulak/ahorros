@@ -3,16 +3,16 @@ html {
   }
 
   .colordeahorro{
-    background-color: #00ffe7;
+    background-color: #A5E5A5;
 }
 
 img {
-    image-rendering: auto;
+    /* image-rendering: auto;
     image-rendering: crisp-edges;
     image-rendering: pixelated;
     -webkit-backface-visibility: hidden;
     -webkit-transform: translateZ(0) scale(1.0, 1.0);
-    transform: translateZ(0);
+    transform: translateZ(0); */
   }
 
 *{
@@ -66,6 +66,220 @@ footer a{
 }
 
 
+.login-form .messages{
+    font-size: 21px;
+    margin: 20px 0px;
+}
+
+.login-form a{
+    margin: 10px 0;
+    display: block;
+}
+
+.login-form h2{
+    margin: 10px 0;
+    display: block;
+}
+
+.login-form p{
+    margin: 10px 0;
+    display: block;
+}
+
+.recuperar{
+    display: grid;
+    width: 80%;
+    justify-self: center;
+    align-self: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.recuperarInfo{
+    display: grid;
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+
+.recuperarForm{ 
+    display: grid;
+    grid-column-start: 1;
+    grid-row-start: 3;
+    margin-top: 50px;
+    justify-content: center;
+    justify-items: center;
+}
+
+.recuperarForm form{
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+}
+.recuperarForm form p label{
+    margin: 10px 0 5px;
+    max-width: 133px;
+}
+
+.recuperarForm input[type=submit]{
+    margin: 10px 0;
+    padding: 10px;
+    font-weight: 400;
+    background-color: #FFA941;
+    color: #333333;
+}
+
+label[for=id_username]{
+   display: none;
+   visibility: hidden;
+   font-size: 0px;
+}
+
+label[for=id_username]::after{
+    content: 'Usuario';
+    display: block;
+    visibility: visible;
+   font-size: 16px;
+    
+ }
+
+ label[for=id_date_of_birth]{
+    display: none;
+    visibility: hidden;
+    font-size: 0px;
+ }
+ 
+ label[for=id_date_of_birth]::after{
+     content: 'Cumpleaños';
+     display: block;
+     visibility: visible;
+   font-size: 16px;
+
+  }
+
+  #userDate{
+      margin: 33px 0 52px;
+  }
+
+  p #id_date_of_birth{
+      display: none;
+  }
+
+  .dateInput{
+    display: block;
+    margin: -27px 0px !important;
+  }
+
+
+
+  label[for=id_photo]{
+    display: none;
+    visibility: hidden;
+    font-size: 0px;
+ }
+
+ #id_photo{
+    display: none;
+    visibility: hidden;
+    font-size: 0px;
+ }
+
+ input[type=date]{
+    margin: 10px 0;
+    padding: 10px;
+    font-weight: 300;
+    color: #666666;
+    width: 200px;
+ }
+
+
+.recuperarForm input[type=email]{
+    margin: 10px 0;
+    padding: 10px;
+    font-weight: 300;
+    color: #666666;
+    width: 200px;
+}
+
+.iconLapiz{
+    position: relative;
+}
+
+.iconLapiz img{
+    width: 15px;
+}
+
+.iconLapiz .toolTip{
+    font-size: 10px;
+    visibility: hidden;
+    width: 60px;
+    background-color: rgba(0, 0, 0, 0.363);
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    top: -1px;
+    left: 125%;
+    z-index: 1;
+}
+
+.iconLapiz:hover .toolTip {
+    visibility: visible;
+  }
+
+
+#hFormEditar{
+    top: 0;
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    position: fixed;
+    font-size: 30px;
+    z-index: 10100;
+    height: 100%;
+    width: 100%;
+    background: #000000eb;
+    text-align: center;
+  }
+
+#hFormEditar form{
+  grid-template-columns: 100% 100%;
+  display: grid;
+  width: 193px;
+  align-content: stretch;
+  justify-content: space-evenly;
+  align-items: baseline;
+  /* justify-items: center; */
+  text-align: right;
+  gap: 10px;
+}
+
+#editarAhorroBtn{
+    justify-self: center;
+    padding: 10px 36px;
+    /* margin-right: 20px; */
+    /* margin-top: -13px; */
+    background-color: #FFA941;
+    font-size: 20px;
+    font-weight: 500;
+    border: none;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    cursor: pointer;
+    z-index: 100;
+    margin: 10px 10px;
+    width: max-content;
+
+}
+
+#editarAhorroBtn:hover{
+    background-color: rgb(189, 106, 4);
+}
+
+
 .header{
     display: grid;
     grid-template-columns: 50% 50%;
@@ -101,6 +315,32 @@ justify-content: end;
 
 }
 
+
+.btnPushNotifications{
+    font-size: 15px;
+    display: block;
+    color: #353535;
+    background-color: #FFA941;
+    border: none;
+    font-weight: 400;
+    padding: 14px;
+    margin: 25px 0 0;
+    visibility: visible;
+}
+/* 
+.btnPushNotifications::after{
+    font-size: 15px;
+
+    content: 'Desabilita Notificaciones Push';
+    display: block;
+    color: #353535;
+    background-color: #FFA941;
+    border: none;
+    font-weight: 400;
+    padding: 14px;
+    margin: 25px 0 0;
+    visibility: visible;
+} */
 
 
 .simple{
@@ -143,7 +383,7 @@ justify-content: end;
     width: 36px;
     width: 26px;
     margin-right: 7px;
-    /* background: #f98900; */
+    /* background: #FFA941; */
 }
 
 
@@ -168,7 +408,7 @@ justify-content: end;
 
 .menu a:after{
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-    border-bottom: solid 1px #f9890000;
+    border-bottom: solid 1px #FFA94100;
     background-color:rgb(0 0 0 / 0%);
     content: "";
     display: block;
@@ -181,7 +421,7 @@ justify-content: end;
 
 
 .menu a:hover:after{
-    border-bottom: solid 1px #f98900;
+    border-bottom: solid 1px #FFA941;
     /* padding: 10px 12px 10px 12px;
     border-radius: 5px;
     margin-bottom: 15px; */
@@ -199,7 +439,7 @@ justify-content: end;
 
 .logro{
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-    background-color: darkorange;
+    background-color: #FFA941;
     display: block;
     position: absolute;
     left: 11px;
@@ -208,11 +448,11 @@ justify-content: end;
     font-size: 18px;
     font-weight: 500;
     color: #313131;
-    box-shadow: 0px 0px 20px 2px darkorange;
+    box-shadow: 0px 0px 20px 2px #FFA941;
 
     /* OPCION DOS */
 
-    /* background-color: rgb(255 106 0 / 100%); */
+    /* background-color: #FFA941; */
     display: block;
     position: absolute;
     left: 0px;
@@ -280,7 +520,7 @@ justify-content: end;
 }
 
 .user{
-    /* margin: 20px 20px; */
+    margin: 0px 20px;
     display: block;
 }
 
@@ -314,7 +554,7 @@ justify-content: end;
 }
 
 .lSystem{
-    background-color: #03A83D;
+    background-color: #FFA941;
 }
 
 input{
@@ -352,6 +592,23 @@ input{
     min-height: 500px;
 }
 
+.btnEntrar{
+    background-color: #FFA941;
+    padding: 10px;
+    display: block;
+    margin-top: 15px;
+    width: 70px;
+    text-align: center;
+}
+
+.conExito{
+    grid-column-start: 2;
+}
+
+.conExito h1{
+    font-size: 25px;
+}
+
 .sectionCreate{
     display: grid;
     grid-template-columns: 7% 40% 6% 40% 7%;
@@ -380,6 +637,7 @@ input{
 
 .logForm{
     grid-column-start: 4;
+    justify-self: baseline;
 }
 
 .logForm h1{
@@ -389,7 +647,7 @@ input{
 }
 
 #enviar{
-    background: darkorange;
+    background: #FFA941;
     width: auto;
     padding: 10px 30px;
     color: #333333;
@@ -428,6 +686,7 @@ input{
 
 input[type=text]{
     /* min-height: 25px; */
+    width: 300px;
     padding: 10px 10px;
     color:#333333;
     font-weight: 500;
@@ -480,6 +739,8 @@ input[type=text]:focus {
     background-color: rgb(225, 225, 225);
   }
 
+
+
 .formContainer label{
     display: block;
     margin: 20px 0 5px;
@@ -490,6 +751,48 @@ input[type=text]:focus {
     display: block;
     margin: 20px 0 5px;
     text-transform: uppercase;
+}
+
+.bulletCambiar{
+    margin-top: 20px;
+    padding: 10px;
+    background: #FFA941;
+    display: block;
+    width: max-content;
+    color: #333333;
+    font-weight: 400;
+}
+
+.bulletCambiar:hover{
+    background: #FFA800;
+  
+}
+
+
+
+.registerForm{
+    display: grid;
+}
+
+.field{
+    margin: 10px 0;
+}
+
+.submit{
+    background: #FFA941;
+    width: auto;
+    padding: 10px 30px;
+    color: #333333;
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: 80px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    border: none;
+}
+
+.submit:hover{
+    background: #FFA800;
 }
 
 
@@ -515,7 +818,7 @@ input[type=text]:focus {
     grid-row: 1;
     grid-column-start: 1;
     /* font-size: 37px; */
-    margin: 70px 0px 70px 0px;
+    margin: 20px 0px 70px 0px;
     text-align: center;
 }
 
@@ -577,7 +880,7 @@ input[type=text]:focus {
     justify-content: center;
     width: 80px;
     height: 80px;
-    background-color: darkorange;
+    background-color: #FFA941;
     /* display: grid; */
     align-items: end;
     
@@ -613,14 +916,14 @@ input[type=text]:focus {
 }
 
 .tTitulo{
-    color: rgb(255 106 0 / 100%);
+    color: #FFA941;
     color: #cacaca;
     font-weight: 400;
     font-size: 17px;
     text-transform: uppercase;
 }
 .sistemaTitulo{
-    color: rgb(255 106 0 / 100%);
+    color: #FFA941;
     color: #cacaca;
     font-weight: 400;
     font-size: 22px;
@@ -629,6 +932,54 @@ input[type=text]:focus {
 
 .txtChico{
     font-size: 11px;
+}
+
+.smallmessage{
+    font-size: 19px;
+}
+
+.styleCreateSystem #enviar{
+    background: #FFA941;
+    transition: 1s;
+    
+}
+
+.stylePlazo #enviar{
+    background: #FFA941;
+    transition: 1s;
+    
+}
+
+.styleCreateSystemFijo #enviar{
+    background: #A5E5A5;
+    transition: 1s;
+    
+}
+
+.styleCreateSystemMeta #enviar{
+    background: #ED5739;
+    transition: 1s;
+    
+}
+
+.styleCreateSystem #enviar:hover{
+    background: #FFA94150;
+    
+}
+
+.stylePlazo #enviar:hover{
+    background: #FFA94150;
+    
+}
+
+.styleCreateSystemFijo #enviar:hover{
+    background: #A5E5A550;
+    
+}
+
+.styleCreateSystemMeta #enviar:hover{
+    background: #ED573950;
+    
 }
 
 
@@ -681,7 +1032,7 @@ input[type=text]:focus {
     text-align: center;
     /* padding: 0 50px 0px 50px; */
     align-items: center;
-    color: darkorange;
+    color: #FFA941;
     margin-bottom: 40px;
     transition-duration: 0.4s;
     /* de tilt.js */
@@ -709,7 +1060,7 @@ input[type=text]:focus {
     grid-template-rows: 7px 109px 94px 90px 30px;
 }
 .tarjeta:hover{
-    /* background-color: darkorange; */
+    /* background-color: #FFA941; */
     /* transform: perspective(500px) translateZ(80px); */
     /* transform: perspective(1px) scale(1.15); */
 
@@ -767,19 +1118,19 @@ input[type=text]:focus {
     text-align: center;
     /* padding: 0 50px 0px 50px; */
     align-items: center;
-    color: darkorange;
+    color: #FFA941;
     margin-bottom: 40px;
     transition-duration: 0.4s;
 }
 
 .tarjetaDash p{
-    color: rgb(255 106 0 / 100%);
+    color: #FFA941;
     font-weight: 300;
 }
 
 .tarjeta p{
     align-self: start;
-    color: rgb(255 106 0 / 100%);
+    color: #FFA941;
     color: #cacaca;
     font-weight: 300;
 }
@@ -792,8 +1143,8 @@ input[type=text]:focus {
 
     justify-self: center;
 
-    background-color: darkorange;
-    background-color: rgb(255 106 0 / 100%);
+    background-color: #FFA941;
+    background-color: #FFA941;
     height: 7px;
     /* margin-left: -17px; */
 }
@@ -835,7 +1186,7 @@ input[type=text]:focus {
 .tarjeta button{
     color: #323232;
     font-weight: 400;
-    background-color: darkorange;
+    background-color: #FFA941;
     transition-duration: 0.4s;
     text-decoration: none;
     cursor: pointer;
@@ -847,7 +1198,7 @@ input[type=text]:focus {
 }
 
 .tarjeta button:hover{
-    background-color: darkorange;
+    background-color: #FFA941;
 }
 
 .tarjeta button:focus{
@@ -858,7 +1209,7 @@ input[type=text]:focus {
 .tarjeta a{
     color: #323232;
     font-weight: 400;
-    background-color: darkorange;
+    background-color: #FFA941;
     transition-duration: 0.4s;
     text-decoration: none;
     cursor: pointer;
@@ -876,7 +1227,7 @@ input[type=text]:focus {
 .btnTarjeta{
     color: #323232;
     font-weight: 400;
-    background-color: darkorange;
+    background-color: #FFA941;
     transition-duration: 0.4s;
     text-decoration: none;
     cursor: pointer;
@@ -892,7 +1243,7 @@ input[type=text]:focus {
 
 
 .tarjeta a:hover{
-    background-color: darkorange;
+    background-color: #FFA941;
     transform: scale(1.05);
     box-shadow: 0px 1px 12px 1px #5f2700;
     box-shadow: 0px 1px 52px 1px #0000006e;
@@ -902,7 +1253,7 @@ input[type=text]:focus {
 }
 
 .btnTarjeta:hover{
-    background-color: darkorange;
+    background-color: #FFA941;
     transform: scale(1.05);
     box-shadow: 0px 1px 12px 1px #5f2700;
     transform: scale(0.90);
@@ -996,7 +1347,7 @@ input[type=text]:focus {
     transform: scale(1.1);
     padding: 28px 0;
     width: 288px;
-    background-color: darkorange;
+    background-color: #FFA941;
     grid-column-start: 1;
     grid-row-start: 2;
     font-weight: 600;
@@ -1062,7 +1413,7 @@ input[type=text]:focus {
     padding: 10px 20px;
     /* margin-right: 20px; */
     margin-top: -13px;
-    background-color: darkorange;
+    background-color: #FFA941;
     font-size: 20px;
     font-weight: 500;
     border: none;
@@ -1082,7 +1433,7 @@ input[type=text]:focus {
 }
 
 .casilla button:hover{
-    background-color: darkorange;
+    background-color: #FF7011;
 }
 
 .casilla button:focus{
@@ -1164,7 +1515,7 @@ input[type=text]:focus {
 
 
 .rCantidad:focus-visible{
-    /* border-bottom: solid 1px darkorange; */
+    /* border-bottom: solid 1px #FFA941; */
 
 }
 
@@ -1220,11 +1571,11 @@ div .cantidadBefore{
 
 
 .nDecorado{
-    box-shadow: 1px 0px 9px darkorange;
+    box-shadow: 1px 0px 9px #FFA941;
     width: -webkit-fill-available;
     width: -moz-available;
     height: 15px;
-    background: darkorange;
+    background: #FFA941;
     /* position: absolute; */
     margin: 84px auto;
     z-index: 1;
@@ -1232,8 +1583,8 @@ div .cantidadBefore{
     grid-column-start: 1;
 }
 .nDecoradoDF{
-    background-color: #00ffe7;
-    box-shadow: 1px 0px 9px #00ffe7;
+    background-color: #A5E5A5;
+    box-shadow: 1px 0px 9px #A5E5A5;
 }
 
 
@@ -1434,7 +1785,7 @@ div .cantidadBefore{
     padding: 10px 46px;
     /* margin-right: 20px; */
     /* margin-top: -13px; */
-    background-color: darkorange;
+    background-color: #FFA941;
     font-size: 20px;
     font-weight: 500;
     border: none;
@@ -1451,7 +1802,7 @@ div .cantidadBefore{
     padding: 10px 39px;
     /* margin-right: 20px; */
     /* margin-top: -13px; */
-    background-color: darkorange;
+    background-color: #FFA941;
     font-size: 20px;
     font-weight: 500;
     border: none;
@@ -1474,7 +1825,7 @@ div .cantidadBefore{
     padding: 10px 36px;
     /* margin-right: 20px; */
     /* margin-top: -13px; */
-    background-color: darkorange;
+    background-color: #FFA941;
     font-size: 20px;
     font-weight: 500;
     border: none;
@@ -1508,7 +1859,7 @@ div .cantidadBefore{
     /* margin-right: 20px; */
     margin-top: 22px;
     /* margin-left: 60px; */
-    background-color: darkorange;
+    background-color: #FFA941;
     font-size: 20px;
     font-weight: 500;
     border: none;
@@ -1526,7 +1877,7 @@ div .cantidadBefore{
     /* margin-right: 20px; */
     margin-top: 22px;
     /* margin-left: 60px; */
-    background-color: darkorange;
+    background-color: #FFA941;
     font-size: 20px;
     font-weight: 500;
     border: none;
@@ -1606,8 +1957,8 @@ div .cantidadBefore{
 
 
 .formContainer input[type=checkbox]{
-    margin-top: 25px;
-    width: 10px;
+    /* margin-top: 25px; */
+    width: 20px;
 }
 
 .formContainer label[for=photo-clear_id]{
@@ -1616,6 +1967,12 @@ div .cantidadBefore{
 
 .formContainerCreate{
     width: 220px;
+}
+
+.formContainerCreate form p:nth-last-child(-n+3) {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: baseline;
 }
 
 
@@ -1627,22 +1984,33 @@ div .cantidadBefore{
 
 button.detalleDF{
 
-    background-color: #00ffe7 !important;
+    background-color: #A5E5A5 !important;
     /* background-color: #018d7f !important; */
     color: #111111;
+    transition: 1s;
 
 }
 
 button.detalleDF:hover{
     
-    background-color: #006d62 !important;
+    background-color: #6BCE6B !important;
+}
+
+button.detalleD{
+    transition: 1s;
+    
+}
+
+button.detalleD:hover{
+    
+    background-color: #FF7011 !important;
 }
 
 
 
 button.ahorrarMA{
-
-    background-color: #009e1a !important;
+    transition: 1s;
+    background-color: #ED5739 !important;
     /* background-color: #018d7f !important; */
     color: #111111;
 
@@ -1650,8 +2018,8 @@ button.ahorrarMA{
 }
 
 .ahorrarMA{
-    box-shadow: 1px 0px 9px #009e1a;
-    background-color: #009e1a !important;
+    box-shadow: 1px 0px 9px #ED5739;
+    background-color: #ED5739 !important;
     /* background-color: #018d7f !important; */
     color: #111111;
 
@@ -1659,12 +2027,12 @@ button.ahorrarMA{
 
 button.ahorrarMA:hover{
     
-    background-color: #016612 !important;
+    background-color: #DC1E0D !important;
 }
 
 .estadisticCardUsers{
     justify-self: baseline;
-    border-top: solid rgb(255 106 0 / 100%) 7px;
+    border-top: solid #FFA941 7px;
     padding: 0 17px;
     display: grid;
     grid-template-rows: 60px 50px 38px;
@@ -1674,14 +2042,14 @@ button.ahorrarMA:hover{
     text-align: center;
     /* padding: 0 50px 0px 50px; */
     align-items: center;
-    color: darkorange;
+    color: #FFA941;
     margin-bottom: 40px;
     transition-duration: 0.4s;
     height: fit-content;
 }
 
 .estadisticCardMotivo{
-    border-top: solid rgb(255 106 0 / 100%) 7px;
+    border-top: solid #FFA941 7px;
     /* grid-row: 2; */
     grid-column-start: 2;
     grid-column-end: 4;
@@ -1694,14 +2062,14 @@ button.ahorrarMA:hover{
     text-align: center;
     /* padding: 0 50px 0px 50px; */
     align-items: center;
-    color: darkorange;
+    color: #FFA941;
     margin-bottom: 40px;
     transition-duration: 0.4s;
     
 }
 
 .estadisticCardMetas{
-    border-top: solid rgb(255 106 0 / 100%) 7px;
+    border-top: solid #FFA941 7px;
     /* grid-row: 2; */
     grid-column-start: 1;
     grid-column-end: 3;
@@ -1713,7 +2081,7 @@ button.ahorrarMA:hover{
     text-align: center;
     /* padding: 0 50px 0px 50px; */
     align-items: center;
-    color: darkorange;
+    color: #FFA941;
     margin-bottom: 40px;
     transition-duration: 0.4s;
     color: #cacaca;
@@ -1721,7 +2089,7 @@ button.ahorrarMA:hover{
 
 .estadisticCardTotal{
     justify-self: end;
-    border-top: solid rgb(255 106 0 / 100%) 7px;
+    border-top: solid #FFA941 7px;
     padding: 0 17px;
     display: grid;
     grid-template-rows: 60px 50px 38px;
@@ -1731,7 +2099,7 @@ button.ahorrarMA:hover{
     text-align: center;
     /* padding: 0 50px 0px 50px; */
     align-items: center;
-    color: darkorange;
+    color: #FFA941;
     margin-bottom: 40px;
     transition-duration: 0.4s;
     height: fit-content;
@@ -1740,7 +2108,7 @@ button.ahorrarMA:hover{
 
 .estadisticCardUserMeses{
     justify-self: center;
-    border-top: solid rgb(255 106 0 / 100%) 7px;
+    border-top: solid #FFA941 7px;
     padding: 0 17px;
     display: grid;
     grid-template-rows: 60px 50px 38px;
@@ -1750,7 +2118,7 @@ button.ahorrarMA:hover{
     text-align: center;
     /* padding: 0 50px 0px 50px; */
     align-items: center;
-    color: darkorange;
+    color: #FFA941;
     margin-bottom: 40px;
     transition-duration: 0.4s;
     grid-column-start: 1;
@@ -1762,20 +2130,20 @@ button.ahorrarMA:hover{
 }
 
 .estadisticCardUsers p{
-    color: rgb(255 106 0 / 100%);
+    color: #FFA941;
     color: #cacaca;
     font-weight: 300;
     }
 
 .estadisticCardTotal p{
-    color: rgb(255 106 0 / 100%);
+    color: #FFA941;
     color: #cacaca;
     font-weight: 300;
     }    
 
 
 .eTitulo{
-    color: rgb(255 106 0 / 100%);
+    color: #FFA941;
     color: #cacaca;
     font-weight: 400;
     font-size: 25px;
@@ -1791,7 +2159,7 @@ button.ahorrarMA:hover{
 }
 
 .eData{
-    color: rgb(255 106 0 / 100%);
+    color: #FFA941;
     color: #cacaca;
     font-weight: 400;
     /* font-size: 25px; */
@@ -1824,9 +2192,6 @@ button.ahorrarMA:hover{
 }
 
 
-.editContainer form p:nth-child(5){
-    display: none;
-}
 
 
 #aviso{
@@ -2105,7 +2470,7 @@ canvas{
 
     .formContainer input[type=checkbox]{
         margin-top: 25px;
-        width: 10px;
+        width: 20px;
     }
 
     .formContainer label[for=photo-clear_id]{

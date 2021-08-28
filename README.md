@@ -29,8 +29,8 @@ Casi todas las animaciones son gracias a [AnimeJs](https://animejs.com/documenta
 ## Tareas
 
 - [x] Subir Mínimo Producto Viable
-- [ ] Hacerla PWA
-- [ ] Activar push notifications
+- [x] Hacerla PWA
+- [x] Activar push notifications
 
 
 ## Contacto

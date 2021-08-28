@@ -10,7 +10,19 @@
             {% load humanize %}
             <!-- <h3>Hola <span class="upperCase"> {{ user.username|default:'Guest' }} </span> </h3> -->
             <h5>Sigue tu ahorro fijo para</h5>
-            <p class="upperCase"> {{ sistema.nombre }} </p>
+           
+
+            <p class="upperCase"> {{ sistema.nombre }}
+                <a onclick=showFormEditar() class="iconLapiz">
+             
+                    <img src="{% static 'img/lapizIcon.png' %}" alt="editar">
+                    <span class="toolTip">
+                        Editar
+                    </span>
+                </a>    
+            </p>
+
+
             <p id="metaNumber" class="metaNumber">Meta ${{ sistema.meta|intcomma }}.00 </p>
             
             <a  href="{% url 'ahorro:dashboard' %}"> &lt; REGRESAR </a>
@@ -18,6 +30,19 @@
     
             
         </div>
+
+
+        <div id="hFormEditar">
+
+            <form method="POST" enctype="multipart/form-data">    
+                {% csrf_token %}
+                {{ formEditarAhorro }}
+                
+                <a id ="cancelDdelete" onclick=hideFormEditar() name="NoEditarButton" >CANCELAR</a>
+                <input type="submit" id="editarAhorroBtn" value="SALVAR">
+            </form>
+        </div>
+
         <section id="fullcontenedorCasillas">   
             <div id="contenedorCasillas">    
 
@@ -143,7 +168,58 @@
             <p>y aqui su tiempo  {{ plazo.tiempo }}  </p>
             <p>y si lo divido <span id="laCadena">{{ plazo.my_list }} </span></p>
             -->
+   <!-- formulario para cambiar el nombre y las notificaciones -->
+   <script>
 
+        var saludo = document.getElementsByClassName('saludo')
+        var ahorroName = saludo[0].getElementsByTagName('p')
+        var nombre = ahorroName[0].innerText
+        var ahorroNombre = document.getElementById('id_ahorro_nombre')
+        ahorroNombre.value = nombre
+
+        var email = document.getElementById('id_email')
+        var push = document.getElementById('id_push')
+
+        var emailModel = ["{{ sistema.email|escapejs }}"];
+        var pushModel = ["{{ sistema.push|escapejs }}"];
+
+        // if (emailModel){
+        // email.setAttribute('checked', emailModel[0].toLowerCase())
+        // console.log('mostBE', emailModel[0].toLowerCase())
+        console.log(emailModel)
+        // }else{
+            // email.setAttribute('checked', emailModel[0].toLowerCase())
+        // }
+
+        if (emailModel[0] === 'True'){
+            email.setAttribute('checked', true)
+        }
+        // else{
+        //     email.setAttribute('checked', true)
+
+        // }
+
+        if (pushModel[0] === 'True'){
+            push.setAttribute('checked', true)
+        }
+        // else{
+        //     push.setAttribute('checked', false)
+
+        // }
+
+        var hFormEditar = document.getElementById('hFormEditar')
+        hFormEditar.style.display = 'none' 
+
+
+        function showFormEditar(){
+        hFormEditar.style.display = 'grid' 
+        }
+
+        function hideFormEditar(){
+        hFormEditar.style.display = 'none' 
+        }
+
+    </script>
             
                 <script type="text/javascript">
 
@@ -688,7 +764,7 @@
                 particleCount: 100,
                 spread: 70,
                 origin: { y: 0.6 },
-                colors: ['#00ffe7'],
+                colors: ['#A5E5A5'],
             });
             // success[0].style.color = 'red'
             // success[0].style.backgroundColor = 'red'

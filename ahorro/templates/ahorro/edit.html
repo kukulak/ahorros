@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-
-{% block title %}Edit your account{% endblock %}
+{% load webpush_notifications %}
+{% block title %}Edita tu cuenta{% endblock %}
 {% load static %}
 {% block content %}
 
@@ -14,17 +14,17 @@
 
     <div class="welcomeText">
         <div class="logText">
-            <h1>Edita tu cuenta</h1>
+            <!-- <h1>Edita tu cuenta</h1> -->
             <br />
             <!-- <p>Entra para registrar tus ahorros</p> -->
             <!-- <h1>Edit your account</h1> -->
-            <p>Edita tu cuenta con este formulario y regresa a ahorrar:</p>
+            <!-- <p>Edita tu cuenta con este formulario y regresa a ahorrar:</p> -->
 
             <div>
                 <br>
                 <a class="bullet" href="{% url 'ahorro:dashboard' %}"> &lt; REGRESAR &emsp;</a>
-                <a class="bullet" href="{% url 'ahorro:logout' %}?next={{request.path}}">SALIR&emsp;</a>
-                <a class="bullet" href="{% url 'ahorro:password_change' %}?next={{request.path}}">CAMBIAR CONTRASEÑA&emsp;</a>
+             
+                
         
                 
             </div>
@@ -37,7 +37,19 @@
             <form action="." method="post" enctype="multipart/form-data">
                 {{ user_form.as_p }}
                 {{ profile_form.as_p }}
+                <input type="date" name="date_of_birth" class="dateInput" id="id_date_of_birth" value="{{user_date|date:"Y-m-d" }}">
+
                 {% csrf_token %}
+
+                <p id="userDate">
+                    {{ user_date }}
+                </p>
+
+                <a class="bullet bulletCambiar" href="{% url 'ahorro:password_change' %}?next={{request.path}}">CAMBIAR CONTRASEÑA&emsp;</a>
+
+              
+                {% webpush_button with_class="btnPushNotifications" %}
+
                 <p><input id="enviar" type="submit" value="SALVAR"></p>
             </form>
         </div>
@@ -46,4 +58,72 @@
 
 
 </section>
+
+
+<script>
+
+    const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+    var id_date_of_birth = document.getElementById('id_date_of_birth') 
+    id_date_of_birth.type = "date"
+
+    
+    let userDate = document.getElementById('userDate')
+    let fechaCumpleUser = userDate.innerHTML
+    let fixedDate = ''
+    fechaCumpleUser = fechaCumpleUser.replaceAll(' ', '')
+
+    if (fechaCumpleUser.includes('de')) {
+        fixedDate = fechaCumpleUser.replaceAll('de', '-')
+        console.log(fixedDate)
+    }
+    
+    fixedDate = fixedDate.replace(' ', '-')
+    
+                var date = new Date(fixedDate)
+                console.log(date)
+    
+        
+    for (var i = 0; i < meses.length; i++) {
+        if (fixedDate.includes(meses[i]))
+            fixedDate = fixedDate.replace(meses[i], '0' + i)
+            // fixedDate = fixedDate.replace(' ', '-')
+
+            console.log(fixedDate)
+
+            // console.log(meses[i])
+        }
+
+
+
+    // console.log(date)
+
+    let btnPush = document.getElementById('webpush-subscribe-button')
+
+    function noEnter(event){
+        if (event.which == '13') {
+        event.preventDefault();
+        }
+    }
+
+    btnPush.addEventListener('keypress', noEnter)
+
+
+   
+//    console.log(id_date_of_birth.value)
+   id_date_of_birth.value = fixedDate.toISOString().split('T')[0]
+
+    function convertDateFormat(string) {
+            var info = string.split('-').reverse().join('/');
+            return info;
+    }
+
+    let cumpleFecha = convertDateFormat(id_date_of_birth.value)
+    // id_date_of_birth.value = date
+
+    console.log('value', id_date_of_birth.value)
+
+</script>
+
+
 {% endblock %}

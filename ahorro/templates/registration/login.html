@@ -16,7 +16,7 @@
         <p>Vas a ahorrar durante el <span> tiempo</span> que elijas con la <span>frecuencia</span> que escojas una <span>cantidad</span> aleatoria o fija.
           <br /> 
       Te vamos a enviar un e-mail para recordarte cuándo tienes que realizar tu ahorro, la plataforma te dirá que cantidad, la cual se adaptará dependiendo de tu meta.
-      <br />  <br />Guardaremos tu avance para que lo consultes cuando quieras. :)</p>
+      <br />  <br />Guardaremos tus avances para que los consultes cuando quieras. :)</p>
       </div>
 
       <!-- <div class="logText">
@@ -31,6 +31,20 @@
   <!-- <h1>Log-in</h1> -->
   
   <div class="login-form logForm">
+
+
+    {% if messages %}
+        <div class="messages">
+        {% for message in messages %}
+            <div class="{{ message.tags }}">
+            {{ message|safe }}
+                <!-- <a href="#" class="close">x</a> -->
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+
   {% if form.errors %}
     <p>
       Tu dirección de correo o contraseña no coinciden.
@@ -42,10 +56,9 @@
 
   {% if next %}
     {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
+      <p>Por favor usa credenciales válidas.</p>
     {% else %}
-      <p >- </p>
+      <p > </p>
     {% endif %}
   {% endif %}
 
@@ -60,8 +73,9 @@
   
   <!-- <a href="{% url 'ahorro:password_reset' %}">Reset password</a> -->
   <a href="{% url 'ahorro:register' %}">REGISTRARSE</a>
-  <br>
+  
   <a href="{% url 'ahorro:password_reset' %}">¿OLVIDASTE TU CONTRASEÑA?</a>
+
   </div>
 
 </section>

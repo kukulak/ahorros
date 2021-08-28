@@ -1,25 +1,10 @@
+{% extends 'base.html' %}
 
+{% block title %} ARCHIVO {% endblock %}
 {% load static %}
 {% load mathfilters %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARCHIVO</title>
-    <!-- FAVICONS -->
 
-
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'core/favicon/favicon.ico' %}">
-
-    <script src="{% static 'js/anime.min.js' %}"></script>
-
-    <link rel="stylesheet" href="{% static 'css/ahorro.css' %}">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="fullContainer">
+  
         {% block content %}
         <div class="saludo">
             
@@ -673,9 +658,5 @@
                 </script> 
            
         {% endblock %}
-    </div>
-        
-    
 
-</body>
-</html>
+        

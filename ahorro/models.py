@@ -1,4 +1,5 @@
 import datetime
+# from typing_extensions import Required
 from django.urls import reverse
 from django.db.models import F
 
@@ -34,6 +35,7 @@ import re
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_of_birth = models.DateField(blank=True, null=True)
+    is_email_verified = models.BooleanField(default=False)
     photo = models.ImageField(upload_to='user/%Y/%m/%d', blank=True)
 
     def __str__(self):
@@ -47,6 +49,10 @@ class Color(models.Model):
 
 
 
+
+
+# class CustomUser(AbstractUser):
+#     email = models.EmailField(unique=True)
 
 
 # SISTEMA TEST CON PLAZO INCLUIDO
@@ -103,6 +109,9 @@ class Sistema(models.Model):
                               default=UNANO)
  
     meta = models.IntegerField(validators=[MinValueValidator(1825, message="Ahorra a partir de 2000")])
+
+    email = models.BooleanField(default=True)
+    push = models.BooleanField(default=False)
 
     description = models.TextField(blank=True)
     url = models.URLField(blank=True)
@@ -266,6 +275,9 @@ class CantidadFija(models.Model):
                               default=UNANO)
  
     meta = models.IntegerField(validators=[MinValueValidator(1825, message="Ahorra a partir de 2000")])
+    
+    email = models.BooleanField(default=True)
+    push = models.BooleanField(default=False)
 
     description = models.TextField(blank=True)
     url = models.URLField(blank=True)
@@ -347,7 +359,9 @@ class AhorrarEsLaMeta(models.Model):
 
 
     # cantidad = models.IntegerField()
-
+    email = models.BooleanField(default=False)
+    push = models.BooleanField(default=False)
+    
     description = models.TextField(blank=True)
     url = models.URLField(blank=True)
     image = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True)

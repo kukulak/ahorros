@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 
 from django.core.validators import RegexValidator
-
+from django.contrib.auth.forms import UserCreationForm  
 from django.contrib.auth.models import User
 # from django.contrib.auth.forms import UserCreationForm
 
@@ -68,6 +68,7 @@ class CantidadFormAM(ModelForm):
 #         # widgets = {'sistema': SistemaSelect}
         
 
+
 # LOGINFORM P
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -79,15 +80,19 @@ class LoginForm(forms.Form):
 #         fields = UserCreationForm.Meta.fields + ("email",)
 
 
-class UserRegistrationForm(forms.ModelForm):
+class UserRegistrationForm(UserCreationForm):
     password = forms.CharField(label='Password',
                                widget=forms.PasswordInput)
     password2 = forms.CharField(label='Repeat password',
                                 widget=forms.PasswordInput)
+    
+    email = forms.EmailField(label='Email')
+    if User.objects.filter(email=email).exists():
+            raise ValidationError("Email exists")
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'email')
+        fields = ('username', 'email')
  
     def clean_password2(self):
         cd = self.cleaned_data
@@ -98,7 +103,7 @@ class UserRegistrationForm(forms.ModelForm):
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email')
+        fields = ('username', 'first_name', 'last_name')
 
 class ProfileEditForm(forms.ModelForm):
     class Meta:
@@ -139,7 +144,7 @@ class UserSelected(forms.Select):
 class CreateNewSystem(forms.ModelForm):
     class Meta:
         model = Sistema
-        fields = ['nombre', 'user', 'frecuencia', 'tiempo', 'meta']
+        fields = ['nombre', 'user', 'frecuencia', 'tiempo', 'meta', 'email', 'push']
         # fields = '__all__'
     def validate(self):
         super(CreateNewSystem, self).clean()
@@ -187,7 +192,7 @@ class EmailShareForm(forms.Form):
 class FormCantidadFija(forms.ModelForm):
     class Meta:
         model = CantidadFija
-        fields = ['nombre', 'user', 'frecuencia', 'tiempo', 'meta']
+        fields = ['nombre', 'user', 'frecuencia', 'tiempo', 'meta', 'email', 'push']
         # fields = '__all__'
     def validate(self):
         super(CreateNewSystem, self).clean()
@@ -221,7 +226,7 @@ class FormCantidadFija(forms.ModelForm):
 class FormCantidadLaMetaEsAhorrar(forms.ModelForm):
     class Meta:
         model = AhorrarEsLaMeta
-        fields = ['nombre', 'user', 'frecuencia']
+        fields = ['nombre', 'user', 'frecuencia', 'email', 'push']
         # fields = '__all__'
     def validate(self):
         super(CreateNewSystem, self).clean()
@@ -274,7 +279,7 @@ class FormVariableMeta(forms.ModelForm):
     '''
 
     model = Sistema
-    fields = ['nombre', 'user', 'frecuencia', 'meta']    
+    fields = ['nombre', 'user', 'frecuencia', 'meta', 'email', 'push']    
 
 #model: sistema
 class FormVariableNoMeta(forms.ModelForm):
@@ -288,3 +293,16 @@ class FormVariableNoMeta(forms.ModelForm):
     
     model = Sistema
     fields = ['nombre', 'user']    
+
+
+
+
+
+    ##########################################
+    ###### form para editar ahorro #####
+    ##########################################
+
+class FormEditarAhorros(forms.Form):
+    ahorro_nombre = forms.CharField(label='ahorro', max_length=30)
+    email = forms.BooleanField(required=False)
+    push = forms.BooleanField(required=False)

@@ -1,8 +1,11 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
+
+# from helpers.decorators import auth_user_should_not_access
+from validate_email import validate_email
 from django.contrib.auth.models import User
 import time
 from .models import Color, Plazo, Ahorro, Sistema, PrePlazo, Profile, CantidadFija, AhorrarEsLaMeta
@@ -12,7 +15,7 @@ from .example import restArray
 
 from .example import Lista_total
 
-from .forms import CantidadForm, LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm, CreateNewSystem, CreatePlazoSystem, EmailShareForm, ArchiveSystem, FormCantidadFija, CantidadFormF, CantidadFormAM, FormCantidadLaMetaEsAhorrar
+from .forms import CantidadForm, LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm, CreateNewSystem, CreatePlazoSystem, EmailShareForm, ArchiveSystem, FormCantidadFija, CantidadFormF, CantidadFormAM, FormCantidadLaMetaEsAhorrar, FormEditarAhorros
 
 
 from django.views import View
@@ -22,33 +25,99 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, 
 from django.contrib.auth.decorators import login_required
 
 from django.core.exceptions import ValidationError
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
+
+
 
 from django.contrib.humanize.templatetags.humanize import intcomma
 
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str, force_text, DjangoUnicodeDecodeError
+from .utils import generate_token
+from django.conf import settings
+
 # LOGIN DEL USUARIO P
 
-def user_login(request):
+
+def send_activation_email(user, request):
+    current_site = get_current_site(request)
+    email_subject = 'Activate your account'
+    email_body = render_to_string('authentication/activate.html', {
+        'user': user,
+        'domain': current_site,
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': generate_token.make_token(user)
+    })
+
+    email = EmailMessage(subject=email_subject,
+                 body=email_body,
+                 from_email=settings.EMAIL_FROM_USER,
+                 to=[user.email]
+                 )
+
+    email.send()
+
+
+def login_user(request):
     next = request.POST.get('next', request.GET.get('next', ''))
     if request.method == 'POST':
+        context = {'data': request.POST}
+        # username = request.POST.get('username')
+        # password = request.POST.get('password')
+        # user = authenticate(request, username = username, password = password)
+        
+        # if user and not user.profile.is_email_verified:
+        #         print("NO VERIFICADO")
+        #         messages.error(request, 'Email is not verified, please check your email inbox')
+        #         return render(request, 'registration/login.html', context, status=401)
+
         form = LoginForm(request.POST)
+
+  ############     
         if form.is_valid():
             cd = form.cleaned_data
             user = authenticate(request,
                                 username=cd['username'],
                                 password=cd['password'])
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    if next:
-                        return HttpResponseRedirect(next)
-                    return HttpResponseRedirect('dashboard')
-                    #return HttpResponse('Authenticated '\
-                    #                    'successfully')
-                else:
-                    return HttpResponse('Disabled account')
-            else:
-                return HttpResponse('Invalid login')
+
+            if user and not user.profile.is_email_verified:
+                print("NO VERIFICADO")
+                messages.error(request, 'Email is not verified, please check your email inbox')
+                return render(request, 'registration/login.html', context, status=401)
+            # de YT
+            if not user:
+                messages.error(request, 'Las credenciales no son validas, inténtalo otra vez')
+                return render(request, 'registration/login.html', context, status=401)
+
+            login(request, user)   
+
+            # messages.success(request, f'Bienvenido {user.username}')
+            
+            return redirect(reverse('ahorro:dashboard'))
+
+########
+            # if user is not None:              
+            #     if user.is_active:
+            #         login(request, user)                    
+            #         if next:
+            #             print("VERIFICADO")
+            #             return HttpResponseRedirect(next)
+            #         if user and not user.profile.is_email_verified:
+            #             print("NO VERIFICADO")
+            #             messages.error(request, 'Email is not verified, please check your email inbox')
+            #             return render(request, 'registration/login.html', context, status=401)
+            #         return HttpResponseRedirect('dashboard')
+            #         #return HttpResponse('Authenticated '\
+            #         #                    'successfully')
+            #     else:
+            #         return HttpResponse('Disabled account')
+
+                    
+            # else:
+            #     return HttpResponse('Invalid login')
+
     else:
         form = LoginForm()
     return render(request, 'registration/login.html', {'form': form})
@@ -93,7 +162,11 @@ def userSystem(request, id):
         Sistema.objects.filter(id = request.GET.get('ArchiveButton')).update(not_archived = False)
         messages.success(request, f'¡Archivaste {sistema.nombre}!')
         print("^^^ARCHIVED^^^")
-        return redirect('/')    
+        return redirect('/')  
+
+    # FormEditarAhorros      
+
+    
 
     if sistema.user.id == request.user.id:
                                   
@@ -105,6 +178,22 @@ def userSystem(request, id):
 
         form = CantidadForm(request.POST)
         form_archived = ArchiveSystem(request.POST, instance=sistema)
+
+        formEditarAhorro = FormEditarAhorros(request.POST)
+        formEditarAhorro.email = sistema.email
+
+        if request.method == 'POST':
+            if formEditarAhorro.is_valid():
+                sistema.nombre = formEditarAhorro.cleaned_data['ahorro_nombre']
+                sistema.email = formEditarAhorro.cleaned_data['email']
+                sistema.push = formEditarAhorro.cleaned_data['push']
+                sistema.save()
+                # messages.succes(request, 'ahorro editado con éxito')
+                print('editado', sistema.nombre)
+                # return redirect('/')    
+        else:
+            formEditarAhorro = FormEditarAhorros()    
+
 
 
         if request.method == 'POST':
@@ -130,7 +219,9 @@ def userSystem(request, id):
                     'my_ahorro': my_ahorro,
                     'listaFinal': listaFinal,
                     'form': form,
-                    'form_archived': form_archived})
+                    'form_archived': form_archived,
+                    'formEditarAhorro': formEditarAhorro
+                    })
     else:
         print('something') 
         return redirect('/')
@@ -258,7 +349,7 @@ def dashboard(request):
         if form.is_valid():
             # Form fields passed validation
             cd = form.cleaned_data
-            page_url = 'http://www.ahorraahora.com'
+            page_url = 'http://www.ahorraahora.app'
             subject = '{} te recomienda "{}"'.format(user.username, page_url)
             message = '{} te recomiendo ahorrar con esta herramienta:"ahorraahora.com" ({}) '.format(cd['name'], page_url)
             send_mail(subject, message, 'recordatorio@ahorraahora.com', [cd['email']])
@@ -346,33 +437,122 @@ def archived(request):
                    'archivedF': archivedF,
                    'archivedAM': archivedAM,})
 
+# @auth_user_should_not_access
 
+
+# old register
+# def register(request):
+#     if request.method == 'POST':
+#         user_form = UserRegistrationForm(request.POST)
+#         if user_form.is_valid():
+#             # Create a new user object but avoid saving it yet
+#             new_user = user_form.save(commit=False)
+#             # Set the chosen password
+#             new_user.set_password(
+#                 user_form.cleaned_data['password'])
+#             # Save the User object
+#             new_user.save()
+
+#             # Create the user profile
+
+#             Profile.objects.create(user=new_user)
+
+#             send_activation_email(new_user, request )
+#             messages.success(request, f'Enviamos un email a  {new_user.email} para activar tu cuenta')
+
+            
+
+#             return render(request,
+#                         #   'ahorro/register_done.html',
+#                           'registration/login.html',
+#                           {'new_user': new_user})
+#     else:
+#         user_form = UserRegistrationForm()
+#     return render(request,
+#                   'ahorro/register.html',
+#                   {'user_form': user_form})            
+# endOLDREGISTER
+
+
+
+
+
+
+
+# @auth_user_should_not_access
 def register(request):
-    if request.method == 'POST':
-        user_form = UserRegistrationForm(request.POST)
-        if user_form.is_valid():
-            # Create a new user object but avoid saving it yet
-            new_user = user_form.save(commit=False)
-            # Set the chosen password
-            new_user.set_password(
-                user_form.cleaned_data['password'])
-            # Save the User object
-            new_user.save()
-            # Create the user profile
-            Profile.objects.create(user=new_user)
-            return render(request,
-                          'ahorro/register_done.html',
-                          {'new_user': new_user})
-    else:
-        user_form = UserRegistrationForm()
-    return render(request,
-                  'ahorro/register.html',
-                  {'user_form': user_form})            
+    if request.method == "POST":
+        context = {'has_error': False, 'data': request.POST}
+        email = request.POST.get('email')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        password2 = request.POST.get('password2')
+
+        if len(password) < 6:
+            messages.add_message(request, messages.ERROR,
+                                 'El password debe tener al menos 6 caracteres')
+            context['has_error'] = True
+
+        if password != password2:
+            messages.add_message(request, messages.ERROR,
+                                 'Los passwords no coinciden')
+            context['has_error'] = True
+
+        if not validate_email(email):
+            messages.add_message(request, messages.ERROR,
+                                 'Pon un email válido')
+            context['has_error'] = True
+
+        if not username:
+            messages.add_message(request, messages.ERROR,
+                                 'Nombre es requerido')
+            context['has_error'] = True
+
+        if User.objects.filter(username=username).exists():
+            messages.add_message(request, messages.ERROR,
+                                 'Nombre en uso, escoge otro')
+            context['has_error'] = True
+
+            return render(request, 'ahorro/register.html', context, status=409)
+
+        if User.objects.filter(email=email).exists():
+            messages.add_message(request, messages.ERROR,
+                                 'Email en uso, usa otro email')
+            context['has_error'] = True
+
+            return render(request, 'ahorro/register.html', context, status=409)
+
+        if context['has_error']:
+            return render(request, 'ahorro/register.html', context)
+
+        user = User.objects.create_user(username=username, email=email)
+        user.set_password(password)
+        user.save()
+
+        Profile.objects.create(user=user)
+
+        if not context['has_error']:
+
+            send_activation_email(user, request)
+
+            messages.add_message(request, messages.SUCCESS,
+                                 'Te enviamos un email para verificar tu cuenta')
+            return redirect('ahorro:login')
+
+    return render(request, 'ahorro/register.html')
+
+
+
+
+
+
 
 
 
 @login_required
 def edit(request):
+    user_date = request.user.profile.date_of_birth                            
+
     if request.method == 'POST':
         user_form = UserEditForm(instance=request.user,
                                  data=request.POST)
@@ -384,6 +564,9 @@ def edit(request):
             user_form.save()
             profile_form.save()
             messages.success(request, 'Perfil actualizado con éxito')
+
+            return redirect('/')
+
         else: messages.error(request, 'Error al actualizar perfil') 
     else:
         user_form = UserEditForm(instance=request.user)
@@ -392,6 +575,7 @@ def edit(request):
     return render(request,
                   'ahorro/edit.html',
                   {'user_form': user_form,
+                  'user_date': user_date,
                    'profile_form': profile_form})                  
 
 
@@ -423,7 +607,7 @@ def createSys(request):
             new_sistema.save()
             
                         
-            messages.success(request, 'Ahorro creado con exito')
+            messages.success(request, f'Ahorro {new_sistema.nombre.capitalize()} creado con éxito, <br/> <div class="smallmessage">tu mínimo a ahorrar es de {min(new_sistema.description)} y el máximo {max(new_sistema.description)}.</div>')
 
             return redirect('/')
           
@@ -456,7 +640,7 @@ def createSysFijo(request):
             new_sistema.save()
             
                         
-            messages.success(request, 'Ahorro creado con exito')
+            messages.success(request, 'Ahorro creado con éxito')
 
             return redirect('/')
           
@@ -488,7 +672,7 @@ def createSysLaMetaEsAhorrar(request):
             new_sistema.save()
             
                         
-            messages.success(request, 'Ahorro creado con exito')
+            messages.success(request, 'Ahorro creado con éxito')
 
             return redirect('/')
           
@@ -776,13 +960,36 @@ def userSystemFijo(request, id):
         form = CantidadFormF(request.POST)
         form_archived = ArchiveSystem(request.POST, instance=sistema)
 
+        formEditarAhorro = FormEditarAhorros(request.POST)
+        formEditarAhorro.email = sistema.email
+
+        if request.method == 'POST':
+            if formEditarAhorro.is_valid():
+                sistema.nombre = formEditarAhorro.cleaned_data['ahorro_nombre']
+                sistema.email = formEditarAhorro.cleaned_data['email']
+                sistema.push = formEditarAhorro.cleaned_data['push']
+                sistema.save()
+                # messages.succes(request, 'ahorro editado con éxito')
+                print('editado', sistema.nombre)
+                # return redirect('/')    
+        else:
+            formEditarAhorro = FormEditarAhorros()    
+
+
+
         if request.method == 'POST':
             if form.is_valid():
             
-                sistema = form.save()
-                elSistema = str(sistema.sistemaF)
-                messages.success(request, f'¡Ahorraste ${intcomma(sistema.cantidad)}.00 para {elSistema.upper()}!')
-                print("^^^SAVED^^^")
+                sistemaForm = form.save()
+
+                if (my_ahorro +sistemaForm.cantidad) == sistema.meta:
+                    messages.success(request, f'¡Felicidades lograste tu meta de ${intcomma(sistema.meta)}.00!')
+                    print("^^^SAVED^^^", my_ahorro, sistema.meta)
+
+                else:
+                    elSistema = str(sistemaForm.sistemaF)
+                    messages.success(request, f'¡Ahorraste ${intcomma(sistemaForm.cantidad)}.00 para {elSistema.upper()}!')
+                    print("^^^SAVED^^^")
                 time.sleep(0.3)
                 return redirect('/')
         else:
@@ -794,7 +1001,9 @@ def userSystemFijo(request, id):
                     'ahorro': ahorro,
                     "my_ahorro": my_ahorro,
                     'form': form,
-                    'form_archived': form_archived})
+                    'form_archived': form_archived,
+                    'formEditarAhorro': formEditarAhorro
+                    })
     else:
         return redirect('/')
 # end def user system
@@ -833,6 +1042,22 @@ def userSystemAhorrarMeta(request, id):
         form = CantidadFormAM(request.POST)
         form_archived = ArchiveSystem(request.POST, instance=sistema)
 
+        formEditarAhorro = FormEditarAhorros(request.POST)
+        formEditarAhorro.email = sistema.email
+
+        if request.method == 'POST':
+            if formEditarAhorro.is_valid():
+                sistema.nombre = formEditarAhorro.cleaned_data['ahorro_nombre']
+                sistema.email = formEditarAhorro.cleaned_data['email']
+                sistema.push = formEditarAhorro.cleaned_data['push']
+                sistema.save()
+                # messages.succes(request, 'ahorro editado con éxito')
+                print('editado', sistema.nombre)
+                # return redirect('/')    
+        else:
+            formEditarAhorro = FormEditarAhorros()    
+
+
         if request.method == 'POST':
             if form.is_valid():
             
@@ -863,7 +1088,35 @@ def userSystemAhorrarMeta(request, id):
                     'ahorro': ahorro,
                     "my_ahorro": my_ahorro,
                     'form': form,
-                    'form_archived': form_archived})
+                    'form_archived': form_archived,
+                    'formEditarAhorro': formEditarAhorro
+                    })
     else:
         return redirect('/')
 # end def user system
+
+
+def activate_user(request, uidb64, token):
+
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+
+    except Exception as e:
+        user = None
+
+    if user and generate_token.check_token(user, token):
+        user.profile.is_email_verified = True
+        user.profile.save()
+        # user.save()
+        # Profile.objects.save(user=user)
+
+        messages.success(request, 'Cuenta verificada')
+
+        # return redirect('registration/login.html')
+        return redirect(reverse('ahorro:login'))
+
+        
+
+    return render(request,
+                 'authentication/activate-failed.html', {'user': user})    

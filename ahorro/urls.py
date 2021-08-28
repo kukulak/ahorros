@@ -2,7 +2,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from ahorro.views import ahorros, dashboard, register, edit, createSys, dashFierros, archived, userArchived, userArchivedF, userArchivedAM, userSystemFijo, createSysLaMetaEsAhorrar, userSystemAhorrarMeta
+from ahorro.views import ahorros, dashboard, register, edit, createSys, dashFierros, archived, userArchived, userArchivedF, userArchivedAM, userSystemFijo, createSysLaMetaEsAhorrar, userSystemAhorrarMeta, activate_user
 from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
@@ -10,9 +10,10 @@ from django.urls import reverse_lazy
 app_name = 'ahorro'
 urlpatterns = [
    
-    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('login/', views.login_user, name='login'),
+    # path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    url(r'^accounts/', include('django.contrib.auth.urls')),
+    # url(r'^accounts/', include('django.contrib.auth.urls')),
   
     path("", views.dashboard, name="dashboard"),
     path("archived/", views.archived, name="archived"),
@@ -51,6 +52,10 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(success_url=reverse_lazy('ahorro:password_reset_complete')),name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('edit/', views.edit, name='edit'),
+    # url('', include('pwa.urls')),
+
+    # activate email url
+    path('activate-user/<uidb64>/<token>', views.activate_user, name='activate'),
 ]
 
 if settings.DEBUG:

@@ -25,7 +25,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # url(r'^', include('ahorro.urls')),
     # url(r'^admin/', admin.site.urls),
-    path('', include('pwa.urls')),
+    url('', include('pwa.urls')),
+    url(r'^webpush/', include('webpush.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 

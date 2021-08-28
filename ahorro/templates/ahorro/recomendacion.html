@@ -1,0 +1,21 @@
+
+
+<!-- to use this USe thi {% include 'ahorro/recomendacion.html' %} -->
+
+<div class="formInvite">
+    <div class="formContainerDash">
+        {% if sent %}
+            <h1>Éxito</h1>
+            <p>
+            La invitación fue enviada a {{ form.cleaned_data.name }}.
+            </p>
+        {% else %}
+            <h1>¿Crees que a alguien le interese ahorrar con este sistema?</h1>
+            <form action="." method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input id="enviar" type="submit" value="INVITAR">
+            </form>
+        {% endif %}
+    </div>
+</div>

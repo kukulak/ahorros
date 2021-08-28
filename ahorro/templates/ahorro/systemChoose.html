@@ -18,6 +18,8 @@
             </div>
             {% endfor %}
         </div>
+
+        
         
         {% else %}
             <!-- <h1 class="titulo">ELIGE COMO QUIERES AHORRAR</h1> -->
@@ -49,20 +51,20 @@
 
 
         <div class="tarjeta t4 sombra unselectable choose">
-            <div class="tColor colorChoose" style="background-color: darkorange;"></div>  
-            <h1 class="sistemaTitulo" style="color: darkorange;">ALEATORIO</h1>
+            <div class="tColor colorChoose" style="background-color: #FFA941;"></div>  
+            <h1 class="sistemaTitulo" style="color: #FFA941;">ALEATORIO</h1>
             <p >Dinos cuanto es tu meta. Escoge la frecuencia y el tiempo. Nosotros te decimos cuanto ahorrar cada vez, no siempre será la misma cantidad.</p>
             <h3 class="tCantidad"></h3>
-            <a href="{% url 'ahorro:create' %}" style="background-color: darkorange;">EMPEZAR</a>
+            <a href="{% url 'ahorro:create' %}" style="background-color: #FFA941;">EMPEZAR</a>
         </div>
 
 
         <div class="tarjeta t4 sombra unselectable choose">
-            <div class="tColor colorChoose" style="background-color: #00ffe7;"></div>  
-            <h1 class="sistemaTitulo" style="color: #00ffe7;">CANTIDAD FIJA</h1>
+            <div class="tColor colorChoose" style="background-color: #A5E5A5;"></div>  
+            <h1 class="sistemaTitulo" style="color: #A5E5A5;">CANTIDAD FIJA</h1>
             <p >La cantidad a ahorrar siempre será la misma durante el tiempo que tu escojas hasta llegar a tu meta. <br /> <br /> <span style="font-size: 12px;">Por cuestiones de "redondeo" probablemente ahorres un poco m&aacute;s normalmente 4 pesos extras </span></p>
             <h3 class="tCantidad"></h3>
-            <a href="{% url 'ahorro:createFijo' %}" style="background-color: #00ffe7;">EMPEZAR</a>
+            <a href="{% url 'ahorro:createFijo' %}" style="background-color: #A5E5A5;">EMPEZAR</a>
         </div>
 
 <!-- 
@@ -84,20 +86,20 @@
         </div> -->
 
         <div class="tarjeta t4 sombra unselectable choose">
-            <div class="tColor colorChoose" style="background-color: #03A83D;"></div>  
-            <!-- <h1 class="tTitulo" style="color: #03A83D;">META FIJA CANTIDAD VARIABLE</h1> -->
-            <h1 class="sistemaTitulo" style="color: #37FB86;">LA META ES AHORRAR</h1>
+            <div class="tColor colorChoose" style="background-color: #ED5739;"></div>  
+            <!-- <h1 class="tTitulo" style="color: #ED5739;">META FIJA CANTIDAD VARIABLE</h1> -->
+            <h1 class="sistemaTitulo" style="color: #ED5739;">LA META ES AHORRAR</h1>
             <p>Esta opci&oacute;n te ayudar&aacute; a tener las cuentas de tu ahorro más claras, aqu&iacute; <strong>la meta es ahorrar.</strong>     </p>
             <h3 class="tCantidad"></h3>
-            <a href="{% url 'ahorro:createLaMetaEsAhorrar' %}" style="background-color: #03A83D;">EMPEZAR</a>
+            <a href="{% url 'ahorro:createLaMetaEsAhorrar' %}" style="background-color: #ED5739;">EMPEZAR</a>
         </div>
 
         <!-- <div class="tarjeta tarjetaDash t4 sombra">
-            <div class="tColor" style="background-color: #03A83D;"></div>  
-            <p style="color: #03A83D;">Crea un nuevo AHORRO<br/></p>
+            <div class="tColor" style="background-color: #ED5739;"></div>  
+            <p style="color: #ED5739;">Crea un nuevo AHORRO<br/></p>
             
             
-            <a class="btnNuevoAhorro" href="{% url 'ahorro:create' %}" onMouseOut="this.style.background=initial" onMouseOver="this.style.background=initial"style="font-size: 100px; margin: 0; background-color: initial; color: #03A83D;">+</a>
+            <a class="btnNuevoAhorro" href="{% url 'ahorro:create' %}" onMouseOut="this.style.background=initial" onMouseOver="this.style.background=initial"style="font-size: 100px; margin: 0; background-color: initial; color: #ED5739;">+</a>
         </div> -->
 
         </div>

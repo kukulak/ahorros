@@ -11,17 +11,26 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'ahorro', 'serviceworker.js')
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'ahorro/static/js', 'serviceworker.js')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'nl%exu4g9_oajqa&(fd_#2@hq($1_&ejw625e15e-6(jnzfp!+'
+
+project_folder = os.path.expanduser('~/ahorrosite')  # adjust as appropriate
+# load_dotenv(os.path.join(project_folder, '.env'))
+
+# SECRET_KEY = 'nl%exu4g9_oajqa&(fd_#2@hq($1_&ejw625e15e-6(jnzfp!+'
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -34,15 +43,51 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'ahorro.apps.AhorroConfig',
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'mathfilters',
     'pwa',
+    'webpush',
+    # AllAuth
+    'django.contrib.auth',
+    'django.contrib.messages',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # providers
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.linkedin',
+
 ]
+
+SITE_ID = 1
+
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '8098125993-0trmh19ahlprnmlpm0f8srj9evpij31d.apps.googleusercontent.com',
+            'secret': '9dwM2Qa1EvZRIQUc2e1gBYoj',
+            'key': ''
+        },
+        'SCOPE':[
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'offline',
+            # 'access_type': 'online',
+        }
+    }
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -71,6 +116,11 @@ TEMPLATES = [
         },
     },
 ]
+
+# SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
+# TEMPLATE_DIRS = (
+#     os.path.join(SETTINGS_PATH, 'templates'),
+# )
 
 WSGI_APPLICATION = 'ahorrosite.wsgi.application'
 
@@ -101,7 +151,7 @@ DATABASES = {
 
 # AUTH_USER_MODEL = 'ahorro.CustomUser'
 
-
+# AUTH_USER_MODEL = "authentication.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -149,7 +199,7 @@ PASSWORD_CHANGE_DONE  = 'ahorro:password_change_done'
 
 
 #email abckend
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 #Email Settings
 
@@ -161,15 +211,29 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_HOST_PASSWORD = 'unpassword'
 
 
+# EMAIL CONFIG
+
+EMAIL_FROM_USER = os.environ.get('EMAIL_FROM_USER')
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.environ.get('EMAIL_FROM_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 AUTHENTICATION_BACKENDS = [    
     'django.contrib.auth.backends.ModelBackend',    
     'ahorro.authentication.EmailAuthBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 PWA_APP_NAME = 'AhorraAhora'
 PWA_APP_DESCRIPTION = "AhorraAhora PWA"
@@ -200,3 +264,12 @@ PWA_APP_SPLASH_SCREEN = [
 ]
 PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'en-US'
+
+PWA_APP_DEBUG_MODE = False
+
+
+WEBPUSH_SETTINGS = {
+    "VAPID_PUBLIC_KEY": "BJXoLwBdbTRSeQMJDOK0un70MXDhZClBJeJQKyq6HCX1bQO-WD-3qXQe9WYjQUpp9k-1NTeOQCTWtVaYhGOmEqQ",
+    "VAPID_PRIVATE_KEY":"f9-YBBViV6qLT-yR9x03CQdhUTGVRMqZ25YQq-wdnhM",
+    "VAPID_ADMIN_EMAIL": "valderrama.christian@gmail.com"
+}

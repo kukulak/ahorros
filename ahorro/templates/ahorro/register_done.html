@@ -4,7 +4,11 @@
 
 {% block content %}
 <section class="sectionUser">
-  <h1>Bienvenido {{ new_user.first_name }}!</h1>
-  <p>Tu cuenta se creo con éxito. <a href="{% url 'ahorro:login' %}">entra</a> para empezar a ahorrar.</p>
+  <div class="conExito">
+    <h1>Bienvenido {{ new_user.first_name }}!</h1>
+    <p>Tu cuenta se creo con éxito. <a href="{% url 'ahorro:login' %}">entra</a> para empezar a ahorrar.</p>
+    <a class="btnEntrar" href="{% url 'ahorro:login' %}">ENTRAR</a>
+  </div>
+
 </section>  
 {% endblock %}

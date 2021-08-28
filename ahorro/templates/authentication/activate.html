@@ -1,0 +1,12 @@
+{% autoescape off %}
+
+
+<p class="activate">
+    Hi {{ user.username }}
+     jizz activate that
+
+</p>
+
+http://{{domain}}{% url 'ahorro:activate' uidb64=uid token=token %}
+
+{% endautoescape %} 

@@ -3,6 +3,8 @@
 {% block title %}Create an account{% endblock %}
 
 {% block content %}
+
+
 <section class="sectionUser">
 
 
@@ -16,7 +18,7 @@
           <p>Vas a ahorrar durante el <span> tiempo</span> que elijas con la <span>frecuencia</span> que escojas una <span>cantidad</span> aleatoria o fija.
             <br /> 
         Te vamos a enviar un e-mail para recordarte cuándo tienes que realizar tu ahorro, la plataforma te dirá que cantidad, la cual se adaptará dependiendo de tu meta.
-        <br />  <br />Guardaremos tu avance para que lo consultes cuando quieras. :)</p>
+        <br />  <br />Guardaremos tus avances para que los consultes cuando quieras. :)</p>
         </div>
     </div>  
 
@@ -25,15 +27,86 @@
     <div class="login-form logForm">
 
         <h2>Regístrate</h2>
+
+        {% if messages %}
+        <div class="messages">
+        {% for message in messages %}
+            <div class="{{ message.tags }}">
+            {{ message|safe }}
+                <!-- <a href="#" class="close">x</a> -->
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+
         <div class="formContainer">
-            <form action="." method="post">
+            <!-- <form action="." method="post">
                 {% csrf_token %}
                 {{user_form.as_p}}
                 <input id="enviar" type="submit" value="ENVIAR">
-            </form>
+            
+            </form> -->
+
+
+
+
+        <form class="ui large form" method="post" action={% url 'ahorro:register' %}>
+        <!-- <form class="ui large form" method="post" action="."> -->
+
+            {% csrf_token %}
+            <div class="ui stacked segment registerForm">
+
+              <div class="field">
+                <div class="ui left icon input">
+                  <i class="user icon"></i>
+                  <label for="email">Nombre</label>
+
+                  <input type="text" name="username" value="{{data.username}}"  placeholder="" />
+                </div>
+              </div>
+  
+              <div class="field">
+                <div class="ui left icon input">
+                  <i class="user icon"></i>
+                  <label for="email">email</label>
+                  <input type="text" name="email" value="{{data.email}}" placeholder="" />
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="ui left icon input">
+                  <i class="lock icon"></i>
+                  <label for="email">password</label>
+
+                  <input type="password" name="password" placeholder="" />
+                </div>
+              </div>
+  
+              <div class="field">
+                <div class="ui left icon input">
+                  <i class="lock icon"></i>
+                  <label for="email">Repite el password</label>
+
+                  <input
+                    type="password"
+                    name="password2"
+                    placeholder=""
+                  />
+                </div>
+              </div>
+              <button class="ui fluid large teal submit button">Submit</button>
+
+            </div>
+  
+          </form>
+
+
+            
+
         </div>
 
-        <a href="{% url 'ahorro:login' %}">Back to login</a>
+
+        <a href="{% url 'ahorro:login' %}">VOLVER</a>
 
     </div>
 </section>
