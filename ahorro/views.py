@@ -84,7 +84,7 @@ def login_user(request):
 
             if user and not user.profile.is_email_verified:
                 print("NO VERIFICADO")
-                messages.error(request, 'Email is not verified, please check your email inbox')
+                messages.error(request, 'Tu email no está verificado, revisa tambien la bandeja de no deseados de tu cuenta de email')
                 return render(request, 'registration/login.html', context, status=401)
             # de YT
             if not user:
@@ -278,6 +278,11 @@ def dashboard(request):
     st = 0
     am = 0
     meta_list = []
+
+
+    # Numero de visitas a esta view, como está contado en la variable de sesión.
+    num_visits = request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits + 1
    
     print("-------")
     print(my_systemsAM)
@@ -368,7 +373,8 @@ def dashboard(request):
                   'form': form,
                   'sent': sent,
                   'get_total': get_total,
-                  'get_totalF': get_totalF})
+                  'get_totalF': get_totalF,
+                  'num_visits':num_visits})
      
 @login_required
 def archived(request):
@@ -487,6 +493,19 @@ def register(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         password2 = request.POST.get('password2')
+        terminos = request.POST.get('terminos')
+        aviso = request.POST.get('aviso')
+
+        if terminos == False:
+            messages.add_message(request, messages.ERROR,
+                                 'Debes estar deacuerdo con los Terminos y Condiciones ')
+            context['has_error'] = True
+
+        if aviso == False:
+            messages.add_message(request, messages.ERROR,
+                                 'Debes estar deacuerdo con los Aviso de Privacidad ')
+            context['has_error'] = True
+
 
         if len(password) < 6:
             messages.add_message(request, messages.ERROR,
@@ -1120,3 +1139,11 @@ def activate_user(request, uidb64, token):
 
     return render(request,
                  'authentication/activate-failed.html', {'user': user})    
+
+
+def terminos(request):
+    return render(request, 'avisos/terminos-condiciones.html')
+
+
+def privacidad(request):
+    return render(request, 'avisos/privacidad-y-cookies.html')    

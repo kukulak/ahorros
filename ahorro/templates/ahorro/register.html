@@ -15,9 +15,9 @@
           <h1>Esta es la idea</h1>
           <br />
           <br />
-          <p>Vas a ahorrar durante el <span> tiempo</span> que elijas con la <span>frecuencia</span> que escojas una <span>cantidad</span> aleatoria o fija.
+          <p>Vas a ahorrar durante el <span> tiempo</span> que elijas con la <span>frecuencia</span> que escojas una <span>cantidad</span> aleatoria o fija, tenemos tres sistemas de ahorro.
             <br /> 
-        Te vamos a enviar un e-mail para recordarte cuándo tienes que realizar tu ahorro, la plataforma te dirá que cantidad, la cual se adaptará dependiendo de tu meta.
+        Te vamos a enviar un e-mail y/o una notificación PUSH, para recordarte cuándo tienes que ahorror, la plataforma te dirá que cantidad de acuerdo al sistema que hayas escogido. Puedes crear cuantos ahorros quieras.
         <br />  <br />Guardaremos tus avances para que los consultes cuando quieras. :)</p>
         </div>
     </div>  
@@ -59,7 +59,13 @@
               <div class="field">
                 <div class="ui left icon input">
                   <i class="user icon"></i>
-                  <label for="email">Nombre</label>
+                  <label for="email">
+                    Nombre
+                    <p class="insidLabel">
+                      o ¿cómo te gusta que te digan?
+                    </p>
+                  
+                  </label>
 
                   <input type="text" name="username" value="{{data.username}}"  placeholder="" />
                 </div>
@@ -68,7 +74,12 @@
               <div class="field">
                 <div class="ui left icon input">
                   <i class="user icon"></i>
-                  <label for="email">email</label>
+                  <label for="email">
+                    email
+                    <p class="insidLabel">
+                      lo usaremos para recordarte ahorrar 
+                    </p>
+                  </label>
                   <input type="text" name="email" value="{{data.email}}" placeholder="" />
                 </div>
               </div>
@@ -76,7 +87,13 @@
               <div class="field">
                 <div class="ui left icon input">
                   <i class="lock icon"></i>
-                  <label for="email">password</label>
+                  <label for="email">password
+
+                    <p class="insidLabel">
+                      lo usaras tú para regresar, junto con tu nombre
+                    </p>
+
+                  </label>
 
                   <input type="password" name="password" placeholder="" />
                 </div>
@@ -94,7 +111,37 @@
                   />
                 </div>
               </div>
-              <button class="ui fluid large teal submit button">Submit</button>
+
+              <div class="field">
+                <input
+                type="checkbox"
+                name="terminos"
+                placeholder=""
+              />
+              <div>
+                He leido y estoy de acuerdo con los <a href="{% url 'ahorro:terminos' %}"> T&Eacute;RMINOS Y CONDICIONES</a>
+              </div>
+                
+
+            </div>
+
+
+
+            <div class="field">
+
+              <input
+              type="checkbox"
+              name="aviso"
+              placeholder=""
+            />              
+              <div>
+                He leido y estoy de acuerdo con el<a href="{% url 'ahorro:privacidad' %}"> AVISO DE PRIVACIDAD</a>
+              </div>
+
+          </div>
+
+
+              <button class="ui fluid large teal submit button">A Ahorrar</button>
 
             </div>
   

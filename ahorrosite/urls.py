@@ -27,7 +27,7 @@ urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url('', include('pwa.urls')),
     url(r'^webpush/', include('webpush.urls')),
-    path('accounts/', include('allauth.urls')),
+    # path('accounts/', include('allauth.urls')),
 ]
 
 

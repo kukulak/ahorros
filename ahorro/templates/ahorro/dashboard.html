@@ -1,6 +1,6 @@
 <!-- <div  data-barba="wrapper"> -->
 {% extends 'base.html' %}
-
+{% load webpush_notifications %}
 {% block title %} AHORRO | DASHBOARD {% endblock %}
 {% load static %}
 
@@ -23,11 +23,36 @@
 </div>
 <section class="sectionSystem">
 
-
     <div class="dashboard">
         {% if user.is_authenticated %}
         {% load humanize %}  
+
+         
+        {% if num_visits > 0 %}
         
+            <div id="contenedor-webpush-subscribe-button">
+                <p id="mensajeEntra" class="pushActivated">
+                
+                    </p>
+            
+            </div>
+
+        {% else %}
+         
+            <div id="contenedor-webpush-subscribe-button">
+                
+                {% webpush_button with_class="btnPushNotifications" %}
+                    <p id="mensajeEntra" class="pushActivated">
+                    O entra a 'EDITA TU PERFIL' para hacerlo despues.
+                    </p>
+            </div>
+
+        {% endif %}
+            
+        <p id='visitCounter'>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
+
+           
+
             {% if messages %}
                 <div class="messages">
                 {% for message in messages %}
@@ -43,8 +68,11 @@
 
              {% endif %}
              <p class="boveda">Bienvenido a tu <strong>BOVEDA</strong> de control,<br /> aqu&iacute; est&aacute;n tus ahorros activos.</p>
-             <br>    
-     
+             <br>  
+             
+             
+
+
 
     <div class="menuBienvenido unselectable">
         
@@ -74,7 +102,8 @@
     <div id="contenedorTarjetas" class="contenedorTarjeta">
         {% for frec in my_systems %}
            
-                <a data-tilt data-tilt-gyroscope="true" data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" onclick="loaderFunc()" href="{{ frec.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
+                <!-- <a data-tilt data-tilt-gyroscope="true" data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" onclick="loaderFunc()" href="{{ frec.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra"> -->
+                    <a onclick="loaderFunc()" href="{{ frec.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">    
                     
                     <div class="tColor" style="background-color: {{frec.color}};"></div>  
 
@@ -97,7 +126,7 @@
 
         {% for fija in my_systemsF %}
            
-        <a data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" onclick="loaderFunc()" href="{{ fija.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
+        <a onclick="loaderFunc()" href="{{ fija.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
             
             <div class="tColor" style="background-color: {{fija.color}}; background-color: #A5E5A5;"></div>  
 
@@ -121,9 +150,12 @@
 
     {% for laMeta in my_systemsAM %}
             
-        <a data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" onclick="loaderFunc()" href="{{ laMeta.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
+        <a onclick="loaderFunc()" href="{{ laMeta.get_absolute_url }}" class="tarjeta tarjetaDash t1 sombra">
             
             <div class="tColor" style="background-color: {{ laMeta.color }}; background-color: #ED5739;"></div>  
+            <div  class="espacioVacio" style='display: none;'>
+
+            </div>
 
             <p class="txtChico" style="color: {{laMeta.color}};">Para <span class="tTitulo"> {{ laMeta.nombre }} </span> llevas:</p>
 
@@ -139,7 +171,7 @@
     
 
     </div>
-        <div data-tilt data-tilt-full-page-listening data-tilt-scale="1.1" data-tilt-reverse="true" class="tarjeta tarjetaDash t4 sombra">
+        <div class="tarjeta tarjetaDash t4 sombra">
             <div class="tColor" style="background-color: #8d8d8d;"></div>  
             <p style="color: #d8d8d8; margin-top: 20px;">Crea un nuevo AHORRO<br/></p>
             <!-- <h1 class="tTitulo" style="color: #ED5739;">+</h1> -->
@@ -153,7 +185,7 @@
 </section>
 
 
-    <script>
+    <!-- <script>
         barba.init({
                 transitions: [{
                 name: 'opacity-transition',
@@ -170,30 +202,149 @@
                 }]
             });
 
+    </script> -->
+
+    <script>
+        let tarjetaDash = document.getElementsByClassName('tarjetaDash')
+        let tCantidadDash = document.getElementsByClassName('tCantidadDash')
+        console.log(tCantidadDash.length)
+
+        for (let i = 0; i < tarjetaDash.length; i++) {  
+            if (tCantidadDash[i].innerHTML == '0'){
+                tCantidadDash[i].style.fontSize = "80px"
+                tarjetaDash[i].style.boxShadow = "0 0 50px #ffffff25"
+                
+            }
+            console.log(tCantidadDash[i])
+        }
+
     </script>
+
+    <script>
+        let contenedorSubBtn = document.getElementById('contenedor-webpush-subscribe-button')
+        let mensajeEntra = document.getElementById('mensajeEntra')
+        let webpushSubscribeButton = document.getElementById('webpush-subscribe-button')
+        let webpushMessage = document.getElementById('webpush-message')
+
+        console.log('INNER', webpushSubscribeButton.innerHTML)
+        
+        function pushChange() {
+            setTimeout(function () {
+                    if ( webpushSubscribeButton.innerHTML.includes('Desactiva')){
+                        console.log('desactiva')
+                        contenedorSubBtn.style.top = '-190px'
+                    } else {
+                        console.log('activa')
+                        contenedorSubBtn.style.top = '-41px'
+                        
+                        webpushSubscribeButton.onclick = () => {
+                            
+                                mensajeEntra.style.display = 'none'
+                            
+                        }
+                        setTimeout(function(){ contenedorSubBtn.style.top = '-190px'}, 5000)
+
+                    }       
+            }, 500);
+        }
+
+        pushChange()
+
+        // if ( webpushSubscribeButton.innerHTML.includes('Desactiva')){
+        //     console.log('desactiva')
+        //     contenedorSubBtn.style.top = '-90px'
+        // } else {
+        //     console.log('activado')
+    
+        // }
+        </script>
 
 <script>
 
     var contenedorTarjetas = document.getElementById('contenedorTarjetas')
 
+    
+    function orderCards(){
+        var parent = contenedorTarjetas;
+        var divs = parent.children;
+        var tCantidadDash = document.getElementsByClassName('tCantidadDash')
+        console.log('tCantidadDash', tCantidadDash)
+        var ar = []
+        var obj = []
+        for (let i = 0; i < tCantidadDash.length; i++) {
+            console.log("DIVSVALUE", parseFloat(tCantidadDash[i].innerText.replaceAll(',', '')), i);
+            ar.push(parseFloat(tCantidadDash[i].innerText.replace(',', '')) )
+            
+        }
+        ar.sort((a, b) => a - b)  
+          
+        console.log('LENGTH', ar)
+
+
+        for (let i = 0; i < ar.length; i++){
+            const element = divs
+            var divsCh = element[i];
+            var chDiv = divsCh.children[3]
+            var cantidadFloat = parseInt(chDiv.children[0].innerText.replaceAll(',', ''))
+            divsCh.setAttribute('data-order', cantidadFloat)
+            console.log('CF', divsCh, i )
+            
+         
+        }
+        
+        // for (let i = 0; i < ar.length; i++){
+        //     let orderBy = divs[i].getAttibute('data-order')
+        //     console.log(orderBy)
+        // }
+
+        [].map.call( parent.children, Object ).sort( function ( a, b ) {
+            return +a.getAttribute('data-order').match( /\d+/ ) - +b.getAttribute('data-order').match( /\d+/ );
+        }).forEach( function ( elem ) {
+            parent.appendChild( elem );
+        });
+
+
+        
+
+        // obj.sort((a, b) => a - b)  
+        // parent.append(obj)
+
+
+
+        console.log('array ordered', parent)
+
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        orderCards()
+    }, false);
+
     function shuffle() {
         var parent = contenedorTarjetas;
         var divs = parent.children;
-        console.log(divs);
-        var i = 0;
+        
+        
+        // var divsInner = divs.innerHTML
+        console.log("tCantidadDash", tCantidadDash[1].innerText);
+        var ar = [];
         // while (i < divs.length) {
         //     // parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
         //     parent.append(divs.splice(0 , 1, divs[2]));
         //     i++
         // }
-        for (let index = 0; index < divs.length; index++) {
-            const element = divs[index];
+        for (let i = 0; i < divs.length; i++) {
+            const element = divs[i]
+            // tCantidadDash
+         
+
             parent.append(element)
-            
         }
+        // console.log('PARENT', parent)
+        ar.sort()
+        // console.log('PARENT', ar.innerText)
     }
 
-    shuffle()
+    // shuffle()
 
 
     var numbers = document.getElementsByClassName("tCantidadDash")
@@ -317,6 +468,7 @@
         })    
 
         }
+
         loaderAnimFunc()
 
         var myCanvas = document.createElement('canvas');
@@ -344,8 +496,7 @@
                 origin: { y: 0.6 },
                 colors: ['#FFA941'],
             });
-            // success[0].style.color = 'red'
-            // success[0].style.backgroundColor = 'red'
+        
 
 
 

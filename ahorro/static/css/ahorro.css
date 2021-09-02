@@ -66,6 +66,36 @@ footer a{
 }
 
 
+form:focus-within {
+    /* transform: translateY(-10px); */
+    filter: drop-shadow(0 0 1.15rem rgba(23, 23, 23, 0.495));
+  }
+
+.avisoParagraph{
+    width: 80%;
+    margin: 10px 0;
+    justify-self: center;
+    line-height: 29px;
+}
+
+h1.avisoParagraph{
+    width: 80%;
+    margin: 40px 0 0;
+    justify-self: center;
+    line-height: 29px;
+}
+
+ul.avisoParagraph{
+    width: 80%;
+    margin: 10px 0 0 110px;
+    justify-self: center;
+    line-height: 29px;
+}
+
+.avisoBtn{
+    justify-self: flex-end;
+}
+
 .login-form .messages{
     font-size: 21px;
     margin: 20px 0px;
@@ -326,8 +356,37 @@ justify-content: end;
     padding: 14px;
     margin: 25px 0 0;
     visibility: visible;
+    cursor: pointer;
 }
+
+
+#contenedor-webpush-subscribe-button{
+    position: absolute;
+    transition: 1s;
+    top: -192px;
+    left: 39%;
+    background-color: #ffa941;
+    width: 257px;
+    height: 100px;
+    display: grid;
+    padding: 21px;
+    box-shadow: 0 0 100px 0 #0000004a;
+}
+
+.pushActivated{
+    color: #303030;
+}
+
+#webpush-message{
+    color: #303030;
+}
+
+#visitCounter{
+    display: none;
+}
+
 /* 
+
 .btnPushNotifications::after{
     font-size: 15px;
 
@@ -620,7 +679,12 @@ input{
 
 .welcomeText{
     grid-column-start: 2;
+    align-self: start;
+    width: 67%;
+    justify-self: end;
 }
+
+
 
 .logText{
     grid-column-start: 2;
@@ -776,6 +840,18 @@ input[type=text]:focus {
 
 .field{
     margin: 10px 0;
+    display: grid;
+    grid-auto-flow: column;
+}
+
+.field a{
+    text-decoration: underline;
+}
+
+p.insidLabel{
+    font-size: 12px;
+    text-transform: lowercase;
+    margin: 0;
 }
 
 .submit{
@@ -785,7 +861,7 @@ input[type=text]:focus {
     color: #333333;
     font-size: 20px;
     font-weight: 400;
-    margin-top: 80px;
+    margin-top: 40px;
     cursor: pointer;
     transition-duration: 0.4s;
     border: none;
@@ -1120,7 +1196,13 @@ input[type=text]:focus {
     align-items: center;
     color: #FFA941;
     margin-bottom: 40px;
-    transition-duration: 0.4s;
+    transition-duration: 0.8s;
+}
+
+.tarjetaDash:hover{
+transform: scale(1.1);   
+transition-duration: 0.2s;
+
 }
 
 .tarjetaDash p{
@@ -1966,13 +2048,22 @@ div .cantidadBefore{
 }
 
 .formContainerCreate{
-    width: 220px;
+    /* width: 220px; */
 }
 
 .formContainerCreate form p:nth-last-child(-n+3) {
     display: grid;
     grid-auto-flow: column;
-    align-items: baseline;
+    align-items: normal;
+    gap: 50px;
+}
+
+.formContainerCreate form p:nth-last-child(-n+3) input {
+    margin-top: 15px;
+}
+
+.formContainerCreate form p:nth-last-child(-n+3) label {
+    justify-self: end;
 }
 
 
@@ -2078,6 +2169,8 @@ button.ahorrarMA:hover{
     grid-template-rows: 40px auto 38px;
     background-color: #333333;
     width: -webkit-fill-available;
+
+    width: auto;
     text-align: center;
     /* padding: 0 50px 0px 50px; */
     align-items: center;
@@ -2173,6 +2266,7 @@ button.ahorrarMA:hover{
     flex-wrap: wrap;
     justify-content: space-around;
     color: #cacaca;
+    gap: 20px;
 }
 
 .contenedorData p{

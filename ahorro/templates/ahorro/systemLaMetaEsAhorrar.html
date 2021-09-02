@@ -26,6 +26,25 @@
             </p>
 
 
+
+            {% if sistema.email or sistema.push%}
+                    <p class="metaNumber">  
+                        Tu recordatorio es
+                        {% if sistema.email %} por email {% endif %}
+                        {% if sistema.email and sistema.push%} y {% endif %}
+                        {% if sistema.push %} con notificaciones push  {% endif %}
+                        <a onclick=showFormEditar() class="iconLapiz">
+             
+                            <img src="{% static 'img/lapizIcon.png' %}" alt="editar">
+                            <span class="toolTip">
+                                Editar
+                            </span>
+                        </a>  
+                     
+                    </p>
+                {% endif%}
+
+
             <!-- <p id="aviso">
 
             </p> -->
@@ -99,7 +118,9 @@
                                     <span></span>
                                     
                                     <!-- <div onkeyup="getMyNumber()" contentEditable="true" id="cantidad" class="rCantidad">000</div> -->
-                                    <div class="CBA cantidadBefore">$<input onkeyup="getMyNumber()" contentEditable="true" id="cantidad" class="rCantidad inputCantidad" value="000" type="number" min="1" max="999999999"><span class="CBA cantidadBefore">.00</span></div>
+                                    <div class="CBA cantidadBefore">
+                                        <span class="CBA cantidadBefore">$</span>
+                                        <input onkeyup="getMyNumber()" contentEditable="true" id="cantidad" class="rCantidad inputCantidad" value="000" type="number" min="1" max="999999999"><span class="CBA cantidadBefore">.00</span></div>
                                 </div>
                             </div>
                         <div id="notAllowed">

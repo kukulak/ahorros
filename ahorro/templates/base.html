@@ -60,16 +60,11 @@
                 Contacto
             </a> -->
 
-           <!-- {% webpush_button with_class="btnPushNotifications" %} -->
+         
 
             <span class="user">
                 {% if request.user.is_authenticated %}
-                <!-- Hello -->
-                <!-- <span class="upperCase"> {{ request.user.profile.photo }}</span> -->
-                <!-- <div class="">  </div> -->
-                <!-- <img style="height: 30px;" src="media/{{ request.user.profile.photo }}" alt=""> -->
-                <!-- <img style="height: 30px;" src="{%  static 'media/{{request.user.profile.photo}}'' %}" alt=""> -->
-                <!-- <br> -->
+               
                     {% if request.path == "/" %}
                         <a href="{% url 'ahorro:logout' %}?next={{request.path}}">SALIR&emsp;</a>
                          {% else %}
@@ -108,8 +103,19 @@
 </section>
 
 <footer>
-    <p> Todos los derechos reservados. CUARTEL DINAMITA&reg;.</p>
-    <a href=""> T&Eacute;RMINOS Y CONDICIONES, AVISO DE PRIVACIDAD</a>
+    <p> Todos los derechos reservados.
+        <a href="http://cuartelDinamita.com" target="_blank"> 
+
+            CUARTEL DINAMITA&reg;
+        </a>
+    </p>
+
+    <div class="footerDerecha">
+
+        <a href="{% url 'ahorro:terminos' %}"> T&Eacute;RMINOS Y CONDICIONES</a>
+        <a href="{% url 'ahorro:privacidad' %}"> AVISO DE PRIVACIDAD</a>
+    </div>
+
 </footer>
 </section>
 

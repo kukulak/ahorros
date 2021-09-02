@@ -36,6 +36,10 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_of_birth = models.DateField(blank=True, null=True)
     is_email_verified = models.BooleanField(default=False)
+    is_acuerdo_aviso = models.BooleanField(default=False)
+    is_email_terminos = models.BooleanField(default=False)
+
+
     photo = models.ImageField(upload_to='user/%Y/%m/%d', blank=True)
 
     def __str__(self):

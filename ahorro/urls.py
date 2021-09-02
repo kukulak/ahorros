@@ -2,7 +2,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from ahorro.views import ahorros, dashboard, register, edit, createSys, dashFierros, archived, userArchived, userArchivedF, userArchivedAM, userSystemFijo, createSysLaMetaEsAhorrar, userSystemAhorrarMeta, activate_user
+from ahorro.views import ahorros, dashboard, register, edit, createSys, dashFierros, archived, userArchived, userArchivedF, userArchivedAM, userSystemFijo, createSysLaMetaEsAhorrar, userSystemAhorrarMeta, activate_user, terminos, privacidad
 from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
@@ -56,6 +56,10 @@ urlpatterns = [
 
     # activate email url
     path('activate-user/<uidb64>/<token>', views.activate_user, name='activate'),
+
+    path('terminos/', views.terminos, name='terminos'),
+    path('privacidad/', views.privacidad, name='privacidad')
+
 ]
 
 if settings.DEBUG:

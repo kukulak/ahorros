@@ -27,7 +27,7 @@
 
              {% endif %}
         
-             <p class="boveda">Estadisticas de ahorraahora.com.mx</p>
+             <p class="boveda">Estadisticas de ahorraahora.app</p>
         
             <div class="menu">
                 <!-- <a href="{% url 'ahorro:logout' %}?next={{request.path}}">&larr;SALIR&emsp;</a> -->
@@ -37,7 +37,7 @@
                     EDITA TU PERFIL
                 </a>
         {% else %}
-                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'login' %}">Entrar</a>
             </div>
         {% endif %}
         
@@ -50,34 +50,34 @@
     <div class="contenedorTarjetaFierros">
 
 
-        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" class=" tarjetaDash t1 sombra estadisticCardUsers">
+        <div class=" tarjetaDash t1 sombra estadisticCardUsers">
             
            
             
           
             
                     <h1 style="color: {{frec.color}};">Total de usuarios</h1>
-                    <h1 class="eTitulo"> {{ total_users}} </h1>
+                    <h1 id='usuariosTotal' class="eTitulo"> {{ total_users}} </h1>
                
                
                 
         </div>
 
         
-        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" class="tarjetaDash t1 sombra estadisticCardMotivo">
+        <div class="tarjetaDash t1 sombra estadisticCardMotivo">
             
             <!-- <div class="tColor"></div>   -->
             
                 <h1>Motivo de Ahorro</h1>
                 <div  class="contenedorData">
                     {% for frec in my_systems %}
-                        <p class="eData"> {{ frec.nombre }} </p>
+                        <p id='motivosAhorros' class="eData motivosAhorros"> {{ frec.nombre }} </p>
                     {% endfor %}
                     {% for frec in my_systemsF %}
-                        <p class="eData"> {{ frec.nombre }} </p>
+                        <p class="eData motivosAhorros"> {{ frec.nombre }} </p>
                     {% endfor %}
                     {% for frec in my_systemsAM %}
-                        <p class="eData"> {{ frec.nombre }} </p>
+                        <p class="eData motivosAhorros"> {{ frec.nombre }} </p>
                     {% endfor %}
                 </div>
                 
@@ -88,26 +88,30 @@
         {% load humanize %}
 
 
-        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1"  class="tarjetaDash t1 sombra estadisticCardMetas">
+        <div class="tarjetaDash t1 sombra estadisticCardMetas">
             
             
             
-            <h1>Metas de ahorro</h1>
-            <div class="contenedorData">
+            <h1>Metas de ahorro {{ my_systems.count }}</h1>
+            <div style="display: none;" class="contenedorData">
                 {% for pl in my_systems %}
-                    <p class="eData"> ${{ pl.meta|intcomma }}.00 </p>
+                    <p id='metasAhorros' class="eData metasAhorros"> ${{ pl.meta|intcomma }}.00 </p>
                 {% endfor %}
                 {% for pl in my_systemsF %}
-                    <p class="eData"> ${{ pl.meta|intcomma }}.00 </p>
+                    <p class="eData metasAhorros"> ${{ pl.meta|intcomma }}.00 </p>
                 {% endfor %}
-            </div>   
+            </div>  
+            
+            <div class="contenedorData" id="metasDeAhorro">
+
+            </div>
                 
         </div>
 
 
 
 
-        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" class=" tarjetaDash t1 sombra estadisticCardTotal">
+        <div class=" tarjetaDash t1 sombra estadisticCardTotal">
             
             
             
@@ -121,7 +125,7 @@
         </div>
 
 
-        <div data-tilt data-tilt-glare data-tilt-max-glare="0.01" data-tilt-reverse="true" data-tilt-scale="1.1" class="tarjetaDash t1 sombra estadisticCardUserMeses">
+        <div class="tarjetaDash t1 sombra estadisticCardUserMeses">
             <h1>Nuevos usuarios por mes</h1>
             {% regroup users by date_joined|date:"M" as dateG %}
             <ul>
@@ -132,7 +136,7 @@
                     <ul>
                     {% for date in d.list %}
                         <li> 
-                            <p> {{ date.date_joined|date:"Y/m/d"}} </p>
+                            <p id='usuariosMes'> {{ date.date_joined|date:"Y/m/d"}} </p>
                         </li>
                         {% endfor %}    
                     </ul>    
@@ -184,5 +188,71 @@
     }
 
 </script>
+
+<script>
+    var metasDeAhorro = document.getElementById('metasDeAhorro')
+    var metasAhorros = document.getElementsByClassName('metasAhorros')
+    var metaAhorrosArray = []
+    var current = null;
+    var pFontSize = 16
+    var cantidadesFinales = []
+    var arrayFinales = []
+    var tag
+
+    cnt = 0
+
+    console.log('metasAhorros', metasAhorros)
+
+    for (let i = 0; i < metasAhorros.length; i++) {
+        const element = metasAhorros[i].lastChild.data;
+        metaAhorrosArray.push(element)
+        console.log(element)       
+    }
+    console.log(metaAhorrosArray)     
+    console.log(metaAhorrosArray.sort()) 
+    
+    for (let i = 0; i <= metaAhorrosArray.length; i++) {
+        if (metaAhorrosArray[i] != current){
+            if (cnt > 0){
+                // document.write(current + ' comes --> ' + cnt + ' times<br>')
+                tag = document.createElement("p")
+                numTag = document.createElement("p")
+                tagCont = document.createElement("div")
+                tagCont.style.cssText = "display: grid;grid-auto-flow: column;"
+                tag.style.cssText = "font-size:" + (pFontSize + cnt) + "px" 
+                numTag.style.cssText = "font-size: 10px" 
+
+                cantidadesFinales[i] = document.createTextNode( current)
+                var cantidadCh = document.createTextNode(cnt)
+                // metasDeAhorro.appendChild(cantidadesFinales[i])
+                numTag.appendChild(cantidadCh) 
+                tag.appendChild(cantidadesFinales[i])
+                
+                tagCont.appendChild(numTag)
+
+                tagCont.appendChild(tag)
+                metasDeAhorro.appendChild(tagCont)
+
+
+
+                // arrayFinales.push(cantidadesFinales[i])
+                
+            }
+
+            
+            current = metaAhorrosArray[i]
+            cnt = 1
+        }else{
+            cnt++
+        }
+
+        // metasDeAhorro.appendChild(tag)
+
+        
+    }
+
+
+
+    </script>
 
 {% endblock %}

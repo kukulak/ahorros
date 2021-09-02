@@ -103,10 +103,14 @@ def sender():
                 if s.email:
                     d = Context({ 'username': s.user, 'nombreahorro': s })
                     subject = 'Es momento de ahorrar'
-                    html_content = f'Hola {s.user} hoy te toca ahorrar para {s}'
+                    html_content = f'''Hola {s.user} hoy te toca ahorrar para {s}.
+                    
+                    ahorraAhora.app te ayuda a ahorrar.
+
+                    Si ya no quieres recibir estos comunicados, entra a tu ahorro y desactiva los recordatorios por email.'''
                     # html_content = htmly.render(d)
                     # text_content = plaintext.render(d)
-                    from_email = 'ahorra@ahorraahora.com'
+                    from_email = 'yaeshora@ahorraahora.app'
                     to = f'{s.user.email}'
                     message = (subject, html_content, from_email, [to])
                     # message = EmailMultiAlternatives(subject, html_content, from_email, [to])

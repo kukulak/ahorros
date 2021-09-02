@@ -40,7 +40,8 @@
         <h5>Sigue ahorrando para
            
         </h5>
-        <p class="upperCase"> {{ sistema.nombre }}
+        <p class="upperCase">
+            {{ sistema.nombre }}
             <a onclick=showFormEditar() class="iconLapiz">
          
                 <img src="{% static 'img/lapizIcon.png' %}" alt="editar">
@@ -53,20 +54,37 @@
             <p id="metaNumber" class="metaNumber">Ahorro {{ ahorro|length|add:1 }} / {{ sistema.tiempo|div:sistema.frecuencia|floatformat:'0' }}
                 <span id="metaNumber" class="metaNumber"> Meta ${{ sistema.meta|intcomma }}.00 </span>
             </p>
-            {% if  sistema.tiempo|div:365|floatformat > 1 %}
-            <p id="metaNumber" class="metaNumber">Por {{ sistema.tiempo|div:365|floatformat }} años  <span id="metaNumber" class="metaNumber">cada {{ sistema.frecuencia }} d&iacute;as</span></p>
-            {% else %} 
-            <p id="metaNumber" class="metaNumber">Por {{ sistema.tiempo|div:365|floatformat }} año <span id="metaNumber" class="metaNumber">cada {{ sistema.frecuencia }} d&iacute;as</span></p>
-            {% endif%}
+           
+            <p id="metaNumber" class="metaNumber">
+                Por {{ sistema.tiempo|div:365|floatformat }}
+                {% if sistema.tiempo == "365" %} año {% else %} años {% endif %}
+                <span id="metaNumber" class="metaNumber">
+                    
+                    {% if sistema.frecuencia == "1" %} diario{% else %} cada {{ sistema.frecuencia }} d&iacute;as{% endif %}.
+                </span>
+            </p>
+
+
+            <p id='visitCounter'>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
+
+
+          
 
             {% if sistema.email or sistema.push%}
-            <p class="metaNumber">  
-                Tu recordatorio es
-                {% if sistema.email %} por email {% endif %}
-                {% if sistema.email and sistema.push%} y {% endif %}
-                {% if sistema.push %} con notificaciones push  {% endif %}
-                
-            </p>
+                <p class="metaNumber">  
+                    Tu recordatorio es
+                    {% if sistema.email %} por email {% endif %}
+                    {% if sistema.email and sistema.push%} y {% endif %}
+                    {% if sistema.push %} con notificaciones push  {% endif %}
+                    <a onclick=showFormEditar() class="iconLapiz">
+         
+                        <img src="{% static 'img/lapizIcon.png' %}" alt="editar">
+                        <span class="toolTip">
+                            Editar
+                        </span>
+                    </a>  
+                 
+                </p>
             {% endif%}
 
             <a  href="{% url 'ahorro:dashboard' %}"> &lt; REGRESAR </a>
